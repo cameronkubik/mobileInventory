@@ -1,22 +1,50 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { Button, View, Text } from 'react-native';
+import { Avatar } from 'react-native-elements';
 
 class Profile extends Component {
     render() {
         return (
             <View style={[Styles.screen]}>
                 <View style={[Styles.container, Styles.profileContainer]}>
-                    <Text>***TODO*** Profile Image</Text>
+                <Avatar
+                    medium
+                    rounded
+                    icon={{name: 'user'}}
+                    onPress={() => console.log("Icon pressed")}
+                    activeOpacity={0.7}
+                    containerStyle={{flex: 2, marginLeft: 20, marginTop: 115}}
+                />
                     <Text>Garlan Gudger Jr.</Text>
                     <Text>Owner</Text>
                 </View>
 
                 <View style={[Styles.container, Styles.buttonContainer]}>
-                    <Text style={Styles.buttonGeneral}>Add Sale Button ***TODO***</Text>
-                    <Text style={Styles.buttonGeneral}>Add Inventory Button ***TODO***</Text>
-                    <Text style={Styles.buttonGeneral}>View Inventory Button ***TODO***</Text>
-                    <Text style={Styles.buttonGeneral}>View Inventory Button ***TODO***</Text>
-                    <Text style={Styles.buttonGeneral}>Log Out ***TODO***</Text>
+                    <Button
+                        large
+                        rightIcon={{name: 'code'}}
+                        title='Add Sale' 
+                    />
+                    <Button
+                        large
+                        rightIcon={{name: 'code'}}
+                        title='Add Inventory' 
+                    />
+                    <Button
+                        large
+                        rightIcon={{name: 'code'}}
+                        title='View Sales' 
+                    />
+                    <Button
+                        large
+                        rightIcon={{name: 'code'}}
+                        title='View Inventory' 
+                    />
+                    <Button
+                        large
+                        rightIcon={{name: 'code'}}
+                        title='Log Out' 
+                    />
                 </View>
             </View>
         );

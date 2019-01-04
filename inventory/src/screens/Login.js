@@ -6,14 +6,14 @@ class Login extends Component {
     render() {
         return (
             <View style={[Styles.screen]}>
-                <View style={[Styles.container, Styles.headerContainer, Styles.dev]}>
+                <View style={[Styles.container, Styles.headerContainer]}>
                     <Text style={[Styles.headerGeneral, Styles.headerCompany]}>SOUTHERN ACCENTS</Text>
                     <Text style={[Styles.headerGeneral, Styles.headerTitle]}>ARCHITECTURAL ANTIQUES</Text>
                     <Text style={[Styles.headerGeneral, Styles.headerDate]}>EST. 1969</Text>
                     <Text style={[Styles.headerGeneral, Styles.headerLocation]}>- CULLMAN, ALABAMA -</Text>
                 </View>
 
-                <View style={[Styles.container, Styles.inputContainer, Styles.dev]}>
+                <View style={[Styles.container, Styles.inputContainer]}>
                     <TextInput style={[Styles.inputGeneral, Styles.inputUser]} placeholder="Username"/>
                     <TextInput style={[Styles.inputGeneral, Styles.inputPassword]} placeholder="Password" secureTextEntry/> 
                     <Button 
