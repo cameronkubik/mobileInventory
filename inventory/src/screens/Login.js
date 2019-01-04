@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
-import { Button, View, Text, TextInput, Image } from 'react-native';
+import { View, Text, TextInput, Image } from 'react-native';
+import { Button } from 'react-native-elements';
 import { Styles as CommonStyles } from '../util/CommonStyles';
 
 class Login extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: '',
+            password: ''
+        };
+    }
     
     render() {
         return (
@@ -10,7 +18,7 @@ class Login extends Component {
                 
                 <View style={{width: '95%', paddingTop: 150}}>
                     <Image 
-                        style={{ width: '100%', height: '45%' }}
+                        style={{ width: '100%', height: '48%' }}
                         source={require('../images/sa_logo.png')}
                     />
                 </View>
@@ -21,10 +29,21 @@ class Login extends Component {
                     <Button 
                         title="Login"
                         onPress={() => this.props.navigation.navigate('Profile')}
+                        rounded
+                        backgroundColor='gray'
+                        color='#d2d3db'
+                        buttonStyle={Styles.buttons}
+                        borderRadius={20}
+                        containerViewStyle={{ borderRadius: 20 }}
                     />
                     <Button 
-                        title="Create Profile"
+                        title="or Create Profile"
                         onPress={() => this.props.navigation.navigate('Profile')}
+                        color="orange"
+                        backgroundColor="#d2d3db"
+                        buttonStyle={Styles.buttons}
+                        borderRadius={20}
+                        containerViewStyle={{ borderRadius: 20 }}
                     />
                 </View>
 
@@ -45,7 +64,8 @@ const Styles = {
     },
     headerContainer: {},
     inputContainer: {
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+        width: '100%'
     },
 
     headerGeneral: {
@@ -56,13 +76,23 @@ const Styles = {
     headerDate: {},
     headerLocation: {},
 
-    inputGeneral: {},
+    inputGeneral: {
+        borderStyle: 'solid',
+        borderWidth: 1,
+        borderColor: 'black',
+        height: 60,
+        width: '75%',
+        borderRadius: 30,
+        padding: 10,
+        margin: 5,
+        backgroundColor: 'lightgray'
+    },
     inputUser: {},
     inputPassword: {},
 
-    buttonLogin: {},
-    buttonCreate: {},
-
+    buttons: {
+        height: 60
+    },
 
     dev: {
         borderWidth: 1,

@@ -4,7 +4,7 @@ export const Styles = {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#D5C8B8'
+        backgroundColor: '#d2d3db'
     },
     PrimaryColor: {
         color: '#483338'
