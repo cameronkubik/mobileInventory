@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput } from 'react-native';
+import { Button, View, Text, TextInput } from 'react-native';
 
 class Login extends Component {
     
@@ -16,8 +16,14 @@ class Login extends Component {
                 <View style={[Styles.container, Styles.inputContainer, Styles.dev]}>
                     <TextInput style={[Styles.inputGeneral, Styles.inputUser]} placeholder="Username"/>
                     <TextInput style={[Styles.inputGeneral, Styles.inputPassword]} placeholder="Password" secureTextEntry/> 
-                    <Text>Login Button ***TODO***</Text>
-                    <Text>Create Profile Button ***TODO***</Text>
+                    <Button 
+                        title="Login"
+                        onPress={() => this.props.navigation.navigate('Profile')}
+                    />
+                    <Button 
+                        title="Create Profile"
+                        onPress={() => this.props.navigation.navigate('Profile')}
+                    />
                 </View>
             </View>
         );
@@ -29,7 +35,8 @@ const Styles = {
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        backgroundColor: 'lightgray'
     },
     container: {
         flex: 1,
@@ -43,7 +50,7 @@ const Styles = {
     },
 
     headerGeneral: {
-        color: 'gray',
+        color: 'black',
     },
     headerCompany: {},
     headerTitle: {},
