@@ -3,7 +3,15 @@ import { View, Text } from 'react-native';
 import { Avatar, Button } from 'react-native-elements';
 
 class Profile extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+
     render() {
+        const { navigation } = this.props;
+        const username = navigation.getParam('username', 'no username entered');
+        const password = navigation.getParam('password', 'no password entered');
         return (
             <View style={[Styles.screen]}>
                 <View style={[Styles.container, Styles.profileContainer]}>
@@ -15,8 +23,8 @@ class Profile extends Component {
                         activeOpacity={0.7}
                         containerStyle={{flex: 2, marginLeft: 20, marginTop: 115}}
                     />
-                    <Text>Garlan Gudger Jr.</Text>
-                    <Text>Owner</Text>
+                    <Text>{username}</Text>
+                    <Text>{password}</Text>
                 </View>
 
                 <View style={[Styles.container, Styles.buttonContainer]}>
