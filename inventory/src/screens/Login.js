@@ -33,7 +33,8 @@ class Login extends Component {
                         backgroundColor='gray'
                         color='#d2d3db'
                         buttonStyle={Styles.buttons}
-                        borderRadius={20}
+                        borderRadius={30}
+                        fontWeight='700'
                         containerViewStyle={{ borderRadius: 20 }}
                     />
                     <Button 
@@ -41,8 +42,9 @@ class Login extends Component {
                         onPress={() => this.props.navigation.navigate('Profile')}
                         color="orange"
                         backgroundColor="#d2d3db"
-                        buttonStyle={Styles.buttons}
+                        buttonStyle={[Styles.buttons]}
                         borderRadius={20}
+                        fontWeight='700'
                         containerViewStyle={{ borderRadius: 20 }}
                     />
                 </View>
@@ -62,19 +64,10 @@ const Styles = {
         alignItems: 'center',
         justifyContent: 'center'
     },
-    headerContainer: {},
     inputContainer: {
         justifyContent: 'flex-start',
         width: '100%'
     },
-
-    headerGeneral: {
-        color: 'black',
-    },
-    headerCompany: {},
-    headerTitle: {},
-    headerDate: {},
-    headerLocation: {},
 
     inputGeneral: {
         borderStyle: 'solid',
@@ -85,13 +78,13 @@ const Styles = {
         borderRadius: 30,
         padding: 10,
         margin: 5,
-        backgroundColor: 'lightgray'
+        backgroundColor: 'lightgray',
+        fontSize: 18
     },
-    inputUser: {},
-    inputPassword: {},
 
     buttons: {
-        height: 60
+        height: 60,
+        width: 175
     },
 
     dev: {
