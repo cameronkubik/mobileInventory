@@ -12,5 +12,8 @@ export const Styles = {
     AccentColor: {
         color: '#7C8598'
     },
+    PrimaryColorBg: {
+        
+    }
 };
 

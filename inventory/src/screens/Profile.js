@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import { Button, View, Text } from 'react-native';
-import { Avatar } from 'react-native-elements';
+import { View, Text } from 'react-native';
+import { Avatar, Button } from 'react-native-elements';
 
 class Profile extends Component {
     render() {
         return (
             <View style={[Styles.screen]}>
                 <View style={[Styles.container, Styles.profileContainer]}>
-                <Avatar
-                    medium
-                    rounded
-                    icon={{name: 'user'}}
-                    onPress={() => console.log("Icon pressed")}
-                    activeOpacity={0.7}
-                    containerStyle={{flex: 2, marginLeft: 20, marginTop: 115}}
-                />
+                    <Avatar
+                        medium
+                        rounded
+                        icon={{name: 'code'}}
+                        onPress={() => console.log("Icon pressed")}
+                        activeOpacity={0.7}
+                        containerStyle={{flex: 2, marginLeft: 20, marginTop: 115}}
+                    />
                     <Text>Garlan Gudger Jr.</Text>
                     <Text>Owner</Text>
                 </View>
