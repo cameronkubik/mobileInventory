@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Button, View, Text, TextInput } from 'react-native';
+import { Styles as CommonStyles } from '../util/CommonStyles';
 
 class Login extends Component {
     
     render() {
         return (
-            <View style={[Styles.screen]}>
+            <View style={[CommonStyles.BaseContainer, Styles.screen]}>
                 <View style={[Styles.container, Styles.headerContainer]}>
                     <Text style={[Styles.headerGeneral, Styles.headerCompany]}>SOUTHERN ACCENTS</Text>
                     <Text style={[Styles.headerGeneral, Styles.headerTitle]}>ARCHITECTURAL ANTIQUES</Text>
@@ -32,11 +33,7 @@ class Login extends Component {
 
 const Styles = {
     screen: {
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
         justifyContent: 'space-around',
-        backgroundColor: 'lightgray'
     },
     container: {
         flex: 1,
