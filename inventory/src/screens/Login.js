@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, Image } from 'react-native';
 import { Button } from 'react-native-elements';
-import { Styles as CommonStyles } from '../util/CommonStyles';
+import { BaseContainer, Container, Logo, } from '../components/common';
 
 class Login extends Component {
     constructor(props) {
@@ -22,16 +22,11 @@ class Login extends Component {
     
     render() {
         return (
-            <View style={[CommonStyles.BaseContainer, Styles.screen]}>
+            <BaseContainer customStyle={Styles.screen}>
                 
-                <View style={[{width: '100%', paddingTop: 25, justifyContent: 'flex-start', alignItems: 'center', flex: 1}]}>
-                    <Image 
-                        style={[{ width: '100%', height: '75%' }]}
-                        source={require('../images/sa_logo.png')}
-                    />
-                </View>
+                <Logo />
                 
-                <View style={[Styles.container, Styles.inputContainer]}>
+                <Container customStyle={Styles.inputContainer}>
                     <TextInput 
                         style={[Styles.inputGeneral, Styles.inputUser]} 
                         placeholder="Username"
@@ -65,9 +60,9 @@ class Login extends Component {
                         fontWeight='700'
                         containerViewStyle={{ borderRadius: 20 }}
                     />
-                </View>
+                </Container>
 
-            </View>
+            </BaseContainer>
         );
     }
 }
@@ -75,12 +70,6 @@ class Login extends Component {
 const Styles = {
     screen: {
         justifyContent: 'space-around',
-    },
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center'
     },
     inputContainer: {
         justifyContent: 'flex-start',
