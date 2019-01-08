@@ -9,7 +9,7 @@ const RootStack = createStackNavigator(
         Profile: Profile,
     },
     {
-        initialRouteName: 'Profile',
+        initialRouteName: 'Login',
         /* Shared navigationOptions across screens */
         defaultNavigationOptions: {
             headerStyle: {

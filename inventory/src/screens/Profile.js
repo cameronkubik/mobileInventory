@@ -12,7 +12,6 @@ class Profile extends Component {
     render() {
         const { navigation } = this.props;
         const username = navigation.getParam('username', 'full-name');
-        const password = navigation.getParam('password', 'role');
 
         return (
             <BaseContainer customStyle={[Styles.screen]}>
@@ -26,7 +25,7 @@ class Profile extends Component {
                         containerStyle={{ marginBottom: 10 }}
                     />
                     <Text style={Styles.profileText}>{username}</Text>
-                    <Text style={Styles.profileText}>{password}</Text>
+                    <Text style={Styles.profileText}>Role</Text>
                 </Container>
 
                 <Container customStyle={[Styles.buttonContainer]}>
@@ -104,7 +103,8 @@ const Styles = {
         width: '80%'
     },
     buttonLogout: {
-        width: '50%'
+        width: '50%',
+        marginBottom: 15
     },
     buttonStyle: {
         flexDirection: 'row', 
