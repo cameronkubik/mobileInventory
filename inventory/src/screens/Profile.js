@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { Avatar, Button } from 'react-native-elements';
+import { BaseContainer, Container } from '../components/common';
 
 class Profile extends Component {
     constructor(props) {
@@ -10,90 +11,105 @@ class Profile extends Component {
 
     render() {
         const { navigation } = this.props;
-        const username = navigation.getParam('username', 'no username entered');
-        const password = navigation.getParam('password', 'no password entered');
+        const username = navigation.getParam('username', 'full-name');
+        const password = navigation.getParam('password', 'role');
+
         return (
-            <View style={[Styles.screen]}>
-                <View style={[Styles.container, Styles.profileContainer]}>
+            <BaseContainer customStyle={[Styles.screen]}>
+                <Container customStyle={[Styles.profileContainer]}>
                     <Avatar
-                        medium
+                        xlarge
                         rounded
-                        icon={{name: 'code'}}
+                        icon={{name: 'user', type: 'font-awesome'}}
                         onPress={() => console.log("Icon pressed")}
                         activeOpacity={0.7}
-                        containerStyle={{flex: 2, marginLeft: 20, marginTop: 115}}
+                        containerStyle={{ marginBottom: 10 }}
                     />
-                    <Text>{username}</Text>
-                    <Text>{password}</Text>
-                </View>
+                    <Text style={Styles.profileText}>{username}</Text>
+                    <Text style={Styles.profileText}>{password}</Text>
+                </Container>
 
-                <View style={[Styles.container, Styles.buttonContainer]}>
+                <Container customStyle={[Styles.buttonContainer]}>
                     <Button
                         large
-                        rightIcon={{name: 'code'}}
+                        rounded
+                        raised
+                        buttonStyle={Styles.buttonStyle}
+                        containerViewStyle={Styles.buttonGeneral}
+                        rightIcon={{name: 'plus-circle', type: 'font-awesome'}}
                         title='Add Sale' 
                     />
                     <Button
                         large
-                        rightIcon={{name: 'code'}}
+                        rounded
+                        raised
+                        buttonStyle={Styles.buttonStyle}
+                        containerViewStyle={Styles.buttonGeneral}
+                        rightIcon={{name: 'plus-circle', type: 'font-awesome'}}
                         title='Add Inventory' 
                     />
                     <Button
                         large
-                        rightIcon={{name: 'code'}}
+                        rounded
+                        raised
+                        buttonStyle={Styles.buttonStyle}
+                        containerViewStyle={Styles.buttonGeneral}
+                        rightIcon={{name: 'usd', type: 'font-awesome'}}
                         title='View Sales' 
                     />
                     <Button
                         large
-                        rightIcon={{name: 'code'}}
+                        rounded
+                        raised
+                        buttonStyle={Styles.buttonStyle}
+                        containerViewStyle={Styles.buttonGeneral}
+                        rightIcon={{name: 'search', type: 'font-awesome'}}
                         title='View Inventory' 
                     />
                     <Button
-                        large
-                        rightIcon={{name: 'code'}}
+                        rounded
+                        raised
+                        containerViewStyle={Styles.buttonLogout}
                         title='Log Out' 
+                        backgroundColor='orange'
                     />
-                </View>
-            </View>
+                </Container>
+            </BaseContainer>
         );
     }
 }
 
 const Styles = {
     screen: {
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        backgroundColor: 'lightgray'
-    },
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'space-between',
     },
     profileContainer: {
         flex: 2,
         width: '100%',
-        backgroundColor: 'gray'
+        backgroundColor: '#5b5b5b'
     },
     buttonContainer: {
-        flex: 3
+        flex: 3,
+        justifyContent: 'space-around',
+        width: '100%'
     },
 
-    profileName: {},
-    profileRole: {},
+    profileText: {
+        color: 'white',
+        margin: 5,
+        fontSize: 20
+    },
 
     buttonGeneral: {
-        margin: 15,
-        padding: 15,
-        borderStyle: 'solid',
-        borderWidth: 1,
-        borderColor: 'gray',
-        borderRadius: 20
+        width: '80%'
     },
-    buttonLogout: {},
+    buttonLogout: {
+        width: '50%'
+    },
+    buttonStyle: {
+        flexDirection: 'row', 
+        justifyContent: 'space-between'
+    },
 
 
     dev: {

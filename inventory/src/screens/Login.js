@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Image } from 'react-native';
+import { TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
 import { BaseContainer, Container, Logo, } from '../components/common';
 
@@ -28,12 +28,12 @@ class Login extends Component {
                 
                 <Container customStyle={Styles.inputContainer}>
                     <TextInput 
-                        style={[Styles.inputGeneral, Styles.inputUser]} 
+                        style={[Styles.inputGeneral]} 
                         placeholder="Username"
                         onChangeText={this.onUsernameInput}
                     />
                     <TextInput 
-                        style={[Styles.inputGeneral, Styles.inputPassword]} 
+                        style={[Styles.inputGeneral]} 
                         placeholder="Password" 
                         secureTextEntry
                         onChangeText={this.onPasswordInput}
@@ -76,7 +76,6 @@ const Styles = {
         width: '100%',
         flex: 3
     },
-
     inputGeneral: {
         borderStyle: 'solid',
         borderWidth: 1,
