@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { TextInput } from 'react-native';
+import { StackActions } from 'react-navigation';
 import { Button } from 'react-native-elements';
 import { BaseContainer, Container, Logo, } from '../components/common';
 
@@ -12,14 +13,25 @@ class Login extends Component {
         };
     }
 
+    static navigationOptions = {
+        headerStyle: {
+            backgroundColor: '#d2d3db'
+        },
+    };
+
     onUsernameInput = (username) => {
         this.setState({ ...this.state, username });
-    }
+    };
 
     onPasswordInput = (password) => {
         this.setState({ ...this.state, password });
-    }
-    
+    };
+
+    dispatchProfileScreen = StackActions.replace({
+            routeName: 'Profile',
+            params: this.state
+    });
+
     render() {
         return (
             <BaseContainer customStyle={Styles.screen}>
@@ -40,7 +52,7 @@ class Login extends Component {
                     /> 
                     <Button 
                         title="Login"
-                        onPress={() => this.props.navigation.navigate('Profile', this.state)}
+                        onPress={() => this.props.navigation.dispatch(this.dispatchProfileScreen)}
                         rounded
                         backgroundColor='gray'
                         color='#d2d3db'
@@ -52,7 +64,7 @@ class Login extends Component {
                     />
                     <Button 
                         title="or Create Profile"
-                        onPress={() => this.props.navigation.navigate('Profile', this.state)}
+                        onPress={() => this.props.navigation.navigate('CreateProfile')}
                         color="orange"
                         backgroundColor="#d2d3db"
                         buttonStyle={[Styles.buttons]}
@@ -64,7 +76,7 @@ class Login extends Component {
 
             </BaseContainer>
         );
-    }
+    };
 }
 
 const Styles = {
@@ -98,6 +110,6 @@ const Styles = {
         borderWidth: 1,
         borderStyle: 'solid'
     }
-}
+};
 
-export default Login;
+export { Login };

@@ -1,19 +1,19 @@
 import React from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-import Login from './screens/Login';
-import Profile from './screens/Profile';
+import { Login, Profile, CreateProfile } from './screens';
 
 const RootStack = createStackNavigator(
     {
-        Login: Login,
-        Profile: Profile,
+        Login,
+        Profile,
+        CreateProfile
     },
     {
         initialRouteName: 'Login',
         /* Shared navigationOptions across screens */
         defaultNavigationOptions: {
             headerStyle: {
-                backgroundColor: '#d2d3db',
+                backgroundColor: '#606060',
             },
             headerTintColor: '#fff',
             headerTitleStyle: {

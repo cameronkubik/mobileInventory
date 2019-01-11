@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
+import { StackActions } from 'react-navigation';
 import { Avatar, Button } from 'react-native-elements';
 import { BaseContainer, Container } from '../components/common';
 
@@ -8,6 +9,10 @@ class Profile extends Component {
         super(props);
     }
 
+    returnToLoginScreen = StackActions.replace({
+        routeName: 'Login',
+        params: this.state
+    });
 
     render() {
         const { navigation } = this.props;
@@ -16,6 +21,7 @@ class Profile extends Component {
         return (
             <BaseContainer customStyle={[Styles.screen]}>
                 <Container customStyle={[Styles.profileContainer]}>
+                
                     <Avatar
                         xlarge
                         rounded
@@ -71,6 +77,7 @@ class Profile extends Component {
                         containerViewStyle={Styles.buttonLogout}
                         title='Log Out' 
                         backgroundColor='orange'
+                        onPress={() => this.props.navigation.dispatch(this.returnToLoginScreen)}
                     />
                 </Container>
             </BaseContainer>
@@ -118,4 +125,4 @@ const Styles = {
     }
 }
 
-export default Profile;
+export { Profile };
