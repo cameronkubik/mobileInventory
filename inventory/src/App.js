@@ -10,6 +10,7 @@ const RootStack = createStackNavigator(
     },
     {
         initialRouteName: 'Login',
+        //initialRouteName: 'CreateProfile',
         /* Shared navigationOptions across screens */
         defaultNavigationOptions: {
             headerStyle: {

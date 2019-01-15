@@ -3,6 +3,7 @@ import { TextInput } from 'react-native';
 import { StackActions } from 'react-navigation';
 import { Button } from 'react-native-elements';
 import { BaseContainer, Container, Logo, } from '../components/common';
+import { Styles as CommonStyles } from '../components/util/CommonStyles';
 
 class Login extends Component {
     constructor(props) {
@@ -40,12 +41,12 @@ class Login extends Component {
                 
                 <Container customStyle={Styles.inputContainer}>
                     <TextInput 
-                        style={[Styles.inputGeneral]} 
+                        style={[CommonStyles.inputGeneral, { fontSize: 20 }]} 
                         placeholder="Username"
                         onChangeText={this.onUsernameInput}
                     />
                     <TextInput 
-                        style={[Styles.inputGeneral]} 
+                        style={[CommonStyles.inputGeneral, { fontSize: 20 }]} 
                         placeholder="Password" 
                         secureTextEntry
                         onChangeText={this.onPasswordInput}
@@ -88,28 +89,11 @@ const Styles = {
         width: '100%',
         flex: 3
     },
-    inputGeneral: {
-        borderStyle: 'solid',
-        borderWidth: 1,
-        borderColor: 'black',
-        height: 60,
-        width: '75%',
-        borderRadius: 30,
-        padding: 10,
-        margin: 5,
-        backgroundColor: 'lightgray',
-        fontSize: 20
-    },
 
     buttons: {
         height: 60,
         width: 175
     },
-
-    dev: {
-        borderWidth: 1,
-        borderStyle: 'solid'
-    }
 };
 
 export { Login };

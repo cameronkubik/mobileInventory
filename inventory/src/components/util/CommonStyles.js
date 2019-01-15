@@ -12,8 +12,21 @@ export const Styles = {
     AccentColor: {
         color: '#7C8598'
     },
-    PrimaryColorBg: {
-        
+    inputGeneral: {
+        borderStyle: 'solid',
+        borderWidth: 1,
+        borderColor: 'black',
+        borderBottomColor: 'black',
+        height: 60,
+        width: '75%',
+        borderRadius: 30,
+        padding: 10,
+        margin: 5,
+        backgroundColor: 'lightgray',
+    },
+    dev: {
+        borderWidth: 1,
+        borderStyle: 'solid'
     }
 };
 
