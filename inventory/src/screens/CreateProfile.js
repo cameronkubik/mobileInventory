@@ -73,7 +73,10 @@ class CreateProfile extends Component {
                     email,
                     role
                 };  
-                this.db.collection('users').doc(credentials.user.uid).set(dataModel);
+                var userRef = this.db.collection('users').doc(credentials.user.uid);
+                userRef.set(dataModel);
+
+                this.props.navigation.navigate('Profile', userRef);
             });
         // handle errors
         // on success->
