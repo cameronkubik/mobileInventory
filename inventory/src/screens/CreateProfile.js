@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Avatar, Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
+import { Avatar, Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
+import firebase from 'react-native-firebase';
 import { BaseContainer, Container } from '../components/common';
 import { Styles as CommonStyles } from '../components/util/CommonStyles'
 
@@ -14,7 +15,9 @@ class CreateProfile extends Component {
             password: '',
             confirmedPassword: '',
             role: 0
-        }
+        };
+
+        this.db = firebase.firestore();
     };
 
     static navigationOptions = {
@@ -44,6 +47,28 @@ class CreateProfile extends Component {
 
     onRoleInput = (role) => {
         this.setState({ ...this.state, role });
+    };
+
+    onCreateAccountPress() {
+        // create user
+        //firebase
+        // handle errors
+        // on success->
+            // add info to db
+        
+        
+        // const { firstName, lastName, email, role } = this.state;
+        
+        // const dataModel = {
+        //     first: firstName,
+        //     last: lastName, 
+        //     email,
+        //     role
+        // };
+
+        // db.collection('users').add(dataModel)
+        //     .then(this.props.navigation.navigate('Profile', dataModel))
+        //     .catch(this.props.navigation.navigate('Login', dataModel))
     };
 
     render() {
@@ -104,7 +129,7 @@ class CreateProfile extends Component {
 
                     <Button 
                         title="Create Account"
-                        //onPress={() => this.props.navigation.dispatch(this.dispatchProfileScreen)}
+                        onPress={this.onCreateAccountPress.bind(this)}
                         rounded
                         backgroundColor='blue'
                         color='#d2d3db'

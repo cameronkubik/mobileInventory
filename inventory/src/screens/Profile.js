@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { StackActions } from 'react-navigation';
 import { Avatar, Button } from 'react-native-elements';
+import firebase from 'firebase';
 import { BaseContainer, Container } from '../components/common';
 
 class Profile extends Component {
@@ -13,6 +14,12 @@ class Profile extends Component {
         routeName: 'Login',
         params: this.state
     });
+
+    onLogOutPress() {
+        firebase.auth().signOut()
+            .then(this.props.navigation.dispatch(this.returnToLoginScreen))
+            .catch(this.props.navigation.dispatch(this.returnToLoginScreen))
+    };
 
     render() {
         const { navigation } = this.props;
@@ -77,7 +84,7 @@ class Profile extends Component {
                         containerViewStyle={Styles.buttonLogout}
                         title='Log Out' 
                         backgroundColor='orange'
-                        onPress={() => this.props.navigation.dispatch(this.returnToLoginScreen)}
+                        onPress={this.onLogOutPress.bind(this)}
                     />
                 </Container>
             </BaseContainer>
