@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TextInput } from 'react-native';
-import { StackActions } from 'react-navigation';
+import { TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
@@ -8,17 +7,6 @@ import { BaseContainer, Container, Logo, Spinner, } from '../components/common';
 import { Styles as CommonStyles } from '../components/util/CommonStyles';
 
 class Login extends Component {
-    // constructor(props) {
-    //     super(props);
-
-    //     this.state = {
-    //         email: '',
-    //         password: '',
-    //         errorMessage: '',
-    //         loading: false,
-    //         userCredentials: undefined
-    //     };
-    // }
 
     // screen independent configuration options
     static navigationOptions = {
@@ -39,49 +27,9 @@ class Login extends Component {
         this.props.loginUser({email, password});
     }
 
-    // OLD
-    // onEmailInput = (email) => {
-    //     this.setState({ ...this.state, email });
-    // };
-
-    // onPasswordInput = (password) => {
-    //     this.setState({ ...this.state, password });
-    // };
-
-    // Button Presses
-    // onLoginPress()  {
-    //     const { email, password } = this.state;
-
-    //     this.setState({ ...this.state, errorMessage: '', loading: true });
-
-    //     firebase.auth().signInWithEmailAndPassword(email, password)
-    //         .then(this.onLoginPressSuccess.bind(this))
-    //         .catch(this.onLoginPressFAIL.bind(this));
-    // };
-
     onCreateProfilePress() {
         this.props.navigation.navigate('CreateProfile');
     };
-    //---------------------//
-
-    // Promise Handlers
-    // onLoginPressFAIL() {
-    //     this.setState({ errorMessage: 'Login Failed.' });
-    // };
-
-    // onLoginPressSuccess(creds) {
-    //     console.log(creds);
-    //     this.setState({
-    //         email: '',
-    //         password: '',
-    //         errorMessage: '',
-    //         loading: false,
-    //         userCredentials: creds
-    //     });
-
-    //     this.props.navigation.navigate('Profile', { userCredentials: this.state.userCredentials });
-    // };
-    //---------------------//
 
     render() {
         return (

@@ -1,101 +1,133 @@
 import React, { Component } from 'react';
-import { Avatar, Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-import firebase from 'react-native-firebase';
+import { Avatar, Button, FormLabel, 
+    FormInput, FormValidationMessage } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { firstChanged, lastChanged, createEmailChanged, createPasswordChanged, 
+    confirmedPasswordChanged, positionChanged, createUser } from '../actions';
 import { BaseContainer, Container } from '../components/common';
 import { Styles as CommonStyles } from '../components/util/CommonStyles'
 
 class CreateProfile extends Component {
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
         
-        this.state = {
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            confirmedPassword: '',
-            role: 0
-        };
+    //     this.state = {
+    //         firstName: '',
+    //         lastName: '',
+    //         email: '',
+    //         password: '',
+    //         confirmedPassword: '',
+    //         role: 0
+    //     };
 
-        this.db = firebase.firestore();
-    };
+    //     this.db = firebase.firestore();
+    // };
 
     static navigationOptions = {
         title: 'Create Profile',
-        headerBackTitle: 'TODO - doesnt work'
     };
 
-    onFirstNameInput = (firstName) => {
-        this.setState({ ...this.state, firstName });
-    };
-
-    onLastNameInput = (lastName) => {
-        this.setState({ ...this.state, lastName });
-    };
-
-    onEmailInput = (email) => {
-        this.setState({ ...this.state, email });
-    };
-
-    onPasswordInput = (password) => {
-        this.setState({ ...this.state, password });
-    };
-
-    onConfirmedPasswordInput = (confirmedPassword) => {
-        this.setState({ ...this.state, confirmedPassword });
-    };
-
-    onRoleInput = (role) => {
-        this.setState({ ...this.state, role });
-    };
-
+    onFirstChanged(text) {
+        this.props.firstChanged(text);
+    }
+    onLastChanged(text) {
+        this.props.lastChanged(text);
+    }
+    onEmailChanged(text) {
+        this.props.createEmailChanged(text);
+    }
+    onPasswordChanged(text) {
+        this.props.createPasswordChanged(text);
+    }
+    onConfirmedPasswordChanged(text) {
+        this.props.confirmedPasswordChanged(text);
+    }
+    onPositionChanged(text) {
+        this.props.positionChanged(text);
+    }
     onCreateAccountPress() {
-        // if this.state.password !== this.state.confirmedPassword return error screen
-        const { email, password, firstName, lastName, role } = this.state;
-        // create user
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-            .catch(function(error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                if (errorCode == 'auth/weak-password') {
-                    //alert('The password is too weak.');
-                } else {
-                    //alert(errorMessage);
-                }
-                console.log(error);
-            })
-            .then((credentials) => {
-                console.log(credentials);
-                const dataModel = {
-                    firstName,
-                    lastName,
-                    email,
-                    role
-                };  
-                var userRef = this.db.collection('users').doc(credentials.user.uid);
-                userRef.set(dataModel);
+        const dataModel = {
+            first: this.props.first,
+            last: this.props.last,
+            email: this.props.email,
+            password: this.props.password,
+            position: this.props.position
+        }
 
-                this.props.navigation.navigate('Profile', userRef);
-            });
-        // handle errors
-        // on success->
-            // add info to db
-        
-        
-        // const { firstName, lastName, email, role } = this.state;
-        
-        // const dataModel = {
-        //     first: firstName,
-        //     last: lastName, 
-        //     email,
-        //     role
-        // };
+        this.props.createUser(dataModel);
+    }
 
-        // db.collection('users').add(dataModel)
-        //     .then(this.props.navigation.navigate('Profile', dataModel))
-        //     .catch(this.props.navigation.navigate('Login', dataModel))
-    };
+    // onFirstNameInput = (firstName) => {
+    //     this.setState({ ...this.state, firstName });
+    // };
+
+    // onLastNameInput = (lastName) => {
+    //     this.setState({ ...this.state, lastName });
+    // };
+
+    // onEmailInput = (email) => {
+    //     this.setState({ ...this.state, email });
+    // };
+
+    // onPasswordInput = (password) => {
+    //     this.setState({ ...this.state, password });
+    // };
+
+    // onConfirmedPasswordInput = (confirmedPassword) => {
+    //     this.setState({ ...this.state, confirmedPassword });
+    // };
+
+    // onRoleInput = (role) => {
+    //     this.setState({ ...this.state, role });
+    // };
+
+    // onCreateAccountPress() {
+    //     // if this.state.password !== this.state.confirmedPassword return error screen
+    //     const { email, password, firstName, lastName, role } = this.state;
+    //     // create user
+    //     firebase.auth().createUserWithEmailAndPassword(email, password)
+    //         .catch(function(error) {
+    //             // Handle Errors here.
+    //             var errorCode = error.code;
+    //             var errorMessage = error.message;
+    //             if (errorCode == 'auth/weak-password') {
+    //                 //alert('The password is too weak.');
+    //             } else {
+    //                 //alert(errorMessage);
+    //             }
+    //             console.log(error);
+    //         })
+    //         .then((credentials) => {
+    //             console.log(credentials);
+    //             const dataModel = {
+    //                 firstName,
+    //                 lastName,
+    //                 email,
+    //                 role
+    //             };  
+    //             var userRef = this.db.collection('users').doc(credentials.user.uid);
+    //             userRef.set(dataModel);
+
+    //             this.props.navigation.navigate('Profile', userRef);
+    //         });
+    //     // handle errors
+    //     // on success->
+    //         // add info to db
+        
+        
+    //     // const { firstName, lastName, email, role } = this.state;
+        
+    //     // const dataModel = {
+    //     //     first: firstName,
+    //     //     last: lastName, 
+    //     //     email,
+    //     //     role
+    //     // };
+
+    //     // db.collection('users').add(dataModel)
+    //     //     .then(this.props.navigation.navigate('Profile', dataModel))
+    //     //     .catch(this.props.navigation.navigate('Login', dataModel))
+    // };
 
     render() {
         return (
@@ -114,13 +146,15 @@ class CreateProfile extends Component {
                         <FormInput 
                             containerStyle={[CommonStyles.inputGeneral, Styles.formInput]} 
                             placeholder="Enter first name"
-                            onChangeText={this.onFirstNameInput}
+                            onChangeText={this.onFirstChanged.bind(this)}
+                            value={this.props.first}
                         />
                         <FormLabel>Last Name</FormLabel>
                         <FormInput 
                             containerStyle={[CommonStyles.inputGeneral, Styles.formInput]} 
                             placeholder="Enter last name" 
-                            onChangeText={this.onLastNameInput}
+                            onChangeText={this.onLastChanged.bind(this)}
+                            value={this.props.last}
                         />
                     </Container>
                 </Container>
@@ -130,27 +164,31 @@ class CreateProfile extends Component {
                     <FormInput 
                         containerStyle={[CommonStyles.inputGeneral, Styles.formInput]} 
                         placeholder="Enter email or username"
-                        onChangeText={this.onEmailInput}
+                        onChangeText={this.onEmailChanged.bind(this)}
+                        value={this.props.email}
                     />
                     <FormLabel containerStyle={Styles.labelContainer}>Password</FormLabel>
                     <FormInput 
                         containerStyle={[CommonStyles.inputGeneral, Styles.formInput]} 
                         placeholder="Enter password" 
-                        onChangeText={this.onPasswordInput}
+                        onChangeText={this.onPasswordChanged.bind(this)}
                         secureTextEntry
+                        value={this.props.password}
                     /> 
                     <FormLabel containerStyle={Styles.labelContainer}>Confirm Password</FormLabel>
                     <FormInput 
                         containerStyle={[CommonStyles.inputGeneral, Styles.formInput]} 
                         placeholder="Confirm password"
-                        onChangeText={this.onConfirmedPasswordInput}
+                        onChangeText={this.onConfirmedPasswordChanged.bind(this)}
                         secureTextEntry
+                        value={this.props.confirmedPassword}
                     />
                     <FormLabel containerStyle={Styles.labelContainer}>Select Position</FormLabel>
                     <FormInput 
                         containerStyle={[CommonStyles.inputGeneral, Styles.formInput]} 
                         placeholder="Position or Role" 
-                        onChangeText={this.onRoleInput}
+                        onChangeText={this.onPositionChanged.bind(this)}
+                        value={this.props.position}
                     /> 
 
                     <Button 
@@ -200,4 +238,20 @@ const Styles = {
     }
 };
 
-export { CreateProfile };
+const mapStateToProps = (state) => {
+    const { first, last, email, password, confirmedPassword, position } = state.createProfile;
+    
+    return {
+        first, 
+        last,
+        email,
+        password,
+        confirmedPassword,
+        position
+    }
+}
+
+export default connect(mapStateToProps, {
+    firstChanged, lastChanged, createEmailChanged, createPasswordChanged,
+    confirmedPasswordChanged, positionChanged, createUser
+})(CreateProfile);

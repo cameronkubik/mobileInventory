@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import firebase from 'react-native-firebase';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
-import { Profile, CreateProfile } from './screens';
+import NavigationService from './NavigationService';
 import Login from './screens/Login';
+import CreateProfile from './screens/CreateProfile';
+import Profile from './screens/Profile';
 import reducers from './reducers';
 
 // ----- Navigation ----- //
-const RootStack = createStackNavigator(
+const TopLevelNavigator = createStackNavigator(
     {
         Login,
         Profile,
@@ -29,10 +31,10 @@ const RootStack = createStackNavigator(
         },
     }
 );
-const AppContainer = createAppContainer(RootStack);
+const AppContainer = createAppContainer(TopLevelNavigator);
 // --------------------- //
 
-export default class App extends React.Component {
+export default class App extends Component {
     // ----- Lifecycle ----- //
     componentWillMount() {
         const firebaseConfig = {
@@ -49,7 +51,11 @@ export default class App extends React.Component {
     render() {
         return (
             <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
-                <AppContainer />
+                <AppContainer 
+                    ref={navigatorRef => {
+                        NavigationService.setTopLevelNavigator(navigatorRef);
+                    }}
+                />
             </Provider>
         );
     }
