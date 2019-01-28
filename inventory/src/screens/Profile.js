@@ -1,94 +1,131 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
-import { StackActions } from 'react-navigation';
 import { Avatar, Button } from 'react-native-elements';
-import firebase from 'firebase';
-import { BaseContainer, Container } from '../components/common';
+import firebase from 'react-native-firebase';
+import { BaseContainer, Container, Spinner } from '../components/common';
 
 class Profile extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            loaded: false,
+            user: undefined
+        };
+
+        this.db = firebase.firestore();
     }
 
-    returnToLoginScreen = StackActions.replace({
-        routeName: 'Login',
-        params: this.state
-    });
+    returnToLoginScreen() {
+        this.props.navigation.navigate('Login');
+    }
 
     onLogOutPress() {
         firebase.auth().signOut()
-            .then(this.props.navigation.dispatch(this.returnToLoginScreen))
-            .catch(this.props.navigation.dispatch(this.returnToLoginScreen))
+            .then(this.returnToLoginScreen)
+            .catch(this.returnToLoginScreen);
     };
 
+    retrieveUserData() {
+        var userCredentials = this.props.navigation.getParam('userCredentials', { user: { uid: -1 } });
+        var docRef = this.db.collection('users').doc(userCredentials.user.uid);
+        var userData;
+
+        docRef.get().then(function(doc) {
+            if (doc.exists) {
+                //data available
+                console.log(doc);
+                console.log(doc.data());
+                //this.setState({ user: doc.data(), loaded: true });
+                userData = doc.data();
+            } else {
+                // data not available
+                // TODO show ewrror screen
+            }
+        }).catch(function (error) {
+            //returnVal = 'error';
+            // TODO
+        });
+        this.setState({ user: userData, loaded: true });
+        this.render();
+        // TODO not working
+        //return userData;
+    }
+
+    componentWillMount() {
+        this.retrieveUserData();
+    }
+
     render() {
-        const { navigation } = this.props;
-        const username = navigation.getParam('username', 'full-name');
-
-        return (
-            <BaseContainer customStyle={[Styles.screen]}>
-                <Container customStyle={[Styles.profileContainer]}>
-                
-                    <Avatar
-                        xlarge
-                        rounded
-                        icon={{name: 'user', type: 'font-awesome'}}
-                        onPress={() => console.log("Icon pressed")}
-                        activeOpacity={0.7}
-                        containerStyle={{ marginBottom: 10 }}
-                    />
-                    <Text style={Styles.profileText}>{username}</Text>
-                    <Text style={Styles.profileText}>Role</Text>
-                </Container>
-
-                <Container customStyle={[Styles.buttonContainer]}>
-                    <Button
-                        large
-                        rounded
-                        raised
-                        buttonStyle={Styles.buttonStyle}
-                        containerViewStyle={Styles.buttonGeneral}
-                        rightIcon={{name: 'plus-circle', type: 'font-awesome'}}
-                        title='Add Sale' 
-                    />
-                    <Button
-                        large
-                        rounded
-                        raised
-                        buttonStyle={Styles.buttonStyle}
-                        containerViewStyle={Styles.buttonGeneral}
-                        rightIcon={{name: 'plus-circle', type: 'font-awesome'}}
-                        title='Add Inventory' 
-                    />
-                    <Button
-                        large
-                        rounded
-                        raised
-                        buttonStyle={Styles.buttonStyle}
-                        containerViewStyle={Styles.buttonGeneral}
-                        rightIcon={{name: 'usd', type: 'font-awesome'}}
-                        title='View Sales' 
-                    />
-                    <Button
-                        large
-                        rounded
-                        raised
-                        buttonStyle={Styles.buttonStyle}
-                        containerViewStyle={Styles.buttonGeneral}
-                        rightIcon={{name: 'search', type: 'font-awesome'}}
-                        title='View Inventory' 
-                    />
-                    <Button
-                        rounded
-                        raised
-                        containerViewStyle={Styles.buttonLogout}
-                        title='Log Out' 
-                        backgroundColor='orange'
-                        onPress={this.onLogOutPress.bind(this)}
-                    />
-                </Container>
-            </BaseContainer>
-        );
+        debugger;
+        if (this.state.user) {
+            return (
+                <BaseContainer customStyle={[Styles.screen]}>
+                    <Container customStyle={[Styles.profileContainer]}>
+                    
+                        <Avatar
+                            xlarge
+                            rounded
+                            icon={{name: 'user', type: 'font-awesome'}}
+                            onPress={() => console.log("Icon pressed")}
+                            activeOpacity={0.7}
+                            containerStyle={{ marginBottom: 10 }}
+                        />
+                        <Text style={Styles.profileText}>{this.state.user}</Text>
+                        <Text style={Styles.profileText}>Role</Text>
+                    </Container>
+    
+                    <Container customStyle={[Styles.buttonContainer]}>
+                        <Button
+                            large
+                            rounded
+                            raised
+                            buttonStyle={Styles.buttonStyle}
+                            containerViewStyle={Styles.buttonGeneral}
+                            rightIcon={{name: 'plus-circle', type: 'font-awesome'}}
+                            title='Add Sale' 
+                        />
+                        <Button
+                            large
+                            rounded
+                            raised
+                            buttonStyle={Styles.buttonStyle}
+                            containerViewStyle={Styles.buttonGeneral}
+                            rightIcon={{name: 'plus-circle', type: 'font-awesome'}}
+                            title='Add Inventory' 
+                        />
+                        <Button
+                            large
+                            rounded
+                            raised
+                            buttonStyle={Styles.buttonStyle}
+                            containerViewStyle={Styles.buttonGeneral}
+                            rightIcon={{name: 'usd', type: 'font-awesome'}}
+                            title='View Sales' 
+                        />
+                        <Button
+                            large
+                            rounded
+                            raised
+                            buttonStyle={Styles.buttonStyle}
+                            containerViewStyle={Styles.buttonGeneral}
+                            rightIcon={{name: 'search', type: 'font-awesome'}}
+                            title='View Inventory' 
+                        />
+                        <Button
+                            rounded
+                            raised
+                            containerViewStyle={Styles.buttonLogout}
+                            title='Log Out' 
+                            backgroundColor='orange'
+                            onPress={this.onLogOutPress.bind(this)}
+                        />
+                    </Container>
+                </BaseContainer>
+            );
+        } else {
+            return <Spinner />;
+        }
     }
 }
 

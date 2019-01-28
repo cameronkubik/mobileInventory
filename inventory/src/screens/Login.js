@@ -2,21 +2,23 @@ import React, { Component } from 'react';
 import { Text, TextInput } from 'react-native';
 import { StackActions } from 'react-navigation';
 import { Button } from 'react-native-elements';
-import firebase from 'react-native-firebase';
+import { connect } from 'react-redux';
+import { emailChanged, passwordChanged, loginUser } from '../actions';
 import { BaseContainer, Container, Logo, Spinner, } from '../components/common';
 import { Styles as CommonStyles } from '../components/util/CommonStyles';
 
 class Login extends Component {
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
 
-        this.state = {
-            email: '',
-            password: '',
-            errorMessage: '',
-            loading: false
-        };
-    }
+    //     this.state = {
+    //         email: '',
+    //         password: '',
+    //         errorMessage: '',
+    //         loading: false,
+    //         userCredentials: undefined
+    //     };
+    // }
 
     // screen independent configuration options
     static navigationOptions = {
@@ -25,59 +27,60 @@ class Login extends Component {
         },
     };
 
-    onEmailInput = (email) => {
-        this.setState({ ...this.state, email });
-    };
+    onEmailChanged(text) {
+        this.props.emailChanged(text);
+    }
+    onPasswordChanged(text) {
+        this.props.passwordChanged(text);
+    }
+    onLoginPress() {
+        const { email, password } = this.props;
 
-    onPasswordInput = (password) => {
-        this.setState({ ...this.state, password });
-    };
+        this.props.loginUser({email, password});
+    }
+
+    // OLD
+    // onEmailInput = (email) => {
+    //     this.setState({ ...this.state, email });
+    // };
+
+    // onPasswordInput = (password) => {
+    //     this.setState({ ...this.state, password });
+    // };
 
     // Button Presses
-    onLoginPress()  {
-        const { email, password } = this.state;
+    // onLoginPress()  {
+    //     const { email, password } = this.state;
 
-        this.setState({ ...this.state, errorMessage: '', loading: true });
+    //     this.setState({ ...this.state, errorMessage: '', loading: true });
 
-        firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(this.onLoginPressSuccess.bind(this))
-            .catch(this.onLoginPressFAIL.bind(this));
-    };
+    //     firebase.auth().signInWithEmailAndPassword(email, password)
+    //         .then(this.onLoginPressSuccess.bind(this))
+    //         .catch(this.onLoginPressFAIL.bind(this));
+    // };
 
     onCreateProfilePress() {
-        this.props.navigation.dispatch(this.dispatchCreateProfileScreen);
+        this.props.navigation.navigate('CreateProfile');
     };
     //---------------------//
 
     // Promise Handlers
-    onLoginPressFAIL() {
-        this.setState({ errorMessage: 'Login Failed.' });
-    };
+    // onLoginPressFAIL() {
+    //     this.setState({ errorMessage: 'Login Failed.' });
+    // };
 
-    onLoginPressSuccess() {
-        this.setState({
-            email: '',
-            password: '',
-            errorMessage: '',
-            loading: false
-        });
+    // onLoginPressSuccess(creds) {
+    //     console.log(creds);
+    //     this.setState({
+    //         email: '',
+    //         password: '',
+    //         errorMessage: '',
+    //         loading: false,
+    //         userCredentials: creds
+    //     });
 
-        this.props.navigation.dispatch(this.dispatchProfileScreen);
-    };
-
-    
-    //---------------------//
-
-    // Navigation routing
-    dispatchProfileScreen = StackActions.replace({
-        routeName: 'Profile',
-        params: this.state
-    });
-
-    dispatchCreateProfileScreen = StackActions.push({
-        routeName: 'CreateProfile',
-        params: this.state
-    });
+    //     this.props.navigation.navigate('Profile', { userCredentials: this.state.userCredentials });
+    // };
     //---------------------//
 
     render() {
@@ -90,17 +93,16 @@ class Login extends Component {
                     <TextInput 
                         style={[CommonStyles.inputGeneral, { fontSize: 20 }]} 
                         placeholder="Email"
-                        onChangeText={this.onEmailInput}
+                        onChangeText={this.onEmailChanged.bind(this)}
+                        value={this.props.email}
                     />
                     <TextInput 
                         style={[CommonStyles.inputGeneral, { fontSize: 20 }]} 
                         placeholder="Password" 
                         secureTextEntry
-                        onChangeText={this.onPasswordInput}
+                        onChangeText={this.onPasswordChanged.bind(this)}
+                        value={this.props.password}
                     /> 
-                    <Text style={Styles.errorMessage}>
-                        {this.state.errorMessage}
-                    </Text>
 
                     <Button 
                         title="Login"
@@ -154,4 +156,14 @@ const Styles = {
     },
 };
 
-export { Login };
+const mapStateToProps = (state) => {
+    return {
+        email: state.auth.email,
+        password: state.auth.password,
+        loginUser: state.auth.loginUser
+    }
+}
+
+export default connect(mapStateToProps, { 
+    emailChanged, passwordChanged, loginUser
+})(Login);
