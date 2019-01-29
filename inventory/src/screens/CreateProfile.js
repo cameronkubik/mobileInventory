@@ -8,20 +8,6 @@ import { BaseContainer, Container } from '../components/common';
 import { Styles as CommonStyles } from '../components/util/CommonStyles'
 
 class CreateProfile extends Component {
-    // constructor(props) {
-    //     super(props);
-        
-    //     this.state = {
-    //         firstName: '',
-    //         lastName: '',
-    //         email: '',
-    //         password: '',
-    //         confirmedPassword: '',
-    //         role: 0
-    //     };
-
-    //     this.db = firebase.firestore();
-    // };
 
     static navigationOptions = {
         title: 'Create Profile',
@@ -52,82 +38,10 @@ class CreateProfile extends Component {
             email: this.props.email,
             password: this.props.password,
             position: this.props.position
-        }
+        };
 
         this.props.createUser(dataModel);
     }
-
-    // onFirstNameInput = (firstName) => {
-    //     this.setState({ ...this.state, firstName });
-    // };
-
-    // onLastNameInput = (lastName) => {
-    //     this.setState({ ...this.state, lastName });
-    // };
-
-    // onEmailInput = (email) => {
-    //     this.setState({ ...this.state, email });
-    // };
-
-    // onPasswordInput = (password) => {
-    //     this.setState({ ...this.state, password });
-    // };
-
-    // onConfirmedPasswordInput = (confirmedPassword) => {
-    //     this.setState({ ...this.state, confirmedPassword });
-    // };
-
-    // onRoleInput = (role) => {
-    //     this.setState({ ...this.state, role });
-    // };
-
-    // onCreateAccountPress() {
-    //     // if this.state.password !== this.state.confirmedPassword return error screen
-    //     const { email, password, firstName, lastName, role } = this.state;
-    //     // create user
-    //     firebase.auth().createUserWithEmailAndPassword(email, password)
-    //         .catch(function(error) {
-    //             // Handle Errors here.
-    //             var errorCode = error.code;
-    //             var errorMessage = error.message;
-    //             if (errorCode == 'auth/weak-password') {
-    //                 //alert('The password is too weak.');
-    //             } else {
-    //                 //alert(errorMessage);
-    //             }
-    //             console.log(error);
-    //         })
-    //         .then((credentials) => {
-    //             console.log(credentials);
-    //             const dataModel = {
-    //                 firstName,
-    //                 lastName,
-    //                 email,
-    //                 role
-    //             };  
-    //             var userRef = this.db.collection('users').doc(credentials.user.uid);
-    //             userRef.set(dataModel);
-
-    //             this.props.navigation.navigate('Profile', userRef);
-    //         });
-    //     // handle errors
-    //     // on success->
-    //         // add info to db
-        
-        
-    //     // const { firstName, lastName, email, role } = this.state;
-        
-    //     // const dataModel = {
-    //     //     first: firstName,
-    //     //     last: lastName, 
-    //     //     email,
-    //     //     role
-    //     // };
-
-    //     // db.collection('users').add(dataModel)
-    //     //     .then(this.props.navigation.navigate('Profile', dataModel))
-    //     //     .catch(this.props.navigation.navigate('Login', dataModel))
-    // };
 
     render() {
         return (
@@ -238,8 +152,8 @@ const Styles = {
     }
 };
 
-const mapStateToProps = (state) => {
-    const { first, last, email, password, confirmedPassword, position } = state.createProfile;
+const mapStateToProps = ({createProfile}) => {
+    const { first, last, email, password, confirmedPassword, position } = createProfile;
     
     return {
         first, 

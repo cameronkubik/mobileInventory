@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { Avatar, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import firebase from 'react-native-firebase';
+import { loadUser, logOut } from '../actions';
 import { BaseContainer, Container, Spinner } from '../components/common';
 
 class Profile extends Component {
@@ -57,6 +57,16 @@ class Profile extends Component {
     //     this.retrieveUserData();
     // }
 
+    componentWillMount() {
+        this.props.loadUser();
+
+        //create ds
+    }
+
+    onLogOutPress() {
+        this.props.logOut();
+    }
+
     render() {
         return (
             <BaseContainer customStyle={[Styles.screen]}>
@@ -70,8 +80,8 @@ class Profile extends Component {
                         activeOpacity={0.7}
                         containerStyle={{ marginBottom: 10 }}
                     />
-                    <Text style={Styles.profileText}>*TODO* Username</Text>
-                    <Text style={Styles.profileText}>Role</Text>
+                    <Text style={Styles.profileText}>{this.props.name}</Text>
+                    <Text style={Styles.profileText}>{this.props.position}</Text>
                 </Container>
 
                 <Container customStyle={[Styles.buttonContainer]}>
@@ -117,7 +127,7 @@ class Profile extends Component {
                         containerViewStyle={Styles.buttonLogout}
                         title='Log Out' 
                         backgroundColor='orange'
-                        
+                        onPress={this.onLogOutPress.bind(this)}
                     />
                 </Container>
             </BaseContainer>
@@ -165,4 +175,13 @@ const Styles = {
     }
 }
 
-export default connect()(Profile);
+const mapStateToProps = ({profile}) => {
+    return { 
+        name: profile.name,
+        position: profile.position
+    };
+}
+
+export default connect(mapStateToProps, { 
+    loadUser, logOut 
+})(Profile);

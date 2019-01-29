@@ -62,7 +62,7 @@ export const createUser = ({first, last, email, password, position}) => {
             firstName: first,
             lastName: last, 
             email,
-            role: position
+            position
         }
 
         firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -74,15 +74,15 @@ export const createUser = ({first, last, email, password, position}) => {
 const createUserSuccess = (dispatch, userCredentials, dataModel) => {
     var userRef = firebase.firestore().collection('users').doc(userCredentials.user.uid);
     userRef.set(dataModel)
-    .then(() => {
-        dispatch({
-            type: CREATE_USER_SUCCESS,
-            payload: userCredentials
-        });
-    
-        NavigationService.replace('Profile');
-    })
-    .catch(error => createUserFail(dispatch, error));
+        .then(() => {
+            dispatch({
+                type: CREATE_USER_SUCCESS,
+                payload: userCredentials
+            });
+        
+            NavigationService.replace('Profile');
+        })
+        .catch(error => createUserFail(dispatch, error));
 };
 
 const createUserFail = (dispatch, error) => {

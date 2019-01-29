@@ -7,7 +7,6 @@ import { BaseContainer, Container, Logo, Spinner, } from '../components/common';
 import { Styles as CommonStyles } from '../components/util/CommonStyles';
 
 class Login extends Component {
-
     // screen independent configuration options
     static navigationOptions = {
         headerStyle: {
@@ -29,7 +28,7 @@ class Login extends Component {
 
     onCreateProfilePress() {
         this.props.navigation.navigate('CreateProfile');
-    };
+    }
 
     render() {
         return (
@@ -104,11 +103,11 @@ const Styles = {
     },
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({auth}) => {
     return {
-        email: state.auth.email,
-        password: state.auth.password,
-        loginUser: state.auth.loginUser
+        email: auth.email,
+        password: auth.password,
+        //loginUser: state.auth.loginUser
     }
 }
 

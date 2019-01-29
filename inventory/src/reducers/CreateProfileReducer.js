@@ -4,6 +4,7 @@ import {
     CREATE_EMAIL_CHANGED,
     CREATE_PASSWORD_CHANGED,
     CONFIRM_PASSWORD_CHANGED,
+    POSITION_CHANGED,
     CREATE_USER_SUCCESS,
     CREATE_USER_FAIL,
     CREATE_USER
@@ -15,6 +16,7 @@ import {
     email: '',
     password: '',
     confirmedPassword: '',
+    position: '',
     user: null,
     error: '',
     loading: false
@@ -37,6 +39,9 @@ import {
         case CONFIRM_PASSWORD_CHANGED:
             return { ...state, confirmedPassword: action.payload };
         
+        case POSITION_CHANGED:
+            return { ...state, position: action.payload };
+            
         case CREATE_USER:
             return { ...state, loading: true, error: '' };
 
