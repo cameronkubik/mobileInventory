@@ -17,6 +17,8 @@ export const POSITION_CHANGED = 'position_changed';
 export const CREATE_USER_SUCCESS = 'create_user_success';
 export const CREATE_USER_FAIL = 'create_user_fail';
 export const CREATE_USER = 'create_user';
+export const AVATAR_PRESS = 'avatar_press';
+export const AVATAR_SELECTED = 'avatar_selected';
 
 // Profile actions
 export const LOAD_USER = 'load_user';

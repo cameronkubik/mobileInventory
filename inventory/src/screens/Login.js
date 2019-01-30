@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
+import NavigationService from '../NavigationService';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
 import { BaseContainer, Container, Logo, Spinner, } from '../components/common';
 import { Styles as CommonStyles } from '../components/util/CommonStyles';
@@ -27,7 +28,7 @@ class Login extends Component {
     }
 
     onCreateProfilePress() {
-        this.props.navigation.navigate('CreateProfile');
+        NavigationService.navigate('CreateProfile');
     }
 
     render() {

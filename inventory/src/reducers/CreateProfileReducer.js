@@ -7,7 +7,9 @@ import {
     POSITION_CHANGED,
     CREATE_USER_SUCCESS,
     CREATE_USER_FAIL,
-    CREATE_USER
+    CREATE_USER,
+    AVATAR_PRESS,
+    AVATAR_SELECTED
   } from '../actions/types';
   
   const INITIAL_STATE = {
@@ -19,7 +21,9 @@ import {
     position: '',
     user: null,
     error: '',
-    loading: false
+    loading: false,
+    avatar: null,
+    isSelectingAvatar: false
   };
   
   export default (state = INITIAL_STATE, action) => {
@@ -49,9 +53,17 @@ import {
             return { ...state, ...INITIAL_STATE, user: action.payload };
 
         case CREATE_USER_FAIL:
-            return { ...state, error: action.payload || 'Authentication Failed.', 
-                password: '', confirmedPassword: '', loading: false };
-        
+            return { 
+                ...state, error: action.payload || 'Authentication Failed.', 
+                password: '', confirmedPassword: '', loading: false 
+            };
+    
+        case AVATAR_PRESS:
+            return { ...state, isSelectingAvatar: true };
+
+        case AVATAR_SELECTED:
+            return { ...state, isSelectingAvatar: false, avatar: action.payload }
+
         default:
             return state;
     }

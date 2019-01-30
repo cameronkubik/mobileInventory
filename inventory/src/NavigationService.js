@@ -15,12 +15,24 @@ function navigate(routeName, params) {
     );
 }
 
-function replace(routeName, params) {
+function replace(routeName) {
     _navigator.dispatch(
-        StackActions.replace({
-            routeName,
-            params,
+        StackActions.replace({ routeName })
+    );
+}
+
+function reset() {
+    _navigator.dispatch(
+        StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({ routeName: 'Login' })], 
         })
+    );
+}
+
+function back() {
+    _navigator.dispatch(
+        NavigationActions.back()
     );
 }
 
@@ -29,5 +41,7 @@ function replace(routeName, params) {
 export default {
     navigate,
     replace,
+    reset,
+    back,
     setTopLevelNavigator,
 };

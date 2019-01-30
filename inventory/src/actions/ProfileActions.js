@@ -17,14 +17,15 @@ export const loadUser = () => {
 
 const loadUserSuccess = (querySnapshot, dispatch) => {
     console.log(querySnapshot.data());
-    const { firstName, lastName, position } = querySnapshot.data();
+    const { firstName, lastName, position, avatar } = querySnapshot.data();
 
     //dispatch success or fail
     dispatch({
         type: LOAD_USER_SUCCESS,
         payload: {
             name: `${firstName} ${lastName}`,
-            position
+            position,
+            avatar
         }
     });
 };
@@ -35,6 +36,6 @@ export const logOut = () => {
 
         firebase.auth().signOut();
 
-        NavigationService.replace('Login');
+        NavigationService.reset();
     };
 };

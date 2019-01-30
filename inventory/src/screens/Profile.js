@@ -6,80 +6,65 @@ import { loadUser, logOut } from '../actions';
 import { BaseContainer, Container, Spinner } from '../components/common';
 
 class Profile extends Component {
-    // constructor(props) {
-    //     super(props);
-
-    //     this.state = {
-    //         loaded: false,
-    //         user: undefined
-    //     };
-
-    //     this.db = firebase.firestore();
-    // }
-
-    // returnToLoginScreen() {
-    //     this.props.navigation.navigate('Login');
-    // }
-
-    // onLogOutPress() {
-    //     firebase.auth().signOut()
-    //         .then(this.returnToLoginScreen)
-    //         .catch(this.returnToLoginScreen);
-    // };
-
-    // retrieveUserData() {
-    //     var userCredentials = this.props.navigation.getParam('userCredentials', { user: { uid: -1 } });
-    //     var docRef = this.db.collection('users').doc(userCredentials.user.uid);
-    //     var userData;
-
-    //     docRef.get().then(function(doc) {
-    //         if (doc.exists) {
-    //             //data available
-    //             console.log(doc);
-    //             console.log(doc.data());
-    //             //this.setState({ user: doc.data(), loaded: true });
-    //             userData = doc.data();
-    //         } else {
-    //             // data not available
-    //             // TODO show ewrror screen
-    //         }
-    //     }).catch(function (error) {
-    //         //returnVal = 'error';
-    //         // TODO
-    //     });
-    //     this.setState({ user: userData, loaded: true });
-    //     this.render();
-    //     // TODO not working
-    //     //return userData;
-    // }
-
-    // componentWillMount() {
-    //     this.retrieveUserData();
-    // }
+     
+    static navigationOptions = {
+        title: 'Home'
+    }
 
     componentWillMount() {
         this.props.loadUser();
-
-        //create ds
     }
 
     onLogOutPress() {
         this.props.logOut();
     }
 
+    renderAvatar() {
+        if (this.props.avatar) {
+            return (
+                <Avatar
+                    xlarge
+                    rounded
+                    source={{ uri: this.props.avatar.uri }}
+                    onPress={() => console.log("Icon pressed")}
+                    activeOpacity={0.7}
+                    containerStyle={{ marginBottom: 10 }}
+                />
+            );
+            
+        } else if (this.props.name) {
+            let names = this.props.name.split(' ');
+            let initials = names[0].split()[0] + names[1].split()[0];
+
+            return (
+                <Avatar
+                    xlarge
+                    rounded
+                    title={initials}
+                    onPress={() => console.log("Icon pressed")}
+                    activeOpacity={0.7}
+                    containerStyle={{ marginBottom: 10 }}
+                />
+            );
+        } 
+
+        return (
+            <Avatar
+                xlarge
+                rounded
+                icon={{name: 'user', type: 'font-awesome'}}
+                onPress={() => console.log("Icon pressed")}
+                activeOpacity={0.7}
+                containerStyle={{ marginBottom: 10 }}
+            />
+        )
+    }
+
     render() {
         return (
             <BaseContainer customStyle={[Styles.screen]}>
                 <Container customStyle={[Styles.profileContainer]}>
-                
-                    <Avatar
-                        xlarge
-                        rounded
-                        icon={{name: 'user', type: 'font-awesome'}}
-                        onPress={() => console.log("Icon pressed")}
-                        activeOpacity={0.7}
-                        containerStyle={{ marginBottom: 10 }}
-                    />
+                    {this.renderAvatar()}
                     <Text style={Styles.profileText}>{this.props.name}</Text>
                     <Text style={Styles.profileText}>{this.props.position}</Text>
                 </Container>
@@ -178,7 +163,8 @@ const Styles = {
 const mapStateToProps = ({profile}) => {
     return { 
         name: profile.name,
-        position: profile.position
+        position: profile.position,
+        avatar: profile.avatar
     };
 }
 

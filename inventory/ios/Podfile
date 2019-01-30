@@ -12,6 +12,8 @@ target 'inventory' do
   target 'inventory-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+
   end
 
   target 'inventoryTests' do

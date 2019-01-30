@@ -3,9 +3,9 @@ import { Avatar, Button, FormLabel,
     FormInput, FormValidationMessage } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { firstChanged, lastChanged, createEmailChanged, createPasswordChanged, 
-    confirmedPasswordChanged, positionChanged, createUser } from '../actions';
+    confirmedPasswordChanged, positionChanged, createUser, avatarPress } from '../actions';
 import { BaseContainer, Container } from '../components/common';
-import { Styles as CommonStyles } from '../components/util/CommonStyles'
+import { Styles as CommonStyles } from '../components/util/CommonStyles';
 
 class CreateProfile extends Component {
 
@@ -13,6 +13,9 @@ class CreateProfile extends Component {
         title: 'Create Profile',
     };
 
+    onAvatarPress() {
+        this.props.avatarPress();
+    }
     onFirstChanged(text) {
         this.props.firstChanged(text);
     }
@@ -37,24 +40,44 @@ class CreateProfile extends Component {
             last: this.props.last,
             email: this.props.email,
             password: this.props.password,
-            position: this.props.position
+            position: this.props.position,
+            avatar: this.props.avatar
         };
 
         this.props.createUser(dataModel);
+    }
+
+    renderAvatar() {
+        if (this.props.avatar) {
+            return (
+                    <Avatar
+                        xlarge
+                        rounded
+                        source={{ uri: this.props.avatar.uri }}
+                        onPress={this.onAvatarPress.bind(this)}
+                        activeOpacity={0.7}
+                        containerStyle={{ marginBottom: 10 }}
+                    />
+            );
+        }
+
+        return (
+            <Avatar
+                xlarge
+                rounded
+                icon={{name: 'user', type: 'font-awesome'}}
+                onPress={this.onAvatarPress.bind(this)}
+                activeOpacity={0.7}
+                containerStyle={{ marginBottom: 10 }}
+            />
+        );
     }
 
     render() {
         return (
             <BaseContainer customStyle={{ padding: 20 }}>
                 <Container customStyle={[Styles.avatarContainer]}>
-                    <Avatar
-                        xlarge
-                        rounded
-                        icon={{name: 'user', type: 'font-awesome'}}
-                        onPress={() => console.log("Icon pressed")}
-                        activeOpacity={0.7}
-                        containerStyle={{ marginBottom: 10 }}
-                    />
+                    {this.renderAvatar()}
                     <Container>
                         <FormLabel>First Name</FormLabel>
                         <FormInput 
@@ -153,7 +176,7 @@ const Styles = {
 };
 
 const mapStateToProps = ({createProfile}) => {
-    const { first, last, email, password, confirmedPassword, position } = createProfile;
+    const { first, last, email, password, confirmedPassword, position, avatar } = createProfile;
     
     return {
         first, 
@@ -161,11 +184,12 @@ const mapStateToProps = ({createProfile}) => {
         email,
         password,
         confirmedPassword,
-        position
+        position,
+        avatar
     }
 }
 
 export default connect(mapStateToProps, {
     firstChanged, lastChanged, createEmailChanged, createPasswordChanged,
-    confirmedPasswordChanged, positionChanged, createUser
+    confirmedPasswordChanged, positionChanged, createUser, avatarPress
 })(CreateProfile);

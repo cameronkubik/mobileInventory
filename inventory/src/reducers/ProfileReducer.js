@@ -5,6 +5,7 @@ import { LOAD_USER, LOG_OUT,
 const INITIAL_STATE = {
     name: '',
     position: '',
+    avatar: null,
     isSignedIn: false,
     loading: false
 };
@@ -21,6 +22,7 @@ export default (state = INITIAL_STATE, action) => {
                 ...state, 
                 name: action.payload.name, 
                 position: action.payload.position,
+                avatar: action.payload.avatar,
                 isSignedIn: true, 
                 loading: false
             };

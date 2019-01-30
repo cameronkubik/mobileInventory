@@ -4952,6 +4952,18 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+react-native-camera-roll-picker@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/react-native-camera-roll-picker/-/react-native-camera-roll-picker-1.2.3.tgz#b117fd3a2b9012dcccee1261a9bc427226b8d6d2"
+  integrity sha1-sRf9OiuQEtzM7hJhqbxCcia41tI=
+
+react-native-camera@^1.9.2:
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/react-native-camera/-/react-native-camera-1.9.2.tgz#c5c458dbf05ce7d7e3e9c5f1a53c600569fb78ff"
+  integrity sha512-5hdFgU0F0DozcI4eDPfMqhwPf+TSnBfxi/4+pk6R8MpiP2VDMMn3qDZQ6pIk7VdKepC/KUmcJTvIdpwISRxSFg==
+  dependencies:
+    prop-types "^15.6.2"
+
 react-native-elements@^0.19.1:
   version "0.19.1"
   resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-0.19.1.tgz#f92b69d864a150215d01f81fe3c52a9cada83e45"
