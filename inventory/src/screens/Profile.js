@@ -20,7 +20,6 @@ class Profile extends Component {
     }
 
     renderAvatar() {
-        debugger;
         if (this.props.avatar) {
             return (
                 <Avatar

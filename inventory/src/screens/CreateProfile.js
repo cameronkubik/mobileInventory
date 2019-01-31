@@ -5,7 +5,7 @@ import { Avatar, Button, FormLabel,
 import { connect } from 'react-redux';
 import { firstChanged, lastChanged, createEmailChanged, createPasswordChanged, 
     confirmedPasswordChanged, positionChanged, createUser, avatarPress } from '../actions';
-import { BaseContainer, Container } from '../components/common';
+import { BaseContainer, Container, Spinner } from '../components/common';
 import { Styles as CommonStyles } from '../components/util/CommonStyles';
 
 class CreateProfile extends Component {
@@ -81,6 +81,27 @@ class CreateProfile extends Component {
         }
     }
 
+    renderButton() {
+        if (this.props.loading) {
+            return <Spinner customStyle={{ alignSelf: 'center' }} />
+        }
+
+        return (
+            <Button 
+                title="Create Account"
+                onPress={this.onCreateAccountPress.bind(this)}
+                rounded
+                backgroundColor='blue'
+                color='#d2d3db'
+                buttonStyle={Styles.buttons}
+                borderRadius={30}
+                fontWeight='700'
+                fontSize={20}
+                containerViewStyle={Styles.buttonContainer}
+            />
+        );
+    }
+
     render() {
         return (
             <BaseContainer customStyle={{ padding: 20 }}>
@@ -136,18 +157,7 @@ class CreateProfile extends Component {
                         value={this.props.position}
                     /> 
                     {this.renderErrorMessage()}
-                    <Button 
-                        title="Create Account"
-                        onPress={this.onCreateAccountPress.bind(this)}
-                        rounded
-                        backgroundColor='blue'
-                        color='#d2d3db'
-                        buttonStyle={Styles.buttons}
-                        borderRadius={30}
-                        fontWeight='700'
-                        fontSize={20}
-                        containerViewStyle={Styles.buttonContainer}
-                    />
+                    {this.renderButton()}
                 </Container>
             </BaseContainer>
         );
