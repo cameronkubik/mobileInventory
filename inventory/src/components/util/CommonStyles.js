@@ -24,6 +24,12 @@ export const Styles = {
         margin: 5,
         backgroundColor: 'lightgray',
     },
+    errorMessage: {
+        fontSize: 20,
+        alignSelf: 'center',
+        color: 'red',
+        margin: 3
+    },
     dev: {
         borderWidth: 1,
         borderStyle: 'solid'

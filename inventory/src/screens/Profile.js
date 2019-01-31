@@ -20,6 +20,7 @@ class Profile extends Component {
     }
 
     renderAvatar() {
+        debugger;
         if (this.props.avatar) {
             return (
                 <Avatar
@@ -34,7 +35,8 @@ class Profile extends Component {
             
         } else if (this.props.name) {
             let names = this.props.name.split(' ');
-            let initials = names[0].split()[0] + names[1].split()[0];
+
+            let initials = names[0].split('')[0] + names[1].split('')[0];
 
             return (
                 <Avatar

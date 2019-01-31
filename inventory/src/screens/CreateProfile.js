@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Text } from 'react-native';
 import { Avatar, Button, FormLabel, 
     FormInput, FormValidationMessage } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -40,6 +41,7 @@ class CreateProfile extends Component {
             last: this.props.last,
             email: this.props.email,
             password: this.props.password,
+            confirmedPassword: this.props.confirmedPassword,
             position: this.props.position,
             avatar: this.props.avatar
         };
@@ -71,6 +73,12 @@ class CreateProfile extends Component {
                 containerStyle={{ marginBottom: 10 }}
             />
         );
+    }
+
+    renderErrorMessage() {
+        if (this.props.error) {
+            return <Text style={CommonStyles.errorMessage}>{this.props.error}</Text>
+        }
     }
 
     render() {
@@ -127,7 +135,7 @@ class CreateProfile extends Component {
                         onChangeText={this.onPositionChanged.bind(this)}
                         value={this.props.position}
                     /> 
-
+                    {this.renderErrorMessage()}
                     <Button 
                         title="Create Account"
                         onPress={this.onCreateAccountPress.bind(this)}
@@ -176,7 +184,11 @@ const Styles = {
 };
 
 const mapStateToProps = ({createProfile}) => {
-    const { first, last, email, password, confirmedPassword, position, avatar } = createProfile;
+    const { 
+        first, last, email, password, 
+        confirmedPassword, position, avatar,
+        error, loading
+    } = createProfile;
     
     return {
         first, 
@@ -185,7 +197,9 @@ const mapStateToProps = ({createProfile}) => {
         password,
         confirmedPassword,
         position,
-        avatar
+        avatar,
+        error, 
+        loading
     }
 }
 

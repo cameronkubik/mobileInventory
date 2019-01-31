@@ -57,9 +57,17 @@ export const positionChanged = (text) => {
     };
 };
 
-export const createUser = ({first, last, email, password, position, avatar}) => {
+export const createUser = ({first, last, email, password, confirmedPassword, position, avatar}) => {
     return (dispatch) => {
         dispatch({ type: CREATE_USER });
+
+        if (!first || !last || !email || !password || !position) {
+            createUserFail(dispatch, { code: 'custom/missing-info' });
+            return;
+        } else if (password !== confirmedPassword) {
+            createUserFail(dispatch, { code: 'custom/mismatching-passwords' });
+            return;
+        }
 
         const dataModel = {
             firstName: first,
@@ -67,7 +75,7 @@ export const createUser = ({first, last, email, password, position, avatar}) => 
             email,
             position,
             avatar
-        }
+        };
 
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(user => createUserSuccess(dispatch, user, dataModel))
@@ -91,7 +99,38 @@ const createUserSuccess = (dispatch, userCredentials, dataModel) => {
 
 const createUserFail = (dispatch, error) => {
     console.log(error);
-    dispatch({ type: CREATE_USER_FAIL });
+    let errorMsg = '';
+
+    switch (error.code) {
+        case 'auth/email-already-in-use':
+            errorMsg = 'Email already in use.';
+            break;
+        case 'auth/invalid-email':
+            errorMsg = 'Invalid email provided';
+            break;
+        case 'auth/operation-not-allowed':
+            errorMsg = 'Account creations disabled, see Admin.';
+            break;
+        case 'auth/weak-password':
+            errorMsg = 'Weak Password.';
+            break;
+        case 'custom/missing-info':
+            errorMsg = 'Missing Information.'
+            break;
+        case 'custom/mismatching-passwords':
+            errorMsg = 'Passwords do not match.';
+            break;
+        default:
+            errorMsg = 'Authentication Failed.';
+    }
+
+    dispatch({ 
+        type: CREATE_USER_FAIL,
+        payload: {
+            errorCode: error.code,
+            errorMessage: errorMsg 
+        }
+    });
 };
 
 export const avatarPress = () => {

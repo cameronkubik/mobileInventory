@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TextInput } from 'react-native';
+import { Text, TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import NavigationService from '../NavigationService';
@@ -31,6 +31,24 @@ class Login extends Component {
         NavigationService.navigate('CreateProfile');
     }
 
+    renderErrorMessage() {
+        if (this.props.error) {
+            return (
+                <Text style={CommonStyles.errorMessage}>
+                    {this.props.error}
+                </Text>
+            );
+        }
+    }
+
+    renderSpinner() {
+        if (this.props.loading) {
+            return (
+                <Spinner />
+            );
+        }
+    }
+
     render() {
         return (
             <BaseContainer customStyle={Styles.screen}>
@@ -52,6 +70,8 @@ class Login extends Component {
                         value={this.props.password}
                     /> 
 
+                    {this.renderErrorMessage()}
+                    
                     <Button 
                         title="Login"
                         onPress={this.onLoginPress.bind(this)}
@@ -74,6 +94,8 @@ class Login extends Component {
                         fontWeight='700'
                         containerViewStyle={{ borderRadius: 20 }}
                     />
+
+                    {this.renderSpinner()}
                 </Container>
 
             </BaseContainer>
@@ -95,20 +117,14 @@ const Styles = {
         height: 60,
         width: 175
     },
-
-    errorMessage: {
-        fontSize: 20,
-        alignSelf: 'center',
-        color: 'red',
-        margin: 3
-    },
 };
 
 const mapStateToProps = ({auth}) => {
     return {
         email: auth.email,
         password: auth.password,
-        //loginUser: state.auth.loginUser
+        error: auth.error,
+        loading: auth.loading
     }
 }
 
