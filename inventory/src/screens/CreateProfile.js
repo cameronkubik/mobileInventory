@@ -3,6 +3,7 @@ import { Text } from 'react-native';
 import { Avatar, Button, FormLabel, 
     FormInput, FormValidationMessage } from 'react-native-elements';
 import { connect } from 'react-redux';
+import { StackActions } from 'react-navigation';
 import { firstChanged, lastChanged, createEmailChanged, createPasswordChanged, 
     confirmedPasswordChanged, positionChanged, createUser, avatarPress } from '../actions';
 import { BaseContainer, Container, Spinner } from '../components/common';

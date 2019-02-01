@@ -25,3 +25,5 @@ export const LOAD_USER = 'load_user';
 export const LOAD_USER_SUCCESS = 'load_user_success';
 export const LOAD_USER_FAIL = 'load_user_fail';
 export const LOG_OUT = 'log_out';
+// export const VIEW_INVENTORY = 'view_inventory';
+// export const ADD_INVENTORY = 'add_inventory';

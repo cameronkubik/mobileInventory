@@ -15,6 +15,14 @@ class Profile extends Component {
         this.props.loadUser();
     }
 
+    onAddInventoryPress() {
+        //nav to add inventory page
+    }
+
+    onViewInventoryPress() {
+        // nav to view inventory page
+    }
+
     onLogOutPress() {
         this.props.logOut();
     }
