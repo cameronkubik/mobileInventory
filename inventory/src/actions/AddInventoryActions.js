@@ -4,7 +4,8 @@ import {
     LOAD_ADD_INVENTORY, LOAD_ADD_INVENTORY_SUCCESS, 
     LOAD_ADD_INVENTORY_FAIL, PICKER_CHANGE, TEXT_INPUT_CHANGE,
     ADD_ITEM_PICTURES, ITEM_PICTURES_SELECTED,
-    PICTURE_SELECTION_FINISHED, SUBMIT_INVENTORY_ITEM
+    PICTURE_SELECTION_FINISHED, SUBMIT_INVENTORY_ITEM,
+    PICTURE_SELECTION_CANCELLED, PICTURE_SELECTION_RESUMED
 } from './types';
 
 export const load_add_inventory = () => {
@@ -91,9 +92,26 @@ export const item_pictures_selected = (imageArray) => {
 };
 
 export const picture_selection_finished = () => {
+    
     return (dispatch) => {
         dispatch({ type: PICTURE_SELECTION_FINISHED });
 
         NavigationService.back();
     }
+}
+
+export const picture_selection_cancelled = () => {
+    return (dispatch) => {
+        dispatch({ type: PICTURE_SELECTION_CANCELLED });
+
+        NavigationService.back();
+    }
+}
+
+export const picture_selection_resume = (selectedImageArray) => {
+    return (dispatch) => {
+        dispatch({ type: PICTURE_SELECTION_RESUMED });
+
+        NavigationService.navigate('PicturePicker', { preselectedImages: selectedImageArray });
+    };
 }

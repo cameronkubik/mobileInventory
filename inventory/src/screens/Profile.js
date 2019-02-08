@@ -98,6 +98,7 @@ class Profile extends Component {
                         containerViewStyle={Styles.buttonGeneral}
                         rightIcon={{name: 'plus-circle', type: 'font-awesome'}}
                         title='Add Inventory' 
+                        onPress={this.onAddInventoryPress.bind(this)}
                     />
                     <Button
                         large

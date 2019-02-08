@@ -4,11 +4,13 @@ import {
     TEXT_INPUT_CHANGE, ADD_ITEM_PICTURES,
     SUBMIT_INVENTORY_ITEM,
     ITEM_PICTURES_SELECTED,
-    PICTURE_SELECTION_FINISHED
+    PICTURE_SELECTION_FINISHED,
+    PICTURE_SELECTION_CANCELLED,
+    PICTURE_SELECTION_RESUMED
 } from '../actions/types';
 
 const INITIAL_STATE = {
-    pictures: [],
+    pictures: null,
     categories: [],
     selectedCategory: null,
     description: '',
@@ -65,6 +67,19 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 isSelectingPictures: false
+            };
+
+        case PICTURE_SELECTION_CANCELLED:
+            return {
+                ...state,
+                isSelectingPictures: false,
+                pictures: null
+            };
+
+        case PICTURE_SELECTION_RESUMED:
+            return {
+                ...state,
+                isSelectingPictures: true,
             }
             
         default:

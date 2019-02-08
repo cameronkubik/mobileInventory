@@ -1,36 +1,47 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, Text, Button } from 'react-native';
 import { connect } from 'react-redux';
 import CameraRollPicker from 'react-native-camera-roll-picker';
-import { item_pictures_selected, picture_selection_finished } from '../actions';
+import { 
+    item_pictures_selected, picture_selection_finished,
+    picture_selection_cancelled
+} from '../actions';
+import NavigationService from '../NavigationService';
 import { BaseContainer } from '../components/common';
 
-class HeaderRightButton extends Component {
-
-    render() {
-        return (
-            <TouchableOpacity
-                style={{ marginRight: 10 }}
-                onPress={this.props.onPress}
-            >
-                <Text style={{ fontSize: 18, color: 'white' }}>
-                    Done
-                </Text>
-            </TouchableOpacity>
-        );
-    }
-}
-
 class PicturePicker extends Component {
-    static navigationOptions = {
-        title: 'Select Item Pictures',
-        headerRight: <HeaderRightButton onPress={arg => console.log(arg)} />
+    static navigationOptions = ({navigation}) => {
+        return {
+            title: 'Select Item Pictures',
+            // headerRight: <HeaderRightButton onPress={onDonePress.bind(this)} />
+            headerRight: (
+                <Button
+                    onPress={navigation.getParam('onDonePress') || (() => 1)}
+                    title='Done'
+                    color='white'
+                />
+            ),
+            headerLeft: (
+                <Button 
+                    onPress={navigation.getParam('onBackPress') || (() => 0)}
+                    title='Cancel'
+                    color='white'
+                />
+            )
+        };
     }
 
-    onDonePress() {
-        debugger;
-        //TODO not working
+    componentDidMount() {
+        this.props.navigation.setParams({ onDonePress: this._onDonePress.bind(this) })
+        this.props.navigation.setParams({ onBackPress: this._onBackPress.bind(this) })
+    }
+
+    _onDonePress = () => {
         this.props.picture_selection_finished();
+    }
+
+    _onBackPress = () => {
+        this.props.picture_selection_cancelled();
     }
 
     picturesSelectedCallback(imageResults) {
@@ -41,12 +52,14 @@ class PicturePicker extends Component {
         return (
             <BaseContainer>
                 <CameraRollPicker
-                    callback={this.picturesSelectedCallback.bind(this)} />
+                    callback={this.picturesSelectedCallback.bind(this)} 
+                    selected={this.props.navigation.getParam('preselectedImages', [])}
+                />
             </BaseContainer>
         )
     }
 }
 
 export default connect(null, {
-    item_pictures_selected, picture_selection_finished
+    item_pictures_selected, picture_selection_finished, picture_selection_cancelled
 })(PicturePicker);

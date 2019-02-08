@@ -35,4 +35,6 @@ export const TEXT_INPUT_CHANGE = 'text_input_change';
 export const ADD_ITEM_PICTURES = 'add_item_pictures';
 export const ITEM_PICTURES_SELECTED = 'item_pictures_selected';
 export const PICTURE_SELECTION_FINISHED = 'picture_selection_finished';
+export const PICTURE_SELECTION_CANCELLED = 'picture_selection_cancelled';
+export const PICTURE_SELECTION_RESUMED = 'picture_selection_resumed';
 export const SUBMIT_INVENTORY_ITEM = 'submit_inventory_item';
