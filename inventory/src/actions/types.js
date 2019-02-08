@@ -25,5 +25,14 @@ export const LOAD_USER = 'load_user';
 export const LOAD_USER_SUCCESS = 'load_user_success';
 export const LOAD_USER_FAIL = 'load_user_fail';
 export const LOG_OUT = 'log_out';
-// export const VIEW_INVENTORY = 'view_inventory';
-// export const ADD_INVENTORY = 'add_inventory';
+
+// Add Inventory actions
+export const LOAD_ADD_INVENTORY = 'load_add_inventory';
+export const LOAD_ADD_INVENTORY_SUCCESS = 'load_add_inventory_success';
+export const LOAD_ADD_INVENTORY_FAIL = 'load_add_inventory_fail';
+export const PICKER_CHANGE = 'picker_change';
+export const TEXT_INPUT_CHANGE = 'text_input_change';
+export const ADD_ITEM_PICTURES = 'add_item_pictures';
+export const ITEM_PICTURES_SELECTED = 'item_pictures_selected';
+export const PICTURE_SELECTION_FINISHED = 'picture_selection_finished';
+export const SUBMIT_INVENTORY_ITEM = 'submit_inventory_item';

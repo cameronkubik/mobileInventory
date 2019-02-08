@@ -17,10 +17,12 @@ class Profile extends Component {
 
     onAddInventoryPress() {
         //nav to add inventory page
+        this.props.navigation.navigate('AddInventory');
     }
 
     onViewInventoryPress() {
         // nav to view inventory page
+        this.props.navigation.navigate('ViewInventory');
     }
 
     onLogOutPress() {

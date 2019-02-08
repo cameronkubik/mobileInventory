@@ -141,8 +141,6 @@ export const avatarPress = () => {
 
 export const avatarSelected = (imageArray) => {
     return (dispatch) => {
-        console.log(imageArray);
-
         dispatch({ type: AVATAR_SELECTED, payload: imageArray[0]});
 
         NavigationService.back();

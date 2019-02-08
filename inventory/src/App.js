@@ -12,6 +12,8 @@ import Login from './screens/Login';
 import CreateProfile from './screens/CreateProfile';
 import Profile from './screens/Profile';
 import AvatarPicker from './screens/AvatarPicker';
+import AddInventory from './screens/AddInventory';
+import PicturePicker from './screens/PicturePicker';
 
 // ----- Navigation ----- //
 const TopLevelNavigator = createStackNavigator(
@@ -19,10 +21,12 @@ const TopLevelNavigator = createStackNavigator(
         Login,
         Profile,
         CreateProfile,
-        AvatarPicker
+        AvatarPicker,
+        AddInventory,
+        PicturePicker
     },
     {
-        initialRouteName: 'Login',
+        initialRouteName: 'AddInventory',
         /* Shared navigationOptions across screens */
         defaultNavigationOptions: {
             headerStyle: {
