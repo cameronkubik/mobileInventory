@@ -6,7 +6,8 @@ import {
     ITEM_PICTURES_SELECTED,
     PICTURE_SELECTION_FINISHED,
     PICTURE_SELECTION_CANCELLED,
-    PICTURE_SELECTION_RESUMED
+    PICTURE_SELECTION_RESUMED,
+    EDIT_INVENTORY_ITEM
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -17,13 +18,28 @@ const INITIAL_STATE = {
     dimensions: '',
     loading: false,
     error: null,
-    isSelectingPictures: false
+    isSelectingPictures: false,
+    isEditingItem: false
 }
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case EDIT_INVENTORY_ITEM:
+            const { pictures, description, dimensions, category } = action.payload;
+            
+            return {
+                ...INITIAL_STATE,
+                pictures,
+                description,
+                dimensions,
+                selectedCategory: category,
+                isEditingItem: true
+            };
+
         case LOAD_ADD_INVENTORY:
-            return { ...state, loading: true };
+        // Possible problem here, this is called on componentWillMount 
+        // ...which may cause isEditingItem to always be false
+            return { ...state, loading: true, isEditingItem: false };
 
         case LOAD_ADD_INVENTORY_SUCCESS:
             return {

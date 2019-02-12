@@ -38,3 +38,10 @@ export const PICTURE_SELECTION_FINISHED = 'picture_selection_finished';
 export const PICTURE_SELECTION_CANCELLED = 'picture_selection_cancelled';
 export const PICTURE_SELECTION_RESUMED = 'picture_selection_resumed';
 export const SUBMIT_INVENTORY_ITEM = 'submit_inventory_item';
+
+// Item Detail actions
+export const LOAD_ITEM_DETAIL = 'load_item_detail';
+export const LOAD_ITEM_DETAIL_SUCCESS = 'load_item_detail_success';
+export const LOAD_ITEM_DETAIL_FAIL = 'load_item_detail_fail';
+export const EDIT_INVENTORY_ITEM = 'edit_inventory_item';
+export const REMOVE_INVENTORY_ITEM = 'remove_inventory_item';

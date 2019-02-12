@@ -14,6 +14,7 @@ import Profile from './screens/Profile';
 import AvatarPicker from './screens/AvatarPicker';
 import AddInventory from './screens/AddInventory';
 import PicturePicker from './screens/PicturePicker';
+import ItemDetail from './screens/ItemDetail';
 
 // ----- Navigation ----- //
 const TopLevelNavigator = createStackNavigator(
@@ -23,10 +24,11 @@ const TopLevelNavigator = createStackNavigator(
         CreateProfile,
         AvatarPicker,
         AddInventory,
-        PicturePicker
+        PicturePicker,
+        ItemDetail
     },
     {
-        initialRouteName: 'AddInventory',
+        initialRouteName: 'ItemDetail',
         /* Shared navigationOptions across screens */
         defaultNavigationOptions: {
             headerStyle: {
@@ -43,19 +45,6 @@ const AppContainer = createAppContainer(TopLevelNavigator);
 // --------------------- //
 
 export default class App extends Component {
-    // ----- Lifecycle ----- //
-    // componentWillMount() {
-    //     const firebaseConfig = {
-    //         apiKey: 'AIzaSyAHxzpsQutIfJqj0iVpBFXlETB3PLumY00',
-    //         authDomain: 'sa-mobile-inventory.firebaseapp.com',
-    //         databaseURL: 'https://sa-mobile-inventory.firebaseio.com',
-    //         projectId: 'sa-mobile-inventory',
-    //         storageBucket: 'sa-mobile-inventory.appspot.com',
-    //         messagingSenderId: '1020733435614'
-    //     };
-    //     firebase.initializeApp(firebaseConfig);
-    // }
-    // --------------------- //
     render() {
         return (
             <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>

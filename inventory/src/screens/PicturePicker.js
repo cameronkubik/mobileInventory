@@ -13,7 +13,6 @@ class PicturePicker extends Component {
     static navigationOptions = ({navigation}) => {
         return {
             title: 'Select Item Pictures',
-            // headerRight: <HeaderRightButton onPress={onDonePress.bind(this)} />
             headerRight: (
                 <Button
                     onPress={navigation.getParam('onDonePress') || (() => 1)}

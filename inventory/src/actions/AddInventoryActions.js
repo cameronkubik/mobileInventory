@@ -1,5 +1,6 @@
 import firebase from 'react-native-firebase';
 import NavigationService from '../NavigationService';
+import DbManager from '../DatabaseManager';
 import { 
     LOAD_ADD_INVENTORY, LOAD_ADD_INVENTORY_SUCCESS, 
     LOAD_ADD_INVENTORY_FAIL, PICKER_CHANGE, TEXT_INPUT_CHANGE,
@@ -9,40 +10,17 @@ import {
 } from './types';
 
 export const load_add_inventory = () => {
-    return (dispatch) => {
+    return (dispatch) => { 
         dispatch({ type: LOAD_ADD_INVENTORY });
 
-        // TODO
-        // make request to wix api for category collections
-        // .then(successFunction)
-        // .catch(failFunction)
+        const loadedCategories = DbManager.get_picker_categories();
 
-        // placeholder:
-        const loadedCategories = [
-            { label: 'Apparel', value: 'app' },
-            { label: 'Art', value: 'art' },
-            { label: 'Bath', value: 'bat' },
-            { label: 'Brick', value: 'bri' },
-            { label: 'Corbels', value: 'cor' },
-            { label: 'Doors', value: 'doo' },
-            { label: 'Fountains', value: 'fou' },
-            { label: 'Furniture', value: 'fur' },
-            { label: 'Gates', value: 'gat' },
-            { label: 'Hardware', value: 'har' },
-            { label: 'Ironworks', value: 'iro' },
-            { label: 'Lighting', value: 'lig' },
-            { label: 'Lumber', value: 'lum' },
-            { label: 'Mailboxes', value: 'mai' },
-            { label: 'Mantels', value: 'man' },
-            { label: 'Shutters', value: 'shu' },
-            { label: 'Staircasing', value: 'sta' },
-            { label: 'Stonework', value: 'sto' },
-            { label: 'Tile', value: 'til' },
-            { label: 'Urns', value: 'urn' },
-            { label: 'Windows', value: 'win' }
-        ];
-
-        load_success(dispatch, { categories: loadedCategories });
+        if (loadedCategories) {
+            load_success(dispatch, { categories: loadedCategories });
+            return;
+        }
+        
+        load_fail(dispatch, { code: -1, message: 'error msg placeholder' });
     }
 }
 
