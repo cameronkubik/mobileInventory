@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { View, FlatList, StatusBar } from 'react-native';
+import { FlatList, StatusBar } from 'react-native';
 import { Header, SearchBar, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
+import NavigationService from '../NavigationService';
 import { 
     load_inventory_categories, category_search_text_changed,
     category_search_text_cleared, inventory_category_press
 } from '../actions';
 import { BaseContainer, Container, Spinner } from '../components/common';
-import { Styles as CommonStyles } from '../components/util/CommonStyles';
 
 class ViewInventory extends Component {
     static navigationOptions = {
@@ -15,9 +15,16 @@ class ViewInventory extends Component {
     }
 
     header = {
-        left: { icon: 'chevron-left', color: colors.accents, size: 36 },
-        title: { text: 'Inventory', style: Styles.header.title },
-        right: { icon: 'sort', color: colors.accents, size: 36 }
+        left: { 
+            icon: 'chevron-left',
+            color: colors.accents,
+            size: 36,
+            onPress: NavigationService.back
+        },
+        title: {
+            text: 'Inventory',
+            style: Styles.header.title
+        }
     }
 
     searchTextChange(text) {

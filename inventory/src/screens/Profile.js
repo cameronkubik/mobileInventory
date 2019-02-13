@@ -81,7 +81,7 @@ class Profile extends Component {
                 </Container>
 
                 <Container customStyle={[Styles.buttonContainer]}>
-                    <Button
+                    {/* <Button
                         large
                         rounded
                         raised
@@ -89,10 +89,9 @@ class Profile extends Component {
                         containerViewStyle={Styles.buttonGeneral}
                         rightIcon={{name: 'plus-circle', type: 'font-awesome'}}
                         title='Add Sale' 
-                    />
+                    /> */}
                     <Button
                         large
-                        rounded
                         raised
                         buttonStyle={Styles.buttonStyle}
                         containerViewStyle={Styles.buttonGeneral}
@@ -100,7 +99,7 @@ class Profile extends Component {
                         title='Add Inventory' 
                         onPress={this.onAddInventoryPress.bind(this)}
                     />
-                    <Button
+                    {/* <Button
                         large
                         rounded
                         raised
@@ -108,15 +107,15 @@ class Profile extends Component {
                         containerViewStyle={Styles.buttonGeneral}
                         rightIcon={{name: 'usd', type: 'font-awesome'}}
                         title='View Sales' 
-                    />
+                    /> */}
                     <Button
                         large
-                        rounded
                         raised
                         buttonStyle={Styles.buttonStyle}
                         containerViewStyle={Styles.buttonGeneral}
                         rightIcon={{name: 'search', type: 'font-awesome'}}
-                        title='View Inventory' 
+                        title='View Inventory'
+                        onPress={this.onViewInventoryPress.bind(this)}
                     />
                     <Button
                         rounded
@@ -154,15 +153,22 @@ const Styles = {
     },
 
     buttonGeneral: {
-        width: '80%'
+        width: '80%',
+        flex: 1,
+        borderRadius: 30,
+        // borderWidth: 2,
+        // borderColor: 'red',
+        marginVertical: 15
     },
     buttonLogout: {
         width: '50%',
-        marginBottom: 15
+        marginVertical: 15,
     },
     buttonStyle: {
         flexDirection: 'row', 
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        height: '100%',
+        borderRadius: 30
     },
 
 

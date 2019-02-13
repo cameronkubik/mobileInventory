@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { FlatList, StatusBar } from 'react-native';
 import { Header, SearchBar, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
+import NavigationService from '../NavigationService';
 import { 
     load_category_items, item_search_text_changed, item_search_text_cleared
 } from '../actions';
@@ -13,8 +14,16 @@ class ViewItems extends Component {
     }
 
     header = {
-        left: { icon: 'chevron-left', color: colors.accents, size: 36 },
-        title: { text: this.props.parentCategory, style: Styles.header.title },
+        left: { 
+            icon: 'chevron-left',
+            color: colors.accents,
+            size: 36,
+            onPress: NavigationService.back
+        },
+        title: { 
+            text: this.props.parentCategory,
+            style: Styles.header.title
+        },
     }
 
     searchTextChange(text) {

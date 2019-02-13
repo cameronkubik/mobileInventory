@@ -32,7 +32,7 @@ const TopLevelNavigator = createStackNavigator(
         ViewItems
     },
     {
-        initialRouteName: 'ViewInventory',
+        initialRouteName: 'Profile',
         /* Shared navigationOptions across screens */
         defaultNavigationOptions: {
             headerStyle: {
