@@ -45,3 +45,19 @@ export const LOAD_ITEM_DETAIL_SUCCESS = 'load_item_detail_success';
 export const LOAD_ITEM_DETAIL_FAIL = 'load_item_detail_fail';
 export const EDIT_INVENTORY_ITEM = 'edit_inventory_item';
 export const REMOVE_INVENTORY_ITEM = 'remove_inventory_item';
+
+// View Inventory actions
+export const LOAD_INVENTORY_CATEGORIES = 'load_inventory_categories';
+export const LOAD_INVENTORY_CATEGORIES_SUCCESS = 'load_inventory_categories_success';
+export const LOAD_INVENTORY_CATEGORIES_FAIL = 'load_inventory_categories_fail';
+export const CATEGORY_SEARCH_TEXT_CHANGED = 'category_search_text_changed';
+export const CATEGORY_SEARCH_TEXT_CLEARED = 'category_search_text_cleared';
+export const INVENTORY_CATEGORY_PRESS = 'inventory_category_press';
+export const INVENTORY_ITEM_PRESS = 'inventory_item_press';
+
+// View Items actions
+export const LOAD_CATEGORY_ITEMS = 'load_category_items';
+export const LOAD_CATEGORY_ITEMS_SUCCESS = 'load_category_items_success';
+export const LOAD_CATEGORY_ITEMS_FAIL = 'load_category_items_fail';
+export const ITEMS_SEARCH_TEXT_CHANGED = 'items_search_text_changed';
+export const ITEMS_SEARCH_TEXT_CLEARED = 'items_search_text_cleared';

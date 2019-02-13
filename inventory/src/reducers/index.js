@@ -4,6 +4,8 @@ import CreateProfileReducer from './CreateProfileReducer';
 import ProfileReducer from './ProfileReducer';
 import AddInventoryReducer from './AddInventoryReducer';
 import ItemDetailReducer from './ItemDetailReducer';
+import ViewInventoryReducer from './ViewInventoryReducer';
+import ViewItemsReducer from './ViewItemsReducer';
 
 export default combineReducers({
     // reducers
@@ -11,5 +13,7 @@ export default combineReducers({
     createProfile: CreateProfileReducer,
     profile: ProfileReducer,
     addInventory: AddInventoryReducer,
-    itemDetail: ItemDetailReducer
+    itemDetail: ItemDetailReducer,
+    viewInventory: ViewInventoryReducer,
+    viewItems: ViewItemsReducer
 });

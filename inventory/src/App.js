@@ -15,6 +15,8 @@ import AvatarPicker from './screens/AvatarPicker';
 import AddInventory from './screens/AddInventory';
 import PicturePicker from './screens/PicturePicker';
 import ItemDetail from './screens/ItemDetail';
+import ViewInventory from './screens/ViewInventory';
+import ViewItems from './screens/ViewItems';
 
 // ----- Navigation ----- //
 const TopLevelNavigator = createStackNavigator(
@@ -25,10 +27,12 @@ const TopLevelNavigator = createStackNavigator(
         AvatarPicker,
         AddInventory,
         PicturePicker,
-        ItemDetail
+        ItemDetail,
+        ViewInventory,
+        ViewItems
     },
     {
-        initialRouteName: 'ItemDetail',
+        initialRouteName: 'ViewInventory',
         /* Shared navigationOptions across screens */
         defaultNavigationOptions: {
             headerStyle: {

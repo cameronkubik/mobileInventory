@@ -1,49 +1,41 @@
 import React, { Component } from 'react';
-import { View, FlatList, StatusBar } from 'react-native';
+import { FlatList, StatusBar } from 'react-native';
 import { Header, SearchBar, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { 
-    load_inventory_categories, category_search_text_changed,
-    category_search_text_cleared, inventory_category_press
+    load_category_items, item_search_text_changed, item_search_text_cleared
 } from '../actions';
 import { BaseContainer, Container, Spinner } from '../components/common';
-import { Styles as CommonStyles } from '../components/util/CommonStyles';
 
-class ViewInventory extends Component {
+class ViewItems extends Component {
     static navigationOptions = {
         header: null
     }
 
     header = {
         left: { icon: 'chevron-left', color: colors.accents, size: 36 },
-        title: { text: 'Inventory', style: Styles.header.title },
-        right: { icon: 'sort', color: colors.accents, size: 36 }
+        title: { text: this.props.parentCategory, style: Styles.header.title },
     }
 
     searchTextChange(text) {
-        this.props.category_search_text_changed(text);
+        this.props.item_search_text_changed(text);
     }
     searchTextCleared() {
-        this.props.category_search_text_cleared();
-    }
-
-    onItemPress(categoryName) {
-        this.props.inventory_category_press(categoryName);
+        this.props.item_search_text_cleared();
     }
     
     // Render functions
     componentWillMount() {
-        this.props.load_inventory_categories();
+        this.props.load_category_items();
     }
 
     _renderRow({ item }) {
         return (
             <ListItem
-                title={item.name}
-                subtitle={`${item.items} items`}
-                avatar={{ uri: item.avatarUri }}
+                title={`${item.name} 000${item.itemID}`}
+                subtitle={`$ ${item.cost}`}
+                avatar={{ uri: item.imageUri }}
                 chevronColor='#606060'
-                onPress={() => this.onItemPress(item.name)}
             />
         );
     }
@@ -53,10 +45,10 @@ class ViewInventory extends Component {
             return <Spinner />;
         }
 
-        var listData = this.props.categories;
+        var listData = this.props.items;
 
-        if (this.props.filteredCategories) {
-            listData = this.props.filteredCategories;
+        if (this.props.filteredItems) {
+            listData = this.props.filteredItems;
         }
 
         return (
@@ -65,8 +57,8 @@ class ViewInventory extends Component {
             >
                 <FlatList
                     data={listData}
-                    renderItem={this._renderRow.bind(this)}
-                    keyExtractor={item => item.name}
+                    renderItem={this._renderRow}
+                    keyExtractor={item => item.itemID.toString()}
                 />
             </List>
         );
@@ -85,7 +77,6 @@ class ViewInventory extends Component {
                 <Header 
                     leftComponent={this.header.left}
                     centerComponent={this.header.title}
-                    rightComponent={this.header.right}
 
                     outerContainerStyles={Styles.header.outerContainer}
                     innerContainerStyles={Styles.header.innerContainer}
@@ -97,7 +88,7 @@ class ViewInventory extends Component {
                     containerStyle={Styles.header.searchContainer}
                     inputStyle={Styles.header.searchInput}
                     value={this.props.searchText}
-                    placeholder='Search for a category or item...'
+                    placeholder='Search for an item...'
                     placeholderTextColor='#fff'
                     lightTheme
                     clearIcon={{ name: 'clear', color: '#fff' }}
@@ -158,21 +149,21 @@ const Styles = {
     }
 };
 
-const mapStateToProps = ({ viewInventory }) => {
+const mapStateToProps = ({ viewItems }) => {
     const { 
-        searchText, categories, filteredCategories, loading, error
-    } = viewInventory;
+        searchText, parentCategory, items, filteredItems, loading, error
+    } = viewItems;
 
     return {
-        searchText,
-        categories,
-        filteredCategories,
+        searchText, 
+        parentCategory, 
+        items, 
+        filteredItems,
         loading,
         error
     };
 };
 
 export default connect(mapStateToProps, {
-    load_inventory_categories, category_search_text_changed,
-    category_search_text_cleared, inventory_category_press
-})(ViewInventory);
+    load_category_items, item_search_text_changed, item_search_text_cleared
+})(ViewItems);
