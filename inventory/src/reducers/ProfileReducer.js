@@ -7,14 +7,15 @@ const INITIAL_STATE = {
     position: '',
     avatar: null,
     isSignedIn: false,
-    loading: false
+    loading: false,
+    error: ''
 };
   
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case LOAD_USER:
             return { 
-                ...state, isSignedIn: false, loading: true 
+                ...state, isSignedIn: false, loading: true, error: ''
             };
         
         case LOAD_USER_SUCCESS:
@@ -24,13 +25,15 @@ export default (state = INITIAL_STATE, action) => {
                 position: action.payload.position,
                 avatar: action.payload.avatar,
                 isSignedIn: true, 
-                loading: false
+                loading: false,
+                error: ''
             };
         
         case LOAD_USER_FAIL:
             return {
-                ...state, isSignedIn: false, loading: false,
-                name: '', position: ''
+                ...state, 
+                loading: false,
+                error: action.payload
             };
 
         case LOG_OUT:

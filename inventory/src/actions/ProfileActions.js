@@ -11,15 +11,14 @@ export const loadUser = () => {
         dispatch({ type: LOAD_USER });
 
         firebase.firestore().collection('users').doc(`${currentUser.uid}`).get()
-            .then(snapshot => loadUserSuccess(snapshot, dispatch));
+            .then(snapshot => loadUserSuccess(snapshot, dispatch))
+            .catch(error => loadUserFail(error, dispatch));
     };
 };
 
 const loadUserSuccess = (querySnapshot, dispatch) => {
-    console.log(querySnapshot.data());
     const { firstName, lastName, position, avatar } = querySnapshot.data();
 
-    //dispatch success or fail
     dispatch({
         type: LOAD_USER_SUCCESS,
         payload: {
@@ -29,6 +28,15 @@ const loadUserSuccess = (querySnapshot, dispatch) => {
         }
     });
 };
+
+const loadUserFail = (error, dispatch) => {
+    console.log(error);
+    
+    dispatch({
+        type: LOAD_USER_FAIL,
+        payload: 'Failed to load user. Please try again...'
+    });
+}
 
 export const logOut = () => {
     return (dispatch) => {

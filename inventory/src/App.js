@@ -32,7 +32,7 @@ const TopLevelNavigator = createStackNavigator(
         ViewItems
     },
     {
-        initialRouteName: 'Profile',
+        initialRouteName: 'ViewItems',
         /* Shared navigationOptions across screens */
         defaultNavigationOptions: {
             headerStyle: {

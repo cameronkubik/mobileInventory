@@ -8,6 +8,7 @@ import {
     category_search_text_cleared, inventory_category_press
 } from '../actions';
 import { BaseContainer, Container, Spinner } from '../components/common';
+import { Styles as CommonStyles } from '../components/util/CommonStyles';
 
 class ViewInventory extends Component {
     static navigationOptions = {
@@ -94,8 +95,8 @@ class ViewInventory extends Component {
                     centerComponent={this.header.title}
                     rightComponent={this.header.right}
 
-                    outerContainerStyles={Styles.header.outerContainer}
-                    innerContainerStyles={Styles.header.innerContainer}
+                    outerContainerStyles={CommonStyles.header.outerContainer}
+                    innerContainerStyles={CommonStyles.header.innerContainer}
                 />
                 <SearchBar
                     round
@@ -132,16 +133,6 @@ const Styles = {
         title: { 
             color: '#fff',
             fontSize: 22
-        },
-        outerContainer: { 
-            width: '100%', 
-            backgroundColor: colors.header,
-            borderBottomColor: colors.header,
-        },
-        innerContainer: {
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            backgroundColor: colors.header
         },
         searchContainer: {
             width: '100%',

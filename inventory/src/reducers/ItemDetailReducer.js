@@ -2,6 +2,7 @@ import {
     LOAD_ITEM_DETAIL,
     LOAD_ITEM_DETAIL_SUCCESS,
     LOAD_ITEM_DETAIL_FAIL,
+    INVENTORY_ITEM_PRESS
 } from '../actions/types';
 
 const INITIAL_STATE = {

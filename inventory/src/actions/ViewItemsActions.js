@@ -4,8 +4,10 @@ import {
     LOAD_CATEGORY_ITEMS_SUCCESS,
     LOAD_CATEGORY_ITEMS_FAIL,
     ITEMS_SEARCH_TEXT_CHANGED,
-    ITEMS_SEARCH_TEXT_CLEARED
+    ITEMS_SEARCH_TEXT_CLEARED,
+    INVENTORY_ITEM_PRESS
 } from '../actions/types';
+import NavigationService from '../NavigationService';
 
 export const load_category_items = () => {
     return (dispatch) => {
@@ -31,6 +33,17 @@ export const item_search_text_changed = (value) => {
 
 export const item_search_text_cleared = () => {
     return { type: ITEMS_SEARCH_TEXT_CLEARED };
+}
+
+export const inventory_item_press = (itemID) => {
+    return (dispatch) => {
+        dispatch({
+            type: INVENTORY_ITEM_PRESS,
+            payload: itemID
+        });
+        
+        NavigationService.navigate('ItemDetail');
+    };
 }
 
 // Helper functions

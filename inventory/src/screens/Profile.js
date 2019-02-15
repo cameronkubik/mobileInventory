@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { Avatar, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { loadUser, logOut } from '../actions';
@@ -16,12 +16,10 @@ class Profile extends Component {
     }
 
     onAddInventoryPress() {
-        //nav to add inventory page
         this.props.navigation.navigate('AddInventory');
     }
 
     onViewInventoryPress() {
-        // nav to view inventory page
         this.props.navigation.navigate('ViewInventory');
     }
 
@@ -29,8 +27,24 @@ class Profile extends Component {
         this.props.logOut();
     }
 
+    // component based rendering functions
     renderAvatar() {
-        if (this.props.avatar) {
+        // when loading from server
+        if (this.props.loading) {
+            return (
+                <View style={{ flex: 1 }}>
+                    <Avatar
+                        xlarge
+                        rounded
+                        icon={{name: 'user', type: 'font-awesome'}}
+                        activeOpacity={0.7}
+                        containerStyle={{ marginBottom: 10 }}
+                    />
+                </View>
+            );
+        } 
+        // user has avatar photo
+        else if (this.props.avatar) {
             return (
                 <Avatar
                     xlarge
@@ -42,7 +56,9 @@ class Profile extends Component {
                 />
             );
             
-        } else if (this.props.name) {
+        } 
+        // user does not have avatar photo
+        else if (this.props.name) {
             let names = this.props.name.split(' ');
 
             let initials = names[0].split('')[0] + names[1].split('')[0];
@@ -58,7 +74,7 @@ class Profile extends Component {
                 />
             );
         } 
-
+        // should never execute but implemented as a failsafe
         return (
             <Avatar
                 xlarge
@@ -71,13 +87,27 @@ class Profile extends Component {
         )
     }
 
+    renderUserInfo() {
+        if (this.props.loading) {
+            return <Spinner />;
+        } else if (this.props.error) {
+            return <Text style={Styles.profileText}>{this.props.error}</Text>;
+        }
+
+        return (
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={Styles.profileText}>{this.props.name}</Text>
+                <Text style={Styles.profileText}>{this.props.position}</Text>
+            </View>
+        );
+    }
+
     render() {
         return (
             <BaseContainer customStyle={[Styles.screen]}>
                 <Container customStyle={[Styles.profileContainer]}>
                     {this.renderAvatar()}
-                    <Text style={Styles.profileText}>{this.props.name}</Text>
-                    <Text style={Styles.profileText}>{this.props.position}</Text>
+                    {this.renderUserInfo()}
                 </Container>
 
                 <Container customStyle={[Styles.buttonContainer]}>
@@ -109,12 +139,13 @@ class Profile extends Component {
                         title='View Sales' 
                     /> */}
                     <Button
+                        title='View Inventory'
                         large
                         raised
+                        activeOpacity={0.7}
                         buttonStyle={Styles.buttonStyle}
                         containerViewStyle={Styles.buttonGeneral}
                         rightIcon={{name: 'search', type: 'font-awesome'}}
-                        title='View Inventory'
                         onPress={this.onViewInventoryPress.bind(this)}
                     />
                     <Button
@@ -168,21 +199,20 @@ const Styles = {
         flexDirection: 'row', 
         justifyContent: 'space-between',
         height: '100%',
-        borderRadius: 30
-    },
-
-
-    dev: {
-        borderWidth: 1,
-        borderStyle: 'solid'
+        borderRadius: 30,
+        borderColor: 'white',
+        borderWidth: 1
     }
 }
 
 const mapStateToProps = ({profile}) => {
+    const { name, position, avatar, loading } = profile;
+
     return { 
-        name: profile.name,
-        position: profile.position,
-        avatar: profile.avatar
+        name,
+        position,
+        avatar,
+        loading
     };
 }
 

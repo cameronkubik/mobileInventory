@@ -53,7 +53,6 @@ export const LOAD_INVENTORY_CATEGORIES_FAIL = 'load_inventory_categories_fail';
 export const CATEGORY_SEARCH_TEXT_CHANGED = 'category_search_text_changed';
 export const CATEGORY_SEARCH_TEXT_CLEARED = 'category_search_text_cleared';
 export const INVENTORY_CATEGORY_PRESS = 'inventory_category_press';
-export const INVENTORY_ITEM_PRESS = 'inventory_item_press';
 
 // View Items actions
 export const LOAD_CATEGORY_ITEMS = 'load_category_items';
@@ -61,3 +60,4 @@ export const LOAD_CATEGORY_ITEMS_SUCCESS = 'load_category_items_success';
 export const LOAD_CATEGORY_ITEMS_FAIL = 'load_category_items_fail';
 export const ITEMS_SEARCH_TEXT_CHANGED = 'items_search_text_changed';
 export const ITEMS_SEARCH_TEXT_CLEARED = 'items_search_text_cleared';
+export const INVENTORY_ITEM_PRESS = 'inventory_item_press';

@@ -4,7 +4,8 @@ import { Header, SearchBar, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import NavigationService from '../NavigationService';
 import { 
-    load_category_items, item_search_text_changed, item_search_text_cleared
+    load_category_items, item_search_text_changed, 
+    item_search_text_cleared, inventory_item_press
 } from '../actions';
 import { BaseContainer, Container, Spinner } from '../components/common';
 
@@ -32,6 +33,10 @@ class ViewItems extends Component {
     searchTextCleared() {
         this.props.item_search_text_cleared();
     }
+
+    onItemPress(itemID) {
+        this.props.inventory_item_press(itemID);
+    }
     
     // Render functions
     componentWillMount() {
@@ -39,12 +44,25 @@ class ViewItems extends Component {
     }
 
     _renderRow({ item }) {
+        const itemName = `${item.name} 000${item.itemID}`,
+            itemCost = `$ ${item.cost}`,
+            itemAvatar = { uri: item.imageUri },
+            pressFunction = () => { this.onItemPress(item.itemID) };
+
+        const dev = (color) => { 
+            return { borderColor: color, borderWidth: 1 }; 
+        };
+
         return (
             <ListItem
-                title={`${item.name} 000${item.itemID}`}
-                subtitle={`$ ${item.cost}`}
-                avatar={{ uri: item.imageUri }}
+                title={itemName}
+                subtitle={itemCost}
+                avatar={itemAvatar}
                 chevronColor='#606060'
+                onPress={pressFunction}
+
+                // avatarStyle={dev('red')}
+                // containerStyle={dev('blue')}
             />
         );
     }
@@ -66,7 +84,7 @@ class ViewItems extends Component {
             >
                 <FlatList
                     data={listData}
-                    renderItem={this._renderRow}
+                    renderItem={this._renderRow.bind(this)}
                     keyExtractor={item => item.itemID.toString()}
                 />
             </List>
@@ -154,7 +172,8 @@ const Styles = {
     listContainer: {
         width: '100%',
         marginTop: 0,
-        borderTopWidth: 0
+        borderTopWidth: 0,
+        flex: 1
     }
 };
 
@@ -174,5 +193,6 @@ const mapStateToProps = ({ viewItems }) => {
 };
 
 export default connect(mapStateToProps, {
-    load_category_items, item_search_text_changed, item_search_text_cleared
+    load_category_items, item_search_text_changed, 
+    item_search_text_cleared, inventory_item_press
 })(ViewItems);

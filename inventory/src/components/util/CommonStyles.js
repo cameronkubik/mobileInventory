@@ -1,16 +1,17 @@
+// Constant colors
+const colors = {
+    header: '#606060',
+    base: '#d2d3db',
+    inputs: 'lightgray'
+};
+
 export const Styles = {
     BaseContainer: {
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#d2d3db'
-    },
-    PrimaryColor: {
-        color: '#483338'
-    },
-    AccentColor: {
-        color: '#7C8598'
+        backgroundColor: colors.base
     },
     inputGeneral: {
         borderStyle: 'solid',
@@ -22,13 +23,27 @@ export const Styles = {
         borderRadius: 30,
         padding: 10,
         margin: 5,
-        backgroundColor: 'lightgray',
+        backgroundColor: colors.inputs
     },
     errorMessage: {
         fontSize: 20,
         alignSelf: 'center',
         color: 'red',
         margin: 3
+    },
+    header: {
+        outerContainer: { 
+            width: '100%', 
+            backgroundColor: colors.header,
+            height: 48,
+            padding: 5,
+            borderBottomColor: colors.header
+        },
+        innerContainer: {
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            backgroundColor: colors.header
+        },
     },
     dev: {
         borderWidth: 1,

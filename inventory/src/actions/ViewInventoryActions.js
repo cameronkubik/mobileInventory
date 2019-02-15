@@ -6,7 +6,6 @@ import {
     CATEGORY_SEARCH_TEXT_CHANGED,
     CATEGORY_SEARCH_TEXT_CLEARED,
     INVENTORY_CATEGORY_PRESS,
-    INVENTORY_ITEM_PRESS,
 } from '../actions/types';
 import NavigationService from '../NavigationService';
 
