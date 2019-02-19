@@ -32,9 +32,10 @@ const TopLevelNavigator = createStackNavigator(
         ViewItems
     },
     {
-        initialRouteName: 'ViewItems',
+        initialRouteName: 'Login',
         /* Shared navigationOptions across screens */
         defaultNavigationOptions: {
+            // header: null
             headerStyle: {
                 backgroundColor: '#606060',
             },

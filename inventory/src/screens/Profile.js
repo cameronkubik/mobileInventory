@@ -111,15 +111,6 @@ class Profile extends Component {
                 </Container>
 
                 <Container customStyle={[Styles.buttonContainer]}>
-                    {/* <Button
-                        large
-                        rounded
-                        raised
-                        buttonStyle={Styles.buttonStyle}
-                        containerViewStyle={Styles.buttonGeneral}
-                        rightIcon={{name: 'plus-circle', type: 'font-awesome'}}
-                        title='Add Sale' 
-                    /> */}
                     <Button
                         large
                         raised
@@ -129,15 +120,6 @@ class Profile extends Component {
                         title='Add Inventory' 
                         onPress={this.onAddInventoryPress.bind(this)}
                     />
-                    {/* <Button
-                        large
-                        rounded
-                        raised
-                        buttonStyle={Styles.buttonStyle}
-                        containerViewStyle={Styles.buttonGeneral}
-                        rightIcon={{name: 'usd', type: 'font-awesome'}}
-                        title='View Sales' 
-                    /> */}
                     <Button
                         title='View Inventory'
                         large

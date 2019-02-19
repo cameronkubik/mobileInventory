@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Text, TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import NavigationService from '../NavigationService';
-import { emailChanged, passwordChanged, loginUser } from '../actions';
+import { onInputChange, loginUser, resetLogin } from '../actions';
 import { BaseContainer, Container, Logo, Spinner, } from '../components/common';
 import { Styles as CommonStyles } from '../components/util/CommonStyles';
 
@@ -15,12 +14,15 @@ class Login extends Component {
         },
     };
 
+    /** Screen functions */
     onEmailChanged(text) {
-        this.props.emailChanged(text);
+        this.props.onInputChange('email', text);
     }
+
     onPasswordChanged(text) {
-        this.props.passwordChanged(text);
+        this.props.onInputChange('password', text);
     }
+
     onLoginPress() {
         const { email, password } = this.props;
 
@@ -28,9 +30,10 @@ class Login extends Component {
     }
 
     onCreateProfilePress() {
-        NavigationService.navigate('CreateProfile');
+        this.props.resetLogin();
     }
 
+    /** Rendering functions */
     renderErrorMessage() {
         if (this.props.error) {
             return (
@@ -41,14 +44,41 @@ class Login extends Component {
         }
     }
 
-    renderSpinner() {
+    renderButton() {
         if (this.props.loading) {
             return (
-                <Spinner />
+                <Button 
+                    title="Login"
+                    backgroundColor='gray'
+                    color='#d2d3db'
+                    fontWeight='700'
+                    borderRadius={30}
+                    fontSize={20}
+                    containerViewStyle={{ borderRadius: 20 }}
+                    buttonStyle={Styles.buttons}
+                    rounded
+                    loading
+                />
             );
         }
+
+        return (
+            <Button 
+                title="Login"
+                onPress={this.onLoginPress.bind(this)}
+                rounded
+                backgroundColor='gray'
+                color='#d2d3db'
+                buttonStyle={Styles.buttons}
+                borderRadius={30}
+                fontWeight='700'
+                fontSize={20}
+                containerViewStyle={{ borderRadius: 20 }}
+            />
+        );
     }
 
+    /** MAIN RENDER */
     render() {
         return (
             <BaseContainer customStyle={Styles.screen}>
@@ -72,18 +102,8 @@ class Login extends Component {
 
                     {this.renderErrorMessage()}
                     
-                    <Button 
-                        title="Login"
-                        onPress={this.onLoginPress.bind(this)}
-                        rounded
-                        backgroundColor='gray'
-                        color='#d2d3db'
-                        buttonStyle={Styles.buttons}
-                        borderRadius={30}
-                        fontWeight='700'
-                        fontSize={20}
-                        containerViewStyle={{ borderRadius: 20 }}
-                    />
+                    {this.renderButton()}
+
                     <Button 
                         title="or Create Profile"
                         onPress={this.onCreateProfilePress.bind(this)}
@@ -94,8 +114,6 @@ class Login extends Component {
                         fontWeight='700'
                         containerViewStyle={{ borderRadius: 20 }}
                     />
-
-                    {this.renderSpinner()}
                 </Container>
 
             </BaseContainer>
@@ -103,6 +121,7 @@ class Login extends Component {
     };
 }
 
+/** Styles local to screen */
 const Styles = {
     screen: {
         justifyContent: 'space-around',
@@ -112,7 +131,6 @@ const Styles = {
         width: '100%',
         flex: 3
     },
-
     buttons: {
         height: 60,
         width: 175
@@ -120,14 +138,16 @@ const Styles = {
 };
 
 const mapStateToProps = ({auth}) => {
+    const { email, password, error, loading } = auth;
+
     return {
-        email: auth.email,
-        password: auth.password,
-        error: auth.error,
-        loading: auth.loading
+        email,
+        password,
+        error,
+        loading
     }
 }
 
 export default connect(mapStateToProps, { 
-    emailChanged, passwordChanged, loginUser
+    onInputChange, loginUser, resetLogin
 })(Login);

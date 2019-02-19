@@ -1,27 +1,22 @@
 // Action types defined in this file
 
 // Login page actions
-export const EMAIL_CHANGED = 'email_changed';
-export const PASSWORD_CHANGED = 'password_changed';
+export const AUTH_INPUT_CHANGE = 'auth_input_change';
+export const LOGIN_USER_BEGIN = 'login_user_begin';
 export const LOGIN_USER_SUCCESS = 'login_user_success';
 export const LOGIN_USER_FAIL = 'login_user_fail';
-export const LOGIN_USER = 'login_user';
+export const AUTH_RESET = 'auth_reset';
 
 // Create Profile actions
-export const FIRST_CHANGED = 'first_changed';
-export const LAST_CHANGED = 'last_changed';
-export const CREATE_EMAIL_CHANGED = 'create_email_changed';
-export const CREATE_PASSWORD_CHANGED = 'create_password_changed';
-export const CONFIRM_PASSWORD_CHANGED = 'confirm_password_changed';
-export const POSITION_CHANGED = 'position_changed';
+export const CREATE_PROFILE_INPUT_CHANGE = 'create_profile_input_change';
 export const CREATE_USER_SUCCESS = 'create_user_success';
 export const CREATE_USER_FAIL = 'create_user_fail';
-export const CREATE_USER = 'create_user';
+export const CREATE_USER_BEGIN = 'create_user_begin';
 export const AVATAR_PRESS = 'avatar_press';
 export const AVATAR_SELECTED = 'avatar_selected';
 
 // Profile actions
-export const LOAD_USER = 'load_user';
+export const LOAD_USER_BEGIN = 'load_user';
 export const LOAD_USER_SUCCESS = 'load_user_success';
 export const LOAD_USER_FAIL = 'load_user_fail';
 export const LOG_OUT = 'log_out';

@@ -4,8 +4,7 @@ import { Avatar, Button, FormLabel,
     FormInput, FormValidationMessage } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { StackActions } from 'react-navigation';
-import { firstChanged, lastChanged, createEmailChanged, createPasswordChanged, 
-    confirmedPasswordChanged, positionChanged, createUser, avatarPress } from '../actions';
+import { createProfileInputChange, createUser, avatarPress } from '../actions';
 import { BaseContainer, Container, Spinner } from '../components/common';
 import { Styles as CommonStyles } from '../components/util/CommonStyles';
 
@@ -19,22 +18,22 @@ class CreateProfile extends Component {
         this.props.avatarPress();
     }
     onFirstChanged(text) {
-        this.props.firstChanged(text);
+        this.props.createProfileInputChange('first', text);
     }
     onLastChanged(text) {
-        this.props.lastChanged(text);
+        this.props.createProfileInputChange('last', text);
     }
     onEmailChanged(text) {
-        this.props.createEmailChanged(text);
+        this.props.createProfileInputChange('email', text);
     }
     onPasswordChanged(text) {
-        this.props.createPasswordChanged(text);
+        this.props.createProfileInputChange('password', text);
     }
     onConfirmedPasswordChanged(text) {
-        this.props.confirmedPasswordChanged(text);
+        this.props.createProfileInputChange('confirmedPassword', text);
     }
     onPositionChanged(text) {
-        this.props.positionChanged(text);
+        this.props.createProfileInputChange('position', text);
     }
     onCreateAccountPress() {
         const dataModel = {
@@ -53,14 +52,14 @@ class CreateProfile extends Component {
     renderAvatar() {
         if (this.props.avatar) {
             return (
-                    <Avatar
-                        xlarge
-                        rounded
-                        source={{ uri: this.props.avatar.uri }}
-                        onPress={this.onAvatarPress.bind(this)}
-                        activeOpacity={0.7}
-                        containerStyle={{ marginBottom: 10 }}
-                    />
+                <Avatar
+                    xlarge
+                    rounded
+                    source={{ uri: this.props.avatar.uri }}
+                    onPress={this.onAvatarPress.bind(this)}
+                    activeOpacity={0.7}
+                    containerStyle={{ marginBottom: 10 }}
+                />
             );
         }
 
@@ -90,15 +89,15 @@ class CreateProfile extends Component {
         return (
             <Button 
                 title="Create Account"
-                onPress={this.onCreateAccountPress.bind(this)}
-                rounded
                 backgroundColor='blue'
                 color='#d2d3db'
-                buttonStyle={Styles.buttons}
-                borderRadius={30}
                 fontWeight='700'
+                borderRadius={30}
                 fontSize={20}
+                buttonStyle={Styles.buttons}
                 containerViewStyle={Styles.buttonContainer}
+                onPress={this.onCreateAccountPress.bind(this)}
+                rounded
             />
         );
     }
@@ -168,6 +167,7 @@ class CreateProfile extends Component {
 const Styles = {
     avatarContainer: {
         flexDirection: 'row',
+        margin: 10
     },
     inputContainer: {
         flex: 2,
@@ -215,6 +215,5 @@ const mapStateToProps = ({createProfile}) => {
 }
 
 export default connect(mapStateToProps, {
-    firstChanged, lastChanged, createEmailChanged, createPasswordChanged,
-    confirmedPasswordChanged, positionChanged, createUser, avatarPress
+    createProfileInputChange, createUser, avatarPress
 })(CreateProfile);

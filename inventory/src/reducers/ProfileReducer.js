@@ -1,5 +1,8 @@
-import { LOAD_USER, LOG_OUT,
-    LOAD_USER_SUCCESS, LOAD_USER_FAIL
+import { 
+    LOAD_USER_BEGIN,
+    LOG_OUT,
+    LOAD_USER_SUCCESS,
+    LOAD_USER_FAIL
 } from '../actions/types';
   
 const INITIAL_STATE = {
@@ -13,7 +16,7 @@ const INITIAL_STATE = {
   
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case LOAD_USER:
+        case LOAD_USER_BEGIN:
             return { 
                 ...state, isSignedIn: false, loading: true, error: ''
             };

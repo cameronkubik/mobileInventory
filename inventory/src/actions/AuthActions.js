@@ -1,30 +1,23 @@
 import firebase from 'react-native-firebase';
 import NavigationService from '../NavigationService';
 import {
-    EMAIL_CHANGED,
-    PASSWORD_CHANGED,
+    AUTH_INPUT_CHANGE,
+    AUTH_RESET,
     LOGIN_USER_SUCCESS,
     LOGIN_USER_FAIL,
-    LOGIN_USER
+    LOGIN_USER_BEGIN
 } from './types';
 
-export const emailChanged = (text) => {
+export const onInputChange = (field, value) => {
     return {
-        type: EMAIL_CHANGED,
-        payload: text
+        type: AUTH_INPUT_CHANGE,
+        payload: { field, value }
     };
-};
-
-export const passwordChanged = (text) => {
-    return {
-        type: PASSWORD_CHANGED,
-        payload: text
-    };
-};
+}
 
 export const loginUser = ({ email, password }) => {
     return (dispatch) => {
-        dispatch({ type: LOGIN_USER });
+        dispatch({ type: LOGIN_USER_BEGIN });
 
         if (!email && !password) {
             loginUserFail(dispatch, { code: 'custom/no-creds' });
@@ -43,6 +36,15 @@ export const loginUser = ({ email, password }) => {
     };
 };
 
+export const resetLogin = () => {
+    return (dispatch) => {
+        dispatch({ type: AUTH_RESET });
+
+        NavigationService.navigate('CreateProfile');
+    }
+}
+
+// Helper functions
 const loginUserFail = (dispatch, error) => {
     console.log(error);
     let errorMsg = '';
