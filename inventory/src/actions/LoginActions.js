@@ -40,7 +40,7 @@ export const resetLogin = () => {
     return (dispatch) => {
         dispatch({ type: AUTH_RESET });
 
-        NavigationService.navigate('CreateProfile');
+        NavigationService.push('CreateProfile');
     }
 }
 

@@ -1,4 +1,4 @@
-export * from './AuthActions';
+export * from './LoginActions';
 export * from './CreateProfileActions';
 export * from './ProfileActions';
 export * from './AddInventoryActions';

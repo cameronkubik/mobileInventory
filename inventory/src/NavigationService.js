@@ -36,6 +36,15 @@ function back() {
     );
 }
 
+function push(routeName, params) {
+    _navigator.dispatch(
+        StackActions.push({
+            routeName,
+            params: params || {}
+        })
+    );
+}
+
 // add other navigation functions that you need and export them
 
 export default {
@@ -43,5 +52,6 @@ export default {
     replace,
     reset,
     back,
+    push,
     setTopLevelNavigator,
 };

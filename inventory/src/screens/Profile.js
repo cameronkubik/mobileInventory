@@ -1,16 +1,32 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { Avatar, Button } from 'react-native-elements';
+import { View, Text, StatusBar } from 'react-native';
+import { Avatar, Button, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { loadUser, logOut } from '../actions';
 import { BaseContainer, Container, Spinner } from '../components/common';
+import EditButton from './EditButton';
+import { Styles as CommonStyles } from '../components/util/CommonStyles';
 
 class Profile extends Component {
      
+    /** Screen independent configuration options */
     static navigationOptions = {
-        title: 'Home'
+        headerTitle: 'Home',
+        headerRight: <EditButton />
+        // headerRight: (
+        //     <Icon
+        //         onPress={() => { console.log('TODO') }}
+        //         name='edit'
+        //         type='font-awesome'
+        //         color='white'
+        //         containerStyle={{ padding: 5 }}
+        //         size={26}
+        //     />
+        // )
     }
+    /*******************************************/
 
+    /** Lifecycle & local functions */
     componentWillMount() {
         this.props.loadUser();
     }
@@ -26,8 +42,9 @@ class Profile extends Component {
     onLogOutPress() {
         this.props.logOut();
     }
+    /*******************************************/
 
-    // component based rendering functions
+    /** Component based rendering functions */
     renderAvatar() {
         // when loading from server
         if (this.props.loading) {
@@ -50,7 +67,7 @@ class Profile extends Component {
                     xlarge
                     rounded
                     source={{ uri: this.props.avatar.uri }}
-                    onPress={() => console.log("Icon pressed")}
+                    onPress={() => console.log("TODO")}
                     activeOpacity={0.7}
                     containerStyle={{ marginBottom: 10 }}
                 />
@@ -68,7 +85,7 @@ class Profile extends Component {
                     xlarge
                     rounded
                     title={initials}
-                    onPress={() => console.log("Icon pressed")}
+                    onPress={() => console.log("TODO")}
                     activeOpacity={0.7}
                     containerStyle={{ marginBottom: 10 }}
                 />
@@ -80,7 +97,7 @@ class Profile extends Component {
                 xlarge
                 rounded
                 icon={{name: 'user', type: 'font-awesome'}}
-                onPress={() => console.log("Icon pressed")}
+                onPress={() => console.log("TODO")}
                 activeOpacity={0.7}
                 containerStyle={{ marginBottom: 10 }}
             />
@@ -105,6 +122,7 @@ class Profile extends Component {
     render() {
         return (
             <BaseContainer customStyle={[Styles.screen]}>
+                <StatusBar barStyle='light-content' />
                 <Container customStyle={[Styles.profileContainer]}>
                     {this.renderAvatar()}
                     {this.renderUserInfo()}
@@ -151,7 +169,7 @@ const Styles = {
     profileContainer: {
         flex: 2,
         width: '100%',
-        backgroundColor: '#5b5b5b'
+        backgroundColor: '#606060'
     },
     buttonContainer: {
         flex: 3,
@@ -169,8 +187,6 @@ const Styles = {
         width: '80%',
         flex: 1,
         borderRadius: 30,
-        // borderWidth: 2,
-        // borderColor: 'red',
         marginVertical: 15
     },
     buttonLogout: {

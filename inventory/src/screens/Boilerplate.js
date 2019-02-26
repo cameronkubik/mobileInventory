@@ -7,19 +7,18 @@ import { Styles as CommonStyles } from '../components/util/CommonStyles';
 class Boilerplate extends Component {
 
     /** screen independent configuration options */
-    static navigationOptions = {
-        headerStyle: {
-            backgroundColor: 'white'
-        },
-    };
+    // static navigationOptions = {
+    //     headerStyle: {
+    //         backgroundColor: 'white'
+    //     },
+    // };
+    /*******************************************/
 
     /** Screen functions */
-    // onInputChanged(value) {
-    //     this.props.onInputChangeFunction('field', value);
+    // screenFunction(args) {
+    //     ... function body
     // }
-    // onButtonPress() {
-    //     this.props.onButtonPressFunction();
-    // }
+    /*******************************************/
 
     /** Rendering functions */
     // renderErrorMessage() {
@@ -31,48 +30,26 @@ class Boilerplate extends Component {
     //         );
     //     }
     // }
+    /*******************************************/
 
     /** MAIN RENDER */
-    render() {
-        return (
-            <BaseContainer customStyle={Styles.screen}>
-                
-                <Container customStyle={Styles.inputContainer}>
-                    {this.renderErrorMessage()}
-                </Container>
-
-            </BaseContainer>
-        );
-    };
+    // render() {
+    //      return (... JSX); 
+    // };
 }
 
 /** Styles local to screen */
 // const Styles = {
-//     screen: {
-//         justifyContent: 'space-around',
-//     },
-//     inputContainer: {
-//         justifyContent: 'flex-start',
-//         width: '100%',
-//         flex: 3
-//     },
-//     buttons: {
-//         height: 60,
-//         width: 175
-//     },
+//     screenArtifact: {}
 // };
+/*******************************************/
 
-// const mapStateToProps = ({auth}) => {
-//     const { email, password, error, loading } = auth;
-
-//     return {
-//         email,
-//         password,
-//         error,
-//         loading
-//     }
+/** Redux helpers */
+// const mapStateToProps = (state) => {
+// return { ... }
 // }
+/*******************************************/
 
 // export default connect(mapStateToProps, { 
-//     onInputChange, loginUser, resetLogin
+//      ... methods needing dispatch
 // })(Boilerplate);

@@ -36,7 +36,7 @@ export const Styles = {
             width: '100%', 
             backgroundColor: colors.header,
             height: 48,
-            padding: 5,
+            padding: 10,
             borderBottomColor: colors.header
         },
         innerContainer: {
@@ -47,7 +47,8 @@ export const Styles = {
     },
     dev: {
         borderWidth: 1,
-        borderStyle: 'solid'
+        borderStyle: 'solid',
+        borderColor: 'red'
     }
 };
 

@@ -17,12 +17,14 @@ import PicturePicker from './screens/PicturePicker';
 import ItemDetail from './screens/ItemDetail';
 import ViewInventory from './screens/ViewInventory';
 import ViewItems from './screens/ViewItems';
+import EditButton from './screens/EditButton';
 
 // ----- Navigation ----- //
 const TopLevelNavigator = createStackNavigator(
     {
         Login,
         Profile,
+        EditButton,
         CreateProfile,
         AvatarPicker,
         AddInventory,
@@ -32,17 +34,14 @@ const TopLevelNavigator = createStackNavigator(
         ViewItems
     },
     {
-        initialRouteName: 'Login',
+        initialRouteName: 'ItemDetail',
         /* Shared navigationOptions across screens */
         defaultNavigationOptions: {
             // header: null
             headerStyle: {
                 backgroundColor: '#606060',
             },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                fontWeight: 'bold',
-            },
+            headerTintColor: 'white'
         },
     }
 );

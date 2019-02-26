@@ -14,11 +14,11 @@ const INITIAL_STATE = {
     password: '',
     confirmedPassword: '',
     position: '',
-    user: null,
     error: '',
     loading: false,
     avatar: null,
-    isSelectingAvatar: false
+    isSelectingAvatar: false,
+    isEditMode: false // needs functionality
 };
   
 export default (state = INITIAL_STATE, action) => {
@@ -30,10 +30,14 @@ export default (state = INITIAL_STATE, action) => {
             };
             
         case CREATE_USER_BEGIN:
-            return { ...state, loading: true, error: '' };
+            return {
+                ...state,
+                loading: true,
+                error: ''
+            };
 
         case CREATE_USER_SUCCESS:
-            return { ...state, ...INITIAL_STATE, user: action.payload };
+            return { ...INITIAL_STATE };
 
         case CREATE_USER_FAIL:
             let modifiedState = processCreateUserFailCode(action);
@@ -54,10 +58,17 @@ export default (state = INITIAL_STATE, action) => {
             };
 
         case AVATAR_PRESS:
-            return { ...state, isSelectingAvatar: true };
+            return {
+                ...state,
+                isSelectingAvatar: true
+            };
 
         case AVATAR_SELECTED:
-            return { ...state, isSelectingAvatar: false, avatar: action.payload }
+            return { 
+                ...state, 
+                isSelectingAvatar: false, 
+                avatar: action.payload 
+            };
 
         default:
             return state;

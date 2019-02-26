@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
-import { Avatar, Button, FormLabel, 
-    FormInput, FormValidationMessage } from 'react-native-elements';
+import { View, Text } from 'react-native';
+import {
+    Avatar, Button, FormLabel, FormInput
+} from 'react-native-elements';
 import { connect } from 'react-redux';
-import { StackActions } from 'react-navigation';
 import { createProfileInputChange, createUser, avatarPress } from '../actions';
 import { BaseContainer, Container, Spinner } from '../components/common';
 import { Styles as CommonStyles } from '../components/util/CommonStyles';
@@ -52,26 +52,30 @@ class CreateProfile extends Component {
     renderAvatar() {
         if (this.props.avatar) {
             return (
-                <Avatar
-                    xlarge
-                    rounded
-                    source={{ uri: this.props.avatar.uri }}
-                    onPress={this.onAvatarPress.bind(this)}
-                    activeOpacity={0.7}
-                    containerStyle={{ marginBottom: 10 }}
-                />
+                <Container>
+                    <Avatar
+                        xlarge
+                        rounded
+                        source={{ uri: this.props.avatar.uri }}
+                        onPress={this.onAvatarPress.bind(this)}
+                        activeOpacity={0.7}
+                    />
+                    <FormLabel>Edit Avatar</FormLabel>
+                </Container>
             );
         }
 
         return (
-            <Avatar
-                xlarge
-                rounded
-                icon={{name: 'user', type: 'font-awesome'}}
-                onPress={this.onAvatarPress.bind(this)}
-                activeOpacity={0.7}
-                containerStyle={{ marginBottom: 10 }}
-            />
+            <Container>
+                <Avatar
+                    xlarge
+                    rounded
+                    icon={{name: 'user', type: 'font-awesome'}}
+                    onPress={this.onAvatarPress.bind(this)}
+                    activeOpacity={0.7}
+                />
+                <FormLabel>Add Avatar</FormLabel>
+            </Container>
         );
     }
 
@@ -86,9 +90,11 @@ class CreateProfile extends Component {
             return <Spinner customStyle={{ alignSelf: 'center' }} />
         }
 
+        let btnTitle = this.props.isEditMode ? 'Save' : 'Create Account';
+
         return (
             <Button 
-                title="Create Account"
+                title={btnTitle}
                 backgroundColor='blue'
                 color='#d2d3db'
                 fontWeight='700'
@@ -103,6 +109,10 @@ class CreateProfile extends Component {
     }
 
     render() {
+        if (this.props.isSelectingAvatar) {
+            return <View />;
+        }
+
         return (
             <BaseContainer customStyle={{ padding: 20 }}>
                 <Container customStyle={[Styles.avatarContainer]}>
@@ -167,7 +177,8 @@ class CreateProfile extends Component {
 const Styles = {
     avatarContainer: {
         flexDirection: 'row',
-        margin: 10
+        margin: 10,
+        marginBottom: 0
     },
     inputContainer: {
         flex: 2,
@@ -198,7 +209,7 @@ const mapStateToProps = ({createProfile}) => {
     const { 
         first, last, email, password, 
         confirmedPassword, position, avatar,
-        error, loading
+        error, loading, isSelectingAvatar, isEditMode
     } = createProfile;
     
     return {
@@ -209,8 +220,10 @@ const mapStateToProps = ({createProfile}) => {
         confirmedPassword,
         position,
         avatar,
-        error, 
-        loading
+        error,
+        loading,
+        isSelectingAvatar,
+        isEditMode
     }
 }
 

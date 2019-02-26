@@ -1,7 +1,11 @@
 import firebase from 'react-native-firebase';
 import NavigationService from '../NavigationService';
 import { 
-    LOAD_USER_BEGIN, LOAD_USER_SUCCESS, LOAD_USER_FAIL, LOG_OUT 
+    LOAD_USER_BEGIN,
+    LOAD_USER_SUCCESS,
+    LOAD_USER_FAIL,
+    LOG_OUT,
+    EDIT_PROFILE_PRESS 
 } from './types';
 
 export const loadUser = () => {
@@ -47,3 +51,16 @@ export const logOut = () => {
         NavigationService.reset();
     };
 };
+
+export const onEditProfilePress = () => {
+    return (dispatch) => {
+        const { currentUser } = firebase.auth();
+        debugger;
+        dispatch({ 
+            type: EDIT_PROFILE_PRESS,
+            payload: currentUser
+        });
+
+        NavigationService.navigate('EditProfile');
+    }
+}

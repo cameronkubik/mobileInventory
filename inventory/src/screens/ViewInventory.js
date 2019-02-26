@@ -93,7 +93,6 @@ class ViewInventory extends Component {
                 <Header 
                     leftComponent={this.header.left}
                     centerComponent={this.header.title}
-                    rightComponent={this.header.right}
 
                     outerContainerStyles={CommonStyles.header.outerContainer}
                     innerContainerStyles={CommonStyles.header.innerContainer}

@@ -46,10 +46,9 @@ const createUserSuccess = (dispatch, userCredentials, dataModel) => {
     var userRef = firebase.firestore().collection('users').doc(userCredentials.user.uid);
     userRef.set(dataModel)
         .then(() => {
-            dispatch({
-                type: CREATE_USER_SUCCESS,
-                payload: userCredentials
-            });
+            console.log(userCredentials);
+
+            dispatch({ type: CREATE_USER_SUCCESS });
         
             NavigationService.replace('Profile');
         })

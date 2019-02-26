@@ -20,6 +20,7 @@ export const LOAD_USER_BEGIN = 'load_user';
 export const LOAD_USER_SUCCESS = 'load_user_success';
 export const LOAD_USER_FAIL = 'load_user_fail';
 export const LOG_OUT = 'log_out';
+export const EDIT_PROFILE_PRESS = 'edit_profile_press';
 
 // Add Inventory actions
 export const LOAD_ADD_INVENTORY = 'load_add_inventory';

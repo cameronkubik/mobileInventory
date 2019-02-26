@@ -7,12 +7,18 @@ import { BaseContainer, Container, Logo, Spinner, } from '../components/common';
 import { Styles as CommonStyles } from '../components/util/CommonStyles';
 
 class Login extends Component {
-    // screen independent configuration options
+    
+    /** Screen independent configuration options */
     static navigationOptions = {
         headerStyle: {
             backgroundColor: '#d2d3db'
         },
     };
+    /*******************************************/
+
+    /** Lifecycle methods */
+    // none yet
+    /*******************************************/
 
     /** Screen functions */
     onEmailChanged(text) {
@@ -32,6 +38,7 @@ class Login extends Component {
     onCreateProfilePress() {
         this.props.resetLogin();
     }
+    /*******************************************/
 
     /** Rendering functions */
     renderErrorMessage() {
@@ -57,6 +64,7 @@ class Login extends Component {
                     containerViewStyle={{ borderRadius: 20 }}
                     buttonStyle={Styles.buttons}
                     rounded
+                    raised
                     loading
                 />
             );
@@ -67,6 +75,7 @@ class Login extends Component {
                 title="Login"
                 onPress={this.onLoginPress.bind(this)}
                 rounded
+                raised
                 backgroundColor='gray'
                 color='#d2d3db'
                 buttonStyle={Styles.buttons}
@@ -77,6 +86,7 @@ class Login extends Component {
             />
         );
     }
+    /*******************************************/
 
     /** MAIN RENDER */
     render() {
@@ -109,7 +119,7 @@ class Login extends Component {
                         onPress={this.onCreateProfilePress.bind(this)}
                         color="orange"
                         backgroundColor="#d2d3db"
-                        buttonStyle={[Styles.buttons]}
+                        buttonStyle={[Styles.buttons, { borderWidth: 0 }]}
                         borderRadius={20}
                         fontWeight='700'
                         containerViewStyle={{ borderRadius: 20 }}
@@ -133,10 +143,15 @@ const Styles = {
     },
     buttons: {
         height: 60,
-        width: 175
+        width: 175,
+        borderColor: 'white',
+        borderWidth: 1,
+        marginTop: 5
     },
 };
+/*******************************************/
 
+/** Redux helpers */
 const mapStateToProps = ({auth}) => {
     const { email, password, error, loading } = auth;
 
@@ -147,6 +162,7 @@ const mapStateToProps = ({auth}) => {
         loading
     }
 }
+/*******************************************/
 
 export default connect(mapStateToProps, { 
     onInputChange, loginUser, resetLogin

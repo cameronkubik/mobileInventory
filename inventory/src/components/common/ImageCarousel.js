@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import  { 
-    Dimensions, Platform, StyleSheet,
+    Dimensions, 
+    Platform, 
+    StyleSheet,
     View, 
 } from 'react-native';
-import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
+import Carousel, { ParallaxImage, Pagination } from 'react-native-snap-carousel';
 import  { Styles as CommonStyles } from '../util/CommonStyles';
 
 class ImageCarousel extends Component {
@@ -27,15 +29,17 @@ class ImageCarousel extends Component {
 
     render() {
         return  (
-            <Carousel 
-                data={this.props.data}
-                renderItem={this._renderItem}
-                hasParallaxImages={true}
-                itemWidth={itemWidth}
-                sliderWidth={sliderWidth}
-                firstItem={Math.floor(this.props.data.length / 2)}
-                containerCustomStyle={[Styles.carouselContainer]}
-            />
+            <View>
+                <Carousel 
+                    data={this.props.data}
+                    renderItem={this._renderItem}
+                    hasParallaxImages={true}
+                    itemWidth={itemWidth}
+                    sliderWidth={sliderWidth}
+                    firstItem={Math.floor(this.props.data.length / 2)}
+                    layout={'default'}
+                />
+            </View>
         );
     }
 

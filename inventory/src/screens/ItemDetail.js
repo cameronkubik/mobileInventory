@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Dimensions } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { 
@@ -11,7 +11,7 @@ import { Styles as CommonStyles } from '../components/util/CommonStyles';
 class ItemDetail extends Component {
 
     static navigationOptions = {
-        title: 'Item (Placeholder, TODO)'
+        title: 'Item (Placeholder TODO)'
     };
 
     componentWillMount() {
@@ -20,7 +20,7 @@ class ItemDetail extends Component {
 
     onEditPress() {
         debugger;
-        // NOT YET TESTED
+        // NOT YET TESTED - TODO
         if (this.props.loading) return;
 
         const { pictures, description, dimensions, category } = this.props;
@@ -78,7 +78,7 @@ class ItemDetail extends Component {
 
     render() {
         return (
-            <BaseContainer customStyle={Styles.base}>
+            <BaseContainer>
                 {/* Carousel */}
                 <Container customStyle={[Styles.pictureContainer]}>
                     {this.renderCarousel()}
@@ -120,7 +120,6 @@ class ItemDetail extends Component {
 }
 
 const Styles = {
-    base: {},
     pictureContainer: {
         flex: 1,
         backgroundColor: '#636363',
