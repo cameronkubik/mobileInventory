@@ -4,7 +4,9 @@ import {
     AVATAR_SELECTED,
     CREATE_USER_BEGIN,
     CREATE_USER_SUCCESS,
-    CREATE_USER_FAIL
+    CREATE_USER_FAIL,
+    CANCEL_CREATE_PROFILE,
+    CANCEL_GALLERY_SELECTION
 } from '../actions/types';
   
 const INITIAL_STATE = {
@@ -64,10 +66,19 @@ export default (state = INITIAL_STATE, action) => {
             };
 
         case AVATAR_SELECTED:
-            return { 
+            return {
                 ...state, 
                 isSelectingAvatar: false, 
                 avatar: action.payload 
+            };
+
+        case CANCEL_CREATE_PROFILE:
+            return { ...INITIAL_STATE };
+
+        case CANCEL_GALLERY_SELECTION:
+            return {
+                ...state,
+                isSelectingAvatar: false
             };
 
         default:

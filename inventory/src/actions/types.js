@@ -14,6 +14,7 @@ export const CREATE_USER_FAIL = 'create_user_fail';
 export const CREATE_USER_BEGIN = 'create_user_begin';
 export const AVATAR_PRESS = 'avatar_press';
 export const AVATAR_SELECTED = 'avatar_selected';
+export const CANCEL_CREATE_PROFILE = 'cancel_create_profile';
 
 // Profile actions
 export const LOAD_USER_BEGIN = 'load_user';
@@ -57,3 +58,10 @@ export const LOAD_CATEGORY_ITEMS_FAIL = 'load_category_items_fail';
 export const ITEMS_SEARCH_TEXT_CHANGED = 'items_search_text_changed';
 export const ITEMS_SEARCH_TEXT_CLEARED = 'items_search_text_cleared';
 export const INVENTORY_ITEM_PRESS = 'inventory_item_press';
+
+// Camera Gallery actions
+export const GALLERY_SET_TYPE = 'gallery_set_type';
+export const GALLERY_IMAGE_PRESS = 'gallery_image_press';
+export const GALLERY_CAMERA_PRESS = 'gallery_camera_press';
+export const CAMERA_CAPTURE_PRESS = 'camera_capture_press';
+export const CANCEL_GALLERY_SELECTION = 'cancel_gallery_selection';

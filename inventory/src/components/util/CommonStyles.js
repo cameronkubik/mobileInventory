@@ -1,5 +1,5 @@
 // Constant colors
-const colors = {
+export const colors = {
     header: '#606060',
     base: '#d2d3db',
     inputs: 'lightgray'

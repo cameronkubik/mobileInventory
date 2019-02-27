@@ -51,16 +51,3 @@ export const logOut = () => {
         NavigationService.reset();
     };
 };
-
-export const onEditProfilePress = () => {
-    return (dispatch) => {
-        const { currentUser } = firebase.auth();
-        debugger;
-        dispatch({ 
-            type: EDIT_PROFILE_PRESS,
-            payload: currentUser
-        });
-
-        NavigationService.navigate('EditProfile');
-    }
-}

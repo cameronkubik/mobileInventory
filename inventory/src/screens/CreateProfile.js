@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StatusBar } from 'react-native';
 import {
     Avatar, Button, FormLabel, FormInput
 } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { createProfileInputChange, createUser, avatarPress } from '../actions';
+import { CANCEL_CREATE_PROFILE } from '../actions/types';
+import CancelButton from '../components/buttons/CancelButton';
 import { BaseContainer, Container, Spinner } from '../components/common';
 import { Styles as CommonStyles } from '../components/util/CommonStyles';
 
@@ -12,8 +14,10 @@ class CreateProfile extends Component {
 
     static navigationOptions = {
         title: 'Create Profile',
+        headerLeft: <CancelButton type={CANCEL_CREATE_PROFILE} />
     };
 
+    /** Local screen functions */
     onAvatarPress() {
         this.props.avatarPress();
     }
@@ -48,7 +52,9 @@ class CreateProfile extends Component {
 
         this.props.createUser(dataModel);
     }
+    /*******************************************/
 
+    /** Rendering functions */
     renderAvatar() {
         if (this.props.avatar) {
             return (
@@ -107,7 +113,9 @@ class CreateProfile extends Component {
             />
         );
     }
+    /*******************************************/
 
+    /** MAIN RENDER */
     render() {
         if (this.props.isSelectingAvatar) {
             return <View />;
@@ -115,6 +123,7 @@ class CreateProfile extends Component {
 
         return (
             <BaseContainer customStyle={{ padding: 20 }}>
+                <StatusBar barStyle='light-content' />
                 <Container customStyle={[Styles.avatarContainer]}>
                     {this.renderAvatar()}
                     <Container>
@@ -172,6 +181,7 @@ class CreateProfile extends Component {
             </BaseContainer>
         );
     }
+    /*******************************************/
 }
 
 const Styles = {

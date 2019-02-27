@@ -6,7 +6,6 @@ import {
     CREATE_USER_FAIL,
     CREATE_USER_BEGIN,
     AVATAR_PRESS,
-    AVATAR_SELECTED
 } from './types';
 
 export const createProfileInputChange = (field, value) => {
@@ -16,6 +15,7 @@ export const createProfileInputChange = (field, value) => {
     };
 }
 
+// TODO - low priority - could refactor this to use ModelManager class
 export const createUser = ({first, last, email, password, confirmedPassword, position, avatar}) => {
     return (dispatch) => {
         dispatch({ type: CREATE_USER_BEGIN });
@@ -92,15 +92,9 @@ const createUserFail = (dispatch, error) => {
 };
 
 export const avatarPress = () => {
-    NavigationService.navigate('AvatarPicker');
-
-    return { type: AVATAR_PRESS };
-};
-
-export const avatarSelected = (imageArray) => {
     return (dispatch) => {
-        dispatch({ type: AVATAR_SELECTED, payload: imageArray[0]});
+        dispatch({ type: AVATAR_PRESS });
 
-        NavigationService.back();
+        NavigationService.navigate('CameraGallery');
     }
-}
+};

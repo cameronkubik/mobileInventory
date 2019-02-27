@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Text, TextInput } from 'react-native';
+import { Text, TextInput, StatusBar } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { onInputChange, loginUser, resetLogin } from '../actions';
-import { BaseContainer, Container, Logo, Spinner, } from '../components/common';
+import { BaseContainer, Container, Logo } from '../components/common';
 import { Styles as CommonStyles } from '../components/util/CommonStyles';
 
 class Login extends Component {
@@ -92,6 +92,7 @@ class Login extends Component {
     render() {
         return (
             <BaseContainer customStyle={Styles.screen}>
+                <StatusBar barStyle='dark-content' />
                 
                 <Logo />
                 

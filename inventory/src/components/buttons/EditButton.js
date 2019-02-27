@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { onEditProfilePress } from '../actions';
+import { onEditProfilePress } from '../../actions';
 
 class EditButton extends Component {
 
@@ -26,8 +26,4 @@ class EditButton extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return state;
-}
-
-export default connect(mapStateToProps, { onEditProfilePress })(EditButton);
+export default connect(null, { onEditProfilePress })(EditButton);

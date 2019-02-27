@@ -4,7 +4,7 @@ import { Avatar, Button, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { loadUser, logOut } from '../actions';
 import { BaseContainer, Container, Spinner } from '../components/common';
-import EditButton from './EditButton';
+import EditButton from '../components/buttons/EditButton';
 import { Styles as CommonStyles } from '../components/util/CommonStyles';
 
 class Profile extends Component {
@@ -13,16 +13,6 @@ class Profile extends Component {
     static navigationOptions = {
         headerTitle: 'Home',
         headerRight: <EditButton />
-        // headerRight: (
-        //     <Icon
-        //         onPress={() => { console.log('TODO') }}
-        //         name='edit'
-        //         type='font-awesome'
-        //         color='white'
-        //         containerStyle={{ padding: 5 }}
-        //         size={26}
-        //     />
-        // )
     }
     /*******************************************/
 
