@@ -1,4 +1,14 @@
-// Database manager functions
+import firebase from 'react-native-firebase';
+
+/** Database Manager class */
+const DatabaseManager = {
+    get_picker_categories,
+    get_item_detail,
+    get_inventory_categories,
+    get_category_items,
+    // production methods below //
+    loadUserData: getUserDataPromise
+};
 
 // TODO
 function get_picker_categories() {    
@@ -108,9 +118,13 @@ function get_category_items() {
     ];
 }
 
-export default {
-    get_picker_categories,
-    get_item_detail,
-    get_inventory_categories,
-    get_category_items,
+/** Begin production methods */
+function getUserDataPromise() {
+    const { currentUser } = firebase.auth();
+
+    return firebase.firestore().collection('users').doc(`${currentUser.uid}`).get();
 }
+
+/*******************************************/
+
+export default DatabaseManager;

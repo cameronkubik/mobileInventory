@@ -1,5 +1,6 @@
 import firebase from 'react-native-firebase';
 import NavigationService from '../NavigationService';
+import StoreManager from '../StoreManager';
 import {
     AUTH_INPUT_CHANGE,
     AUTH_RESET,
@@ -15,8 +16,10 @@ export const onInputChange = (field, value) => {
     };
 }
 
-export const loginUser = ({ email, password }) => {
+export const loginUser = () => {
     return (dispatch) => {
+        const { email, password } = StoreManager.getLoginCredentials();
+        
         dispatch({ type: LOGIN_USER_BEGIN });
 
         if (!email && !password) {

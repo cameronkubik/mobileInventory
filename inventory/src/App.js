@@ -48,10 +48,12 @@ const TopLevelNavigator = createStackNavigator(
 const AppContainer = createAppContainer(TopLevelNavigator);
 // --------------------- //
 
+export const reduxStore = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+
 export default class App extends Component {
     render() {
         return (
-            <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
+            <Provider store={reduxStore}>
                 <AppContainer 
                     ref={navigatorRef => {
                         NavigationService.setTopLevelNavigator(navigatorRef);

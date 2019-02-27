@@ -1,5 +1,6 @@
 import firebase from 'react-native-firebase';
 import NavigationService from '../NavigationService';
+import StoreManager from '../StoreManager';
 import {
     CREATE_PROFILE_INPUT_CHANGE,
     CREATE_USER_SUCCESS,
@@ -15,29 +16,24 @@ export const createProfileInputChange = (field, value) => {
     };
 }
 
-// TODO - low priority - could refactor this to use ModelManager class
-export const createUser = ({first, last, email, password, confirmedPassword, position, avatar}) => {
+export const createUser = () => {
     return (dispatch) => {
         dispatch({ type: CREATE_USER_BEGIN });
+        
+        const accountModel = StoreManager.getUserAccountData(),
+            { first, last, email, position } = accountModel,
+            { mismatchingPasswords, missingPassword, password } = StoreManager.getSecureAccountData();
 
-        if (!first || !last || !email || !password || !position) {
+        if (!first || !last || !email || !position || missingPassword) {
             createUserFail(dispatch, { code: 'custom/missing-info' });
             return;
-        } else if (password !== confirmedPassword) {
+        } else if (mismatchingPasswords) {
             createUserFail(dispatch, { code: 'custom/mismatching-passwords' });
             return;
         }
 
-        const dataModel = {
-            firstName: first,
-            lastName: last, 
-            email,
-            position,
-            avatar
-        };
-
         firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then(user => createUserSuccess(dispatch, user, dataModel))
+            .then(user => createUserSuccess(dispatch, user, accountModel))
             .catch(error => createUserFail(dispatch, error));
     };
 };

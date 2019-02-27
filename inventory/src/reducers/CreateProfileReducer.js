@@ -6,30 +6,19 @@ import {
     CREATE_USER_SUCCESS,
     CREATE_USER_FAIL,
     CANCEL_CREATE_PROFILE,
-    CANCEL_GALLERY_SELECTION
+    CANCEL_GALLERY_SELECTION,
+    EDIT_PROFILE_PRESS
 } from '../actions/types';
   
 const INITIAL_STATE = {
-    first: '',
-    last: '',
-    email: '',
-    password: '',
-    confirmedPassword: '',
-    position: '',
     error: '',
     loading: false,
-    avatar: null,
     isSelectingAvatar: false,
     isEditMode: false // needs functionality
 };
   
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case CREATE_PROFILE_INPUT_CHANGE:
-            return {
-                ...state,
-                [action.payload.field]: action.payload.value
-            };
             
         case CREATE_USER_BEGIN:
             return {
@@ -68,8 +57,7 @@ export default (state = INITIAL_STATE, action) => {
         case AVATAR_SELECTED:
             return {
                 ...state, 
-                isSelectingAvatar: false, 
-                avatar: action.payload 
+                isSelectingAvatar: false,
             };
 
         case CANCEL_CREATE_PROFILE:

@@ -1,20 +1,18 @@
 import firebase from 'react-native-firebase';
 import NavigationService from '../NavigationService';
+import DatabaseManager from '../DatabaseManager';
 import { 
     LOAD_USER_BEGIN,
     LOAD_USER_SUCCESS,
     LOAD_USER_FAIL,
     LOG_OUT,
-    EDIT_PROFILE_PRESS 
 } from './types';
 
 export const loadUser = () => {
-    const { currentUser } = firebase.auth();
-
     return (dispatch) => {
         dispatch({ type: LOAD_USER_BEGIN });
 
-        firebase.firestore().collection('users').doc(`${currentUser.uid}`).get()
+        DatabaseManager.loadUserData()
             .then(snapshot => loadUserSuccess(snapshot, dispatch))
             .catch(error => loadUserFail(error, dispatch));
     };

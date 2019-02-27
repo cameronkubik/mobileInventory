@@ -7,6 +7,7 @@ import ItemDetailReducer from './ItemDetailReducer';
 import ViewInventoryReducer from './ViewInventoryReducer';
 import ViewItemsReducer from './ViewItemsReducer';
 import CameraGalleryReducer from './CameraGalleryReducer';
+import AccountReducer from './AccountReducer';
 
 export default combineReducers({
     // reducers
@@ -17,5 +18,6 @@ export default combineReducers({
     itemDetail: ItemDetailReducer,
     viewInventory: ViewInventoryReducer,
     viewItems: ViewItemsReducer,
-    cameraGallery: CameraGalleryReducer
+    cameraGallery: CameraGalleryReducer,
+    userAccount: AccountReducer
 });

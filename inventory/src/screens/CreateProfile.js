@@ -40,17 +40,7 @@ class CreateProfile extends Component {
         this.props.createProfileInputChange('position', text);
     }
     onCreateAccountPress() {
-        const dataModel = {
-            first: this.props.first,
-            last: this.props.last,
-            email: this.props.email,
-            password: this.props.password,
-            confirmedPassword: this.props.confirmedPassword,
-            position: this.props.position,
-            avatar: this.props.avatar
-        };
-
-        this.props.createUser(dataModel);
+        this.props.createUser();
     }
     /*******************************************/
 
@@ -215,19 +205,16 @@ const Styles = {
     }
 };
 
-const mapStateToProps = ({createProfile}) => {
-    const { 
-        first, last, email, password, 
-        confirmedPassword, position, avatar,
-        error, loading, isSelectingAvatar, isEditMode
-    } = createProfile;
+const mapStateToProps = (state) => {
+    const { error, loading, isSelectingAvatar, isEditMode } = state.createProfile,
+        { first, last, email, position, avatar, password, confirmedPassword } = state.userAccount;
     
     return {
         first, 
         last,
         email,
-        password,
-        confirmedPassword,
+        password: password,
+        confirmedPassword: confirmedPassword,
         position,
         avatar,
         error,
