@@ -14,11 +14,9 @@ export const cancelPress = (actionType) => {
 
 export const onEditProfilePress = () => {
     return (dispatch) => {
-        // TODO
-        // const profileData = StoreManager.getProfileData();
         dispatch({ type: EDIT_PROFILE_PRESS });
 
-        // NavigationService.navigate('CreateProfile'); - TODO
+        NavigationService.navigate('CreateProfile', { mode: 'EDIT' });
     }
 }
 

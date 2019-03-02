@@ -73,12 +73,10 @@
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>Southern Accents Inventory Application needs access to your Camera for full functionality.</string>
-
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>
 	Southern Accents Inventory Application needs access to your Photos for full functionality.
 	</string>
-
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>
 	Southern Accents Inventory Application needs access to your Photos for full functionality.

@@ -3,26 +3,41 @@ import ModelManager from './ModelManager';
 import { reduxStore } from './App';
 
 const StoreManager = {
-    getLoginCredentials,
-    getSecureAccountData,
-    getUserAccountData
+    generateCredentialsModel,
+    generateSecureAccountData,
+    generateAccountModel
 }
 
-function getLoginCredentials() {
+/** CREDENTIALS */
+function generateCredentialsModel(collectedData) {
+    if (collectedData) {
+        return generateCredentialsModelFromData(collectedData);
+    }
+
+    return generateCredentialsModelFromLogin();
+}
+function generateCredentialsModelFromData(collectedData) {
+    const credentialsModel = ModelManager.__Credentials__(collectedData);
+
+    return credentialsModel;
+}
+function generateCredentialsModelFromLogin() {
     const { auth } = reduxStore.getState(),
         credentialsModel = ModelManager.__Credentials__(auth);
 
     return credentialsModel;
 }
+/*******************************************/
 
-function getUserAccountData() {
+/** ACCOUNT */
+function generateAccountModel() {
     const { userAccount } = reduxStore.getState(),
         accountModel = ModelManager.__Account__(userAccount);
 
     return accountModel;
 }
 
-function getSecureAccountData() {
+function generateSecureAccountData() {
     const { userAccount } = reduxStore.getState(),
         { password, confirmedPassword } = userAccount,
         mismatchingPasswords = (password !== confirmedPassword),
@@ -36,5 +51,6 @@ function getSecureAccountData() {
 
     return dataModel;
 }
+/*******************************************/
 
 export default StoreManager;

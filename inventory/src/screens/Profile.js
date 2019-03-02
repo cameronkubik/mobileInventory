@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StatusBar } from 'react-native';
-import { Avatar, Button, Icon } from 'react-native-elements';
+import { Avatar, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { loadUser, logOut } from '../actions';
+import { loadAccount, logOut } from '../actions';
 import { BaseContainer, Container, Spinner } from '../components/common';
 import EditButton from '../components/buttons/EditButton';
 import { Styles as CommonStyles } from '../components/util/CommonStyles';
@@ -18,7 +18,7 @@ class Profile extends Component {
 
     /** Lifecycle & local functions */
     componentWillMount() {
-        this.props.loadUser();
+        this.props.loadAccount();
     }
 
     onAddInventoryPress() {
@@ -65,8 +65,8 @@ class Profile extends Component {
             
         } 
         // user does not have avatar photo
-        else if (this.props.name) {
-            let names = this.props.name.split(' ');
+        else if (this.props.fullName) {
+            let names = this.props.fullName.split(' ');
 
             let initials = names[0].split('')[0] + names[1].split('')[0];
 
@@ -80,7 +80,7 @@ class Profile extends Component {
                     containerStyle={{ marginBottom: 10 }}
                 />
             );
-        } 
+        }
         // should never execute but implemented as a failsafe
         return (
             <Avatar
@@ -103,7 +103,7 @@ class Profile extends Component {
 
         return (
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={Styles.profileText}>{this.props.name}</Text>
+                <Text style={Styles.profileText}>{this.props.fullName}</Text>
                 <Text style={Styles.profileText}>{this.props.position}</Text>
             </View>
         );
@@ -193,17 +193,19 @@ const Styles = {
     }
 }
 
-const mapStateToProps = ({profile}) => {
-    const { name, position, avatar, loading } = profile;
+const mapStateToProps = (state) => {
+    const { fullName, position, avatar } = state.userAccount,
+        { loading, error } = state.profile;
 
     return { 
-        name,
+        fullName,
         position,
         avatar,
-        loading
+        loading,
+        error
     };
 }
 
 export default connect(mapStateToProps, { 
-    loadUser, logOut 
+    loadAccount, logOut 
 })(Profile);

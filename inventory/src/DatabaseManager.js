@@ -1,5 +1,8 @@
-import firebase from 'react-native-firebase';
+import rnFirebase from 'react-native-firebase';
+import firebase from 'firebase';
+// import RNFetchBlob from 'rn-fetch-blob';
 
+// const Blob = RNFetchBlob.polyfill.Blob;
 /** Database Manager class */
 const DatabaseManager = {
     get_picker_categories,
@@ -7,8 +10,91 @@ const DatabaseManager = {
     get_inventory_categories,
     get_category_items,
     // production methods below //
-    loadUserData: getUserDataPromise
+    AUTH: {
+        login: loginWithCredentials,
+        signUp: createAccountWithCredentials,
+        logout: logoutCurrentUser
+    },
+    GET: {
+        accountModel: getAccountModel
+    },
+    PUT: {
+        accountModel: putAccountModel
+    }
 };
+
+/** Production methods */
+function getAccountModel() {
+    const { uid } = rnFirebase.auth().currentUser;
+
+    return (
+        rnFirebase.firestore()
+            .collection('users')
+            .doc(uid)
+            .get()
+    );
+}
+function putAccountModel(userCredentials, accountModel) {
+    const { uid } = userCredentials.user;
+
+    return (
+        rnFirebase.firestore()
+            .collection('users')
+            .doc(uid)
+            .set(accountModel)
+    );
+}
+function putAccountModelNEW(userCredentials, accountModel) {
+    return new Promise((resolve, reject) => {
+        const { uid } = userCredentials.user;
+        var storageRef = firebase.storage().ref(),
+            acctAvatarRef = storageRef.child(`userAvatars/${uid}/avatar.jpg`),
+            uploadBlob = null;
+            
+        const imageFile = RNFetchBlob.wrap(accountModel.avatar.uri);
+        Blob.build(imageFile, { type: 'image/jpg' })
+            .then((imageBlob) => {
+                uploadBlob = imageBlob;
+                return acctAvatarRef.put(imageBlob, { contentType: 'image/jpg' });
+            })
+            .then(() => {
+                uploadBlob.close();
+                return acctAvatarRef.getDownloadURL();
+            })
+            .then((url) => {
+                accountModel.avatar.url = url;
+                return (
+                    rnFirebase.firestore()
+                        .collection('users')
+                        .doc(uid)
+                        .set(accountModel));
+            })
+            .then(resolve)
+            .catch(reject);
+    });
+}
+function loginWithCredentials(credentialsModel) {
+    const { email, password } = credentialsModel;
+
+    return (
+        rnFirebase.auth()
+            .signInWithEmailAndPassword(email, password)
+    );
+}
+function createAccountWithCredentials(credentialsModel) {
+    const { email, password } = credentialsModel;
+
+    return (
+        rnFirebase.auth()
+            .createUserWithEmailAndPassword(email, password)
+    );
+}
+function logoutCurrentUser() {
+    rnFirebase.auth().signOut();
+}
+/*******************************************/
+
+
 
 // TODO
 function get_picker_categories() {    
@@ -117,14 +203,5 @@ function get_category_items() {
         { name: 'Tee Shirt', category: 'Apparel', itemID: 7, imageUri: 'assets-library://asset/asset.JPG?id=9F983DBA-EC35-42B8-8773-B597CF782EDD&ext=JPG', color: 'blue' , cost: 385 },
     ];
 }
-
-/** Begin production methods */
-function getUserDataPromise() {
-    const { currentUser } = firebase.auth();
-
-    return firebase.firestore().collection('users').doc(`${currentUser.uid}`).get();
-}
-
-/*******************************************/
 
 export default DatabaseManager;

@@ -8,6 +8,7 @@ import {
     LOGIN_USER_FAIL,
     LOGIN_USER_BEGIN
 } from './types';
+import DatabaseManager from '../DatabaseManager';
 
 export const onInputChange = (field, value) => {
     return {
@@ -18,7 +19,8 @@ export const onInputChange = (field, value) => {
 
 export const loginUser = () => {
     return (dispatch) => {
-        const { email, password } = StoreManager.getLoginCredentials();
+        const credentialsModel = StoreManager.generateCredentialsModel(),
+            { email, password } = credentialsModel;
         
         dispatch({ type: LOGIN_USER_BEGIN });
 
@@ -33,7 +35,7 @@ export const loginUser = () => {
             return;
         }
 
-        firebase.auth().signInWithEmailAndPassword(email, password)
+        DatabaseManager.AUTH.login(credentialsModel)
             .then(user => loginUserSuccess(dispatch, user))
             .catch(error => loginUserFail(dispatch, error));
     };

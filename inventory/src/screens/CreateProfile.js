@@ -4,42 +4,44 @@ import {
     Avatar, Button, FormLabel, FormInput
 } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { createProfileInputChange, createUser, avatarPress } from '../actions';
-import { CANCEL_CREATE_PROFILE } from '../actions/types';
+import { createProfileInputChange, createUser, openImagePicker, updateUser } from '../actions';
+import { 
+    CANCEL_CREATE_PROFILE,
+    CANCEL_EDIT_PROFILE,
+    AUTH_FIRST_INPUT,
+    AUTH_LAST_INPUT,
+    AUTH_EMAIL_INPUT,
+    AUTH_PASSWORD_INPUT,
+    AUTH_CONFIRMED_PASSWORD_INPUT,
+    AUTH_POSITION_INPUT
+} from '../actions/types';
 import CancelButton from '../components/buttons/CancelButton';
 import { BaseContainer, Container, Spinner } from '../components/common';
 import { Styles as CommonStyles } from '../components/util/CommonStyles';
 
 class CreateProfile extends Component {
 
-    static navigationOptions = {
-        title: 'Create Profile',
-        headerLeft: <CancelButton type={CANCEL_CREATE_PROFILE} />
+    static navigationOptions = ({ navigation }) => {
+        let mode = navigation.getParam('mode', 'CREATE'),
+            isEdit = mode === 'EDIT',
+            title = isEdit ? 'Edit Profile' : 'Create Profile',
+            cancelType = isEdit ? CANCEL_EDIT_PROFILE : CANCEL_CREATE_PROFILE;
+
+        return {
+            title: title,
+            headerLeft: <CancelButton type={cancelType} />
+        };
     };
 
     /** Local screen functions */
     onAvatarPress() {
-        this.props.avatarPress();
+        this.props.openImagePicker();
     }
-    onFirstChanged(text) {
-        this.props.createProfileInputChange('first', text);
-    }
-    onLastChanged(text) {
-        this.props.createProfileInputChange('last', text);
-    }
-    onEmailChanged(text) {
-        this.props.createProfileInputChange('email', text);
-    }
-    onPasswordChanged(text) {
-        this.props.createProfileInputChange('password', text);
-    }
-    onConfirmedPasswordChanged(text) {
-        this.props.createProfileInputChange('confirmedPassword', text);
-    }
-    onPositionChanged(text) {
-        this.props.createProfileInputChange('position', text);
-    }
-    onCreateAccountPress() {
+    onButtonPress() {
+        if (this.props.isEditMode) {
+            return this.props.updateUser();
+        }
+
         this.props.createUser();
     }
     /*******************************************/
@@ -86,7 +88,7 @@ class CreateProfile extends Component {
             return <Spinner customStyle={{ alignSelf: 'center' }} />
         }
 
-        let btnTitle = this.props.isEditMode ? 'Save' : 'Create Account';
+        let btnTitle = this.props.isEditMode ? 'Save Profile' : 'Create Profile';
 
         return (
             <Button 
@@ -98,8 +100,68 @@ class CreateProfile extends Component {
                 fontSize={20}
                 buttonStyle={Styles.buttons}
                 containerViewStyle={Styles.buttonContainer}
-                onPress={this.onCreateAccountPress.bind(this)}
+                onPress={this.onButtonPress.bind(this)}
                 rounded
+            />
+        );
+    }
+
+    renderAuthInput(inputType) {
+        var isDisabled = this.props.isEditMode,
+            isSecure = false,
+            placeholder = null,
+            field = null,
+            value = null;
+        
+        switch (inputType) {
+            case AUTH_FIRST_INPUT:
+                placeholder = 'Enter first name';
+                field = 'first';
+                value = this.props.first;
+                isDisabled = false;
+                break;
+            case AUTH_LAST_INPUT:
+                placeholder = 'Enter last name';
+                field = 'last';
+                value = this.props.last;
+                isDisabled = false;
+                break;
+            case AUTH_EMAIL_INPUT:
+                placeholder = 'Enter email';
+                field = 'email';
+                value = this.props.email;
+                break;
+            case AUTH_PASSWORD_INPUT:
+                placeholder = 'Enter password';
+                field = 'password';
+                value = isDisabled ? '11111111' : this.props.password;
+                isSecure = true;
+                break;
+            case AUTH_CONFIRMED_PASSWORD_INPUT:
+                placeholder = 'Confirm password';
+                field = 'confirmedPassword';
+                value = isDisabled ? '11111111' : this.props.confirmedPassword;
+                isSecure = true;
+                break;
+            case AUTH_POSITION_INPUT:
+                placeholder = 'Enter position';
+                field = 'position';
+                value = this.props.position;
+                isDisabled = false;
+                break;
+            default:
+                console.log("ERROR: SWITCH CASE FAILED TO CATCH TYPE");
+                break;
+        }
+
+        return (
+            <FormInput 
+                containerStyle={[CommonStyles.inputGeneral, Styles.formInput]}
+                placeholder={placeholder}
+                onChangeText={(text) => { this.props.createProfileInputChange(field, text)}}
+                value={value}
+                editable={!isDisabled}
+                secureTextEntry={isSecure}
             />
         );
     }
@@ -115,58 +177,30 @@ class CreateProfile extends Component {
             <BaseContainer customStyle={{ padding: 20 }}>
                 <StatusBar barStyle='light-content' />
                 <Container customStyle={[Styles.avatarContainer]}>
-                    {this.renderAvatar()}
+                    { this.renderAvatar() }
                     <Container>
                         <FormLabel>First Name</FormLabel>
-                        <FormInput 
-                            containerStyle={[CommonStyles.inputGeneral, Styles.formInput]} 
-                            placeholder="Enter first name"
-                            onChangeText={this.onFirstChanged.bind(this)}
-                            value={this.props.first}
-                        />
+                        { this.renderAuthInput(AUTH_FIRST_INPUT) }
                         <FormLabel>Last Name</FormLabel>
-                        <FormInput 
-                            containerStyle={[CommonStyles.inputGeneral, Styles.formInput]} 
-                            placeholder="Enter last name" 
-                            onChangeText={this.onLastChanged.bind(this)}
-                            value={this.props.last}
-                        />
+                        { this.renderAuthInput(AUTH_LAST_INPUT) }
                     </Container>
                 </Container>
 
                 <Container customStyle={[Styles.inputContainer]}>
-                    <FormLabel containerStyle={Styles.labelContainer}>Email or Username</FormLabel>
-                    <FormInput 
-                        containerStyle={[CommonStyles.inputGeneral, Styles.formInput]} 
-                        placeholder="Enter email or username"
-                        onChangeText={this.onEmailChanged.bind(this)}
-                        value={this.props.email}
-                    />
+                    <FormLabel containerStyle={Styles.labelContainer}>Email</FormLabel>
+                    { this.renderAuthInput(AUTH_EMAIL_INPUT) }
+
                     <FormLabel containerStyle={Styles.labelContainer}>Password</FormLabel>
-                    <FormInput 
-                        containerStyle={[CommonStyles.inputGeneral, Styles.formInput]} 
-                        placeholder="Enter password" 
-                        onChangeText={this.onPasswordChanged.bind(this)}
-                        secureTextEntry
-                        value={this.props.password}
-                    /> 
+                    { this.renderAuthInput(AUTH_PASSWORD_INPUT) }
+
                     <FormLabel containerStyle={Styles.labelContainer}>Confirm Password</FormLabel>
-                    <FormInput 
-                        containerStyle={[CommonStyles.inputGeneral, Styles.formInput]} 
-                        placeholder="Confirm password"
-                        onChangeText={this.onConfirmedPasswordChanged.bind(this)}
-                        secureTextEntry
-                        value={this.props.confirmedPassword}
-                    />
+                    { this.renderAuthInput(AUTH_CONFIRMED_PASSWORD_INPUT) }
+
                     <FormLabel containerStyle={Styles.labelContainer}>Select Position</FormLabel>
-                    <FormInput 
-                        containerStyle={[CommonStyles.inputGeneral, Styles.formInput]} 
-                        placeholder="Position or Role" 
-                        onChangeText={this.onPositionChanged.bind(this)}
-                        value={this.props.position}
-                    /> 
-                    {this.renderErrorMessage()}
-                    {this.renderButton()}
+                    { this.renderAuthInput(AUTH_POSITION_INPUT) }
+
+                    { this.renderErrorMessage() }
+                    { this.renderButton() }
                 </Container>
             </BaseContainer>
         );
@@ -213,8 +247,8 @@ const mapStateToProps = (state) => {
         first, 
         last,
         email,
-        password: password,
-        confirmedPassword: confirmedPassword,
+        password,
+        confirmedPassword,
         position,
         avatar,
         error,
@@ -225,5 +259,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, {
-    createProfileInputChange, createUser, avatarPress
+    createProfileInputChange, createUser, openImagePicker, updateUser
 })(CreateProfile);

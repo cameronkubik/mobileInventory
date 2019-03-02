@@ -1,6 +1,7 @@
 import firebase from 'react-native-firebase';
 import NavigationService from '../NavigationService';
 import DatabaseManager from '../DatabaseManager';
+import ModelManager from '../ModelManager';
 import { 
     LOAD_USER_BEGIN,
     LOAD_USER_SUCCESS,
@@ -8,30 +9,26 @@ import {
     LOG_OUT,
 } from './types';
 
-export const loadUser = () => {
+export const loadAccount = () => {
     return (dispatch) => {
         dispatch({ type: LOAD_USER_BEGIN });
 
-        DatabaseManager.loadUserData()
-            .then(snapshot => loadUserSuccess(snapshot, dispatch))
-            .catch(error => loadUserFail(error, dispatch));
+        DatabaseManager.GET.accountModel()
+            .then(snapshot => loadAccountSuccess(snapshot, dispatch))
+            .catch(error => loadAccountFail(error, dispatch));
     };
 };
 
-const loadUserSuccess = (querySnapshot, dispatch) => {
-    const { firstName, lastName, position, avatar } = querySnapshot.data();
+const loadAccountSuccess = (accountSnapshot, dispatch) => {
+    const accountModel = ModelManager.__Account__(accountSnapshot.data());
 
     dispatch({
         type: LOAD_USER_SUCCESS,
-        payload: {
-            name: `${firstName} ${lastName}`,
-            position,
-            avatar
-        }
+        payload: accountModel
     });
 };
 
-const loadUserFail = (error, dispatch) => {
+const loadAccountFail = (error, dispatch) => {
     console.log(error);
     
     dispatch({
@@ -44,7 +41,7 @@ export const logOut = () => {
     return (dispatch) => {
         dispatch({ type: LOG_OUT });
 
-        firebase.auth().signOut();
+        DatabaseManager.AUTH.logout();
 
         NavigationService.reset();
     };

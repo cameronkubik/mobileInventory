@@ -34,10 +34,9 @@ const TopLevelNavigator = createStackNavigator(
         CameraGallery
     },
     {
-        initialRouteName: 'Login',
+        initialRouteName: 'Profile',
         /* Shared navigationOptions across screens */
         defaultNavigationOptions: {
-            // header: null
             headerStyle: {
                 backgroundColor: colors.header,
             },

@@ -6,10 +6,6 @@ import {
 } from '../actions/types';
   
 const INITIAL_STATE = {
-    name: '',
-    position: '',
-    avatar: null,
-    isSignedIn: false,
     loading: false,
     error: ''
 };
@@ -18,16 +14,14 @@ export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case LOAD_USER_BEGIN:
             return { 
-                ...state, isSignedIn: false, loading: true, error: ''
+                ...state,
+                loading: true,
+                error: ''
             };
         
         case LOAD_USER_SUCCESS:
             return {
-                ...state, 
-                name: action.payload.name, 
-                position: action.payload.position,
-                avatar: action.payload.avatar,
-                isSignedIn: true, 
+                ...state,
                 loading: false,
                 error: ''
             };

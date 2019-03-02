@@ -1,6 +1,15 @@
 import { NavigationActions, StackActions } from 'react-navigation';
 
 let _navigator;
+const NavigationService = {
+    setTopLevelNavigator,
+    navigate,
+    replace,
+    reset,
+    back,
+    push,
+    createProfileTransition
+};
 
 function setTopLevelNavigator(navigatorRef) {
     _navigator = navigatorRef;
@@ -45,13 +54,13 @@ function push(routeName, params) {
     );
 }
 
-// add other navigation functions that you need and export them
+function createProfileTransition() {
+    const resetAction = StackActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: 'Profile' })]
+    });
 
-export default {
-    navigate,
-    replace,
-    reset,
-    back,
-    push,
-    setTopLevelNavigator,
-};
+    _navigator.dispatch(resetAction);
+}
+
+export default NavigationService;

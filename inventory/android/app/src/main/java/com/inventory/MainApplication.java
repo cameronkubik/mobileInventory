@@ -3,6 +3,8 @@ package com.inventory;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.RNFetchBlob.RNFetchBlobPackage;
+import com.wix.RNCameraKit.RNCameraKitPackage;
 import org.reactnative.camera.RNCameraPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -27,6 +29,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFetchBlobPackage(),
+            new RNCameraKitPackage(),
             new RNCameraPackage(),
             new RNFirebasePackage(),
             new VectorIconsPackage(),

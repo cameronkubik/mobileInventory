@@ -2,7 +2,16 @@
 const ModelManager = {
     __Credentials__: credentialsConstructor,
     __Image__: imageConstructor,
+    __URI__: uriConstructor,
     __Account__: accountConstructor
+}
+
+function uriConstructor(string) {
+    const dataModel = {
+        uri: string
+    };
+
+    return dataModel;
 }
 
 function credentialsConstructor(authState) {
@@ -16,12 +25,12 @@ function credentialsConstructor(authState) {
 
 function accountConstructor(accountState) {
     const { email, first, last, position, avatar } = accountState,
-        fullname = `${first} ${last}`;
+        fullName = `${first} ${last}`;
 
     const dataModel = {
         first,
         last,
-        fullname,
+        fullName,
         email,
         position,
         avatar

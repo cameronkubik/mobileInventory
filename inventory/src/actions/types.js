@@ -12,9 +12,20 @@ export const CREATE_PROFILE_INPUT_CHANGE = 'create_profile_input_change';
 export const CREATE_USER_SUCCESS = 'create_user_success';
 export const CREATE_USER_FAIL = 'create_user_fail';
 export const CREATE_USER_BEGIN = 'create_user_begin';
+export const UPDATE_USER_BEGIN = 'update_user_begin';
+export const UPDATE_USER_SUCCESS = 'update_user_success';
+export const UPDATE_USER_FAIL = 'update_user_fail';
 export const AVATAR_PRESS = 'avatar_press';
 export const AVATAR_SELECTED = 'avatar_selected';
 export const CANCEL_CREATE_PROFILE = 'cancel_create_profile';
+export const CANCEL_EDIT_PROFILE = 'cancel_edit_profile';
+// Create Profile input types
+export const AUTH_FIRST_INPUT = 'auth_first_input';
+export const AUTH_LAST_INPUT = 'auth_last_input';
+export const AUTH_EMAIL_INPUT = 'auth_email_input';
+export const AUTH_PASSWORD_INPUT = 'auth_password_input';
+export const AUTH_CONFIRMED_PASSWORD_INPUT = 'auth_confirmed_password_input';
+export const AUTH_POSITION_INPUT = 'auth_position_input';
 
 // Profile actions
 export const LOAD_USER_BEGIN = 'load_user';
