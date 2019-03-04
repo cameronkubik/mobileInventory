@@ -110,7 +110,10 @@ export const updateAvatarOnly = () => {
     const accountModel = StoreManager.generateAccountModel(),
         userCredentials = { user: firebase.auth()._user };
 
-    DatabaseManager.PUT.accountModel(userCredentials, accountModel);
+    DatabaseManager.PUT.accountModel(userCredentials, accountModel)
+        .then(() => {
+            DatabaseManager.PUT.avatar(userCredentials, accountModel);
+        })
 }
 
 export const updateUser = () => {

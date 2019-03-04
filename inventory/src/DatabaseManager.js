@@ -1,8 +1,5 @@
 import rnFirebase from 'react-native-firebase';
-import firebase from 'firebase';
-// import RNFetchBlob from 'rn-fetch-blob';
 
-// const Blob = RNFetchBlob.polyfill.Blob;
 /** Database Manager class */
 const DatabaseManager = {
     get_picker_categories,
@@ -19,7 +16,8 @@ const DatabaseManager = {
         accountModel: getAccountModel
     },
     PUT: {
-        accountModel: putAccountModel
+        accountModel: putAccountModel,
+        avatar: putAvatar
     }
 };
 
@@ -44,34 +42,19 @@ function putAccountModel(userCredentials, accountModel) {
             .set(accountModel)
     );
 }
-function putAccountModelNEW(userCredentials, accountModel) {
-    return new Promise((resolve, reject) => {
-        const { uid } = userCredentials.user;
-        var storageRef = firebase.storage().ref(),
-            acctAvatarRef = storageRef.child(`userAvatars/${uid}/avatar.jpg`),
-            uploadBlob = null;
-            
-        const imageFile = RNFetchBlob.wrap(accountModel.avatar.uri);
-        Blob.build(imageFile, { type: 'image/jpg' })
-            .then((imageBlob) => {
-                uploadBlob = imageBlob;
-                return acctAvatarRef.put(imageBlob, { contentType: 'image/jpg' });
-            })
-            .then(() => {
-                uploadBlob.close();
-                return acctAvatarRef.getDownloadURL();
-            })
-            .then((url) => {
-                accountModel.avatar.url = url;
-                return (
-                    rnFirebase.firestore()
-                        .collection('users')
-                        .doc(uid)
-                        .set(accountModel));
-            })
-            .then(resolve)
-            .catch(reject);
-    });
+function putAvatar(userCredentials, accountModel) {
+    const { uid } = userCredentials.user,
+        imagePath = rnFirebase.storage.Native.DOCUMENT_DIRECTORY_PATH + '/' + accountModel.avatar.uri,
+        bucketRef = rnFirebase.storage().ref(`avatars/${uid}.jpg`);
+
+    bucketRef.putFile(imagePath)
+        .then((arg1, arg2) => {
+            debugger;
+        })
+        .catch((arg1, arg2) => {
+            debugger;
+        })
+    
 }
 function loginWithCredentials(credentialsModel) {
     const { email, password } = credentialsModel;
