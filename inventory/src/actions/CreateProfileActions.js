@@ -9,7 +9,6 @@ import {
     CREATE_USER_SUCCESS,
     CREATE_USER_FAIL,
     CREATE_USER_BEGIN,
-    AVATAR_PRESS,
     UPDATE_USER_BEGIN,
     UPDATE_USER_SUCCESS,
     UPDATE_USER_FAIL,
@@ -99,20 +98,20 @@ export const openImagePicker = () => {
                 type: AVATAR_SELECTED,
                 payload: Models.__URI__(uri)
             });
+
+            updateAvatarOnly();
         }, () => { 
             console.log('Picker cancelled. DO NOT remove this callback, it is required')
         });
     }
 };
 
-export const avatarPress = () => {
-    
-    // return (dispatch) => {
-    //     dispatch({ type: AVATAR_PRESS });
+export const updateAvatarOnly = () => {
+    const accountModel = StoreManager.generateAccountModel(),
+        userCredentials = { user: firebase.auth()._user };
 
-    //     NavigationService.navigate('CameraGallery');
-    // }
-};
+    DatabaseManager.PUT.accountModel(userCredentials, accountModel);
+}
 
 export const updateUser = () => {
     return (dispatch) => {
@@ -125,7 +124,9 @@ export const updateUser = () => {
             createUserFail(dispatch, { code: 'custom/missing-info' });
             return;
         }
+
         const userCredentials = { user: firebase.auth()._user };
+        
         DatabaseManager.PUT.accountModel(userCredentials, accountModel)
             .then(() => { updateUserSuccess(dispatch) })
             .catch(() => { updateUserFail(dispatch) })

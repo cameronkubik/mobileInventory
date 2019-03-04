@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StatusBar } from 'react-native';
 import { Avatar, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { loadAccount, logOut } from '../actions';
+import { loadAccount, logOut, openImagePicker } from '../actions';
 import { BaseContainer, Container, Spinner } from '../components/common';
 import EditButton from '../components/buttons/EditButton';
 import { Styles as CommonStyles } from '../components/util/CommonStyles';
@@ -57,7 +57,7 @@ class Profile extends Component {
                     xlarge
                     rounded
                     source={{ uri: this.props.avatar.uri }}
-                    onPress={() => console.log("TODO")}
+                    onPress={this.props.openImagePicker}
                     activeOpacity={0.7}
                     containerStyle={{ marginBottom: 10 }}
                 />
@@ -75,7 +75,7 @@ class Profile extends Component {
                     xlarge
                     rounded
                     title={initials}
-                    onPress={() => console.log("TODO")}
+                    onPress={this.props.openImagePicker}
                     activeOpacity={0.7}
                     containerStyle={{ marginBottom: 10 }}
                 />
@@ -87,7 +87,7 @@ class Profile extends Component {
                 xlarge
                 rounded
                 icon={{name: 'user', type: 'font-awesome'}}
-                onPress={() => console.log("TODO")}
+                onPress={this.props.openImagePicker}
                 activeOpacity={0.7}
                 containerStyle={{ marginBottom: 10 }}
             />
@@ -207,5 +207,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, { 
-    loadAccount, logOut 
+    loadAccount, logOut, openImagePicker
 })(Profile);
