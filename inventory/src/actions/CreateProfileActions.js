@@ -89,15 +89,13 @@ const createUserFail = (dispatch, error) => {
     });
 };
 
-export const openImagePicker = () => {
+export const createAvatarPress = () => {
     return (dispatch) => {
-        ImagePickerIOS.openSelectDialog(null, (uri) => {
+        Services.Actions.openImagePicker(null, (uri) => {
             dispatch({
                 type: AVATAR_SELECTED,
                 payload: Services.Models.__URI__(uri)
             });
-        }, () => { 
-            console.log('Picker cancelled. DO NOT remove this callback, it is required')
         });
     }
 };

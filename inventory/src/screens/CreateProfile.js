@@ -4,7 +4,7 @@ import {
     Avatar, Button, FormLabel, FormInput
 } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { createProfileInputChange, createUser, openImagePicker, updateUser } from '../actions';
+import { createProfileInputChange, createUser, createAvatarPress, updateUser } from '../actions';
 import { 
     CANCEL_CREATE_PROFILE,
     CANCEL_EDIT_PROFILE,
@@ -35,7 +35,7 @@ class CreateProfile extends Component {
 
     /** Local screen functions */
     onAvatarPress() {
-        this.props.openImagePicker();
+        this.props.createAvatarPress();
     }
     onButtonPress() {
         if (this.props.isEditMode) {
@@ -259,5 +259,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, {
-    createProfileInputChange, createUser, openImagePicker, updateUser
+    createProfileInputChange, createUser, createAvatarPress, updateUser
 })(CreateProfile);

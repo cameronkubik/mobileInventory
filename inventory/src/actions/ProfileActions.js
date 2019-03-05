@@ -1,9 +1,11 @@
+import firebase from 'react-native-firebase';
 import Services from '../Services';
 import { 
     LOAD_USER_BEGIN,
     LOAD_USER_SUCCESS,
     LOAD_USER_FAIL,
     LOG_OUT,
+    AVATAR_SELECTED
 } from './types';
 
 export const loadAccount = () => {
@@ -43,3 +45,27 @@ export const logOut = () => {
         Services.Navigation.reset();
     };
 };
+
+export const profileAvatarPress = () => {
+    return (dispatch) => {
+        Services.Actions.openImagePicker(null, (uri) => {
+            dispatch({
+                type: AVATAR_SELECTED,
+                payload: Services.Models.__URI__(uri)
+            });
+
+            updateAccountFromProfile();
+        });
+    }
+}
+
+function updateAccountFromProfile() {
+    const accountModel = Services.Store.generateAccountModel(),
+        userCredentials = { user: firebase.auth()._user };
+
+        Services.Database.PUT.accountModel(userCredentials, accountModel)
+            .then(() => {
+                // TODO
+                // Need to put avatar in storage bucket
+            })
+}
