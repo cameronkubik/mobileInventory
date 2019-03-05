@@ -6,8 +6,10 @@ import {
 import PickerSelect from 'react-native-picker-select';
 import { connect } from 'react-redux';
 import { 
-    load_add_inventory, picker_change, text_input_change,
-    add_item_pictures, picture_selection_resume
+    category_picker_change,
+    add_inventory_input_change,
+    add_item_pictures,
+    picture_selection_resume
 } from '../actions';
 import { BaseContainer, Container, ImageCarousel } from '../components/common';
 import { Styles as CommonStyles } from '../components/util/CommonStyles';
@@ -18,24 +20,24 @@ class AddInventory extends Component {
         title: 'Add Inventory',
     };
 
-    componentWillMount() {
-        this.props.load_add_inventory();
-    }
+    // componentWillMount() {
+
+    // }
 
     onAddPicturePress() {
         this.props.add_item_pictures();
     }
 
-    onPickerChange(value, index) {
-        this.props.picker_change(value, index);
+    onPickerChange(value) {
+        this.props.category_picker_change(value);
     }
 
     onDescriptionChange(value) {
-        this.props.text_input_change(value, 'description');
+        this.props.add_inventory_input_change(value, 'description');
     }
 
     onDimensionChange(value) {
-        this.props.text_input_change(value, 'dimensions');
+        this.props.add_inventory_input_change(value, 'dimensions');
     }
 
     onEditPress() {
@@ -234,6 +236,8 @@ const mapStateToProps = ({addInventory}) => {
 }
 
 export default connect(mapStateToProps, { 
-    load_add_inventory, picker_change, text_input_change,
-    add_item_pictures, picture_selection_resume
+    category_picker_change,
+    add_inventory_input_change,
+    add_item_pictures,
+    picture_selection_resume
 })(AddInventory);

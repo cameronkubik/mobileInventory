@@ -16,7 +16,10 @@ const DatabaseManager = {
         logout: logoutCurrentUser
     },
     GET: {
-        accountModel: getAccountModel
+        accountModel: getAccountModel,
+        INVENTORY: {
+            categories: getCategoryNames
+        }
     },
     PUT: {
         accountModel: putAccountModel
@@ -24,6 +27,7 @@ const DatabaseManager = {
 };
 
 /** Production methods */
+// Account //
 function getAccountModel() {
     const { uid } = rnFirebase.auth().currentUser;
 
@@ -73,6 +77,7 @@ function putAccountModelNEW(userCredentials, accountModel) {
             .catch(reject);
     });
 }
+// Authentication //
 function loginWithCredentials(credentialsModel) {
     const { email, password } = credentialsModel;
 
@@ -91,6 +96,15 @@ function createAccountWithCredentials(credentialsModel) {
 }
 function logoutCurrentUser() {
     rnFirebase.auth().signOut();
+}
+// Categories //
+function getCategoryNames() {
+    return (
+        rnFirebase.firestore()
+            .collection('categories')
+            .doc('nameList')
+            .get()
+    );
 }
 /*******************************************/
 

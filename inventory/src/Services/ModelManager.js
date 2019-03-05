@@ -3,7 +3,24 @@ const ModelManager = {
     __Credentials__: credentialsConstructor,
     __Image__: imageConstructor,
     __URI__: uriConstructor,
-    __Account__: accountConstructor
+    __Account__: accountConstructor,
+    __CATEGORY__: categoryConstructor,
+    __PRODUCT__: productConstructor
+}
+
+function productConstructor() {
+    // TODO 
+}
+
+function categoryConstructor(label, value) {
+    const dataModel = {
+        label,
+        value,
+        numItems: 0,
+        loaded: false
+    };
+
+    return dataModel;
 }
 
 function uriConstructor(string) {

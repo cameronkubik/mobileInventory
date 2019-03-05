@@ -5,7 +5,9 @@ import {
     LOAD_USER_SUCCESS,
     LOAD_USER_FAIL,
     LOG_OUT,
-    AVATAR_SELECTED
+    AVATAR_SELECTED,
+    NAVIGATE_ADD_INVENTORY,
+    NAVIGATE_VIEW_INVENTORY
 } from './types';
 
 export const loadAccount = () => {
@@ -34,7 +36,7 @@ const loadAccountFail = (error, dispatch) => {
         type: LOAD_USER_FAIL,
         payload: 'Failed to load user. Please try again...'
     });
-}
+};
 
 export const logOut = () => {
     return (dispatch) => {
@@ -57,15 +59,24 @@ export const profileAvatarPress = () => {
             updateAccountFromProfile();
         });
     }
-}
+};
 
 function updateAccountFromProfile() {
     const accountModel = Services.Store.generateAccountModel(),
         userCredentials = { user: firebase.auth()._user };
 
-        Services.Database.PUT.accountModel(userCredentials, accountModel)
-            .then(() => {
-                // TODO
-                // Need to put avatar in storage bucket
-            })
+    Services.Database.PUT.accountModel(userCredentials, accountModel)
+        .then(() => {
+            // TODO
+            // Need to put avatar in storage bucket
+        })
+        .catch(Services.Actions.consoleLog);
+};
+
+export const navigateToAddInventory = () => {
+    return (dispatch) => {
+        dispatch({ type: NAVIGATE_ADD_INVENTORY });
+
+        Services.Navigation.navigate('AddInventory');
+    }
 }

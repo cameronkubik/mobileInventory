@@ -1,29 +1,58 @@
 import { 
-    LOAD_ADD_INVENTORY, LOAD_ADD_INVENTORY_SUCCESS, 
-    LOAD_ADD_INVENTORY_FAIL, PICKER_CHANGE,
-    TEXT_INPUT_CHANGE, ADD_ITEM_PICTURES,
+    // LOAD_ADD_INVENTORY_SUCCESS, 
+    // LOAD_ADD_INVENTORY_FAIL,
+    // PICKER_CHANGE,
+    // ADD_INVENTORY_INPUT_CHANGE,
+    ADD_ITEM_PICTURES,
     SUBMIT_INVENTORY_ITEM,
     ITEM_PICTURES_SELECTED,
     PICTURE_SELECTION_FINISHED,
     PICTURE_SELECTION_CANCELLED,
     PICTURE_SELECTION_RESUMED,
-    EDIT_INVENTORY_ITEM
+    EDIT_INVENTORY_ITEM,
+    INVENTORY_ACTIONS,
+    NAVIGATE_ADD_INVENTORY
 } from '../actions/types';
 
 const INITIAL_STATE = {
-    pictures: null,
-    categories: [],
+    pictures: null, // deprecated
+    categories: [],// deprecated
+    description: '',// deprecated
+    dimensions: '',// deprecated
+
+
     selectedCategory: null,
-    description: '',
-    dimensions: '',
     loading: false,
     error: null,
     isSelectingPictures: false,
-    isEditingItem: false
-}
+    isEditMode: false
+};
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case INVENTORY_ACTIONS.Categories.load_begin:
+            return {
+                ...state,
+                loading: true
+            };
+        case INVENTORY_ACTIONS.Categories.load_success:
+            return {
+                ...state,
+                loading: false
+            };
+        case INVENTORY_ACTIONS.Categories.load_fail:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            };
+
+        case NAVIGATE_ADD_INVENTORY:
+            return {
+                ...state,
+                isEditMode: false
+            };
+
         case EDIT_INVENTORY_ITEM:
             const { pictures, description, dimensions, category } = action.payload;
             
@@ -33,39 +62,34 @@ export default (state = INITIAL_STATE, action) => {
                 description,
                 dimensions,
                 selectedCategory: category,
-                isEditingItem: true
+                isEditMode: true
             };
 
-        case LOAD_ADD_INVENTORY:
-        // Possible problem here, this is called on componentWillMount 
-        // ...which may cause isEditingItem to always be false
-            return { ...state, loading: true, isEditingItem: false };
+        // case LOAD_ADD_INVENTORY_SUCCESS:
+        //     return {
+        //         ...state,
+        //         loading: false, 
+        //         categories: action.payload
+        //     };
 
-        case LOAD_ADD_INVENTORY_SUCCESS:
-            return {
-                ...state,
-                loading: false, 
-                categories: action.payload
-            };
-
-        case LOAD_ADD_INVENTORY_FAIL:
-            return { 
-                ...state, 
-                loading: false,
-                error: 'Failed to load categories, please try again.' 
-            };
+        // case LOAD_ADD_INVENTORY_FAIL:
+        //     return { 
+        //         ...state, 
+        //         loading: false,
+        //         error: 'Failed to load categories, please try again.' 
+        //     };
 
         case PICKER_CHANGE:
             return {
                 ...state,
-                selectedCategory: action.payload.value
+                selectedCategory: action.payload
             };
 
-        case TEXT_INPUT_CHANGE:
-            return {
-                ...state,
-                [action.payload.field]: action.payload.value 
-            };
+        // case ADD_INVENTORY_INPUT_CHANGE:
+        //     return {
+        //         ...state,
+        //         [action.payload.field]: action.payload.value 
+        //     };
 
         case ADD_ITEM_PICTURES:
             return {

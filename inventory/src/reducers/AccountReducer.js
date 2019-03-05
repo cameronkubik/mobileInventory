@@ -52,20 +52,18 @@ export default (state = INITIAL_STATE, action) => {
         // Create profile cancel button
         case CANCEL_CREATE_PROFILE:
             return { ...INITIAL_STATE };
-
+        // Profile page edit button
         case EDIT_PROFILE_PRESS:
             return {
                 ...state,
                 cachedState: state
             };
-
+        // Create profile edit mode cancel button
         case CANCEL_EDIT_PROFILE:
             return {
                 ...state.cachedState,
                 cachedState: null
             };
-
-        
         default: return state;
     }
 }

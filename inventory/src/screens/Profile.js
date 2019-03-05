@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 import { View, Text, StatusBar } from 'react-native';
 import { Avatar, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { loadAccount, logOut, profileAvatarPress } from '../actions';
+import {
+    loadAccount,
+    logOut,
+    profileAvatarPress,
+    masterInventoryLoad,
+    navigateToAddInventory
+} from '../actions';
 import { BaseContainer, Container, Spinner } from '../components/common';
 import EditButton from '../components/buttons/EditButton';
 
@@ -18,6 +24,7 @@ class Profile extends Component {
     /** Lifecycle & local functions */
     componentWillMount() {
         this.props.loadAccount();
+        this.props.masterInventoryLoad();
     }
 
     onAvatarPress() {
@@ -25,7 +32,8 @@ class Profile extends Component {
     }
 
     onAddInventoryPress() {
-        this.props.navigation.navigate('AddInventory');
+        // this.props.navigation.navigate('AddInventory');
+        this.props.navigateToAddInventory();
     }
 
     onViewInventoryPress() {
@@ -210,5 +218,6 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, { 
-    loadAccount, logOut, profileAvatarPress
+    loadAccount, logOut, profileAvatarPress,
+    masterInventoryLoad, navigateToAddInventory
 })(Profile);

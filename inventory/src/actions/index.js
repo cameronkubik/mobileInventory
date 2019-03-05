@@ -7,3 +7,4 @@ export * from './ViewInventoryActions';
 export * from './ViewItemsActions';
 export * from './CameraGalleryActions';
 export * from './ButtonActions';
+export * from './InventoryActions';

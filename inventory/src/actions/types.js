@@ -33,13 +33,15 @@ export const LOAD_USER_SUCCESS = 'load_user_success';
 export const LOAD_USER_FAIL = 'load_user_fail';
 export const LOG_OUT = 'log_out';
 export const EDIT_PROFILE_PRESS = 'edit_profile_press';
+export const NAVIGATE_ADD_INVENTORY = 'navigate_add_inventory';
+export const NAVIGATE_VIEW_INVENTORY = 'navigate_view_inventory';
 
 // Add Inventory actions
-export const LOAD_ADD_INVENTORY = 'load_add_inventory';
-export const LOAD_ADD_INVENTORY_SUCCESS = 'load_add_inventory_success';
-export const LOAD_ADD_INVENTORY_FAIL = 'load_add_inventory_fail';
+// export const LOAD_ADD_INVENTORY = 'load_add_inventory';
+// export const LOAD_ADD_INVENTORY_SUCCESS = 'load_add_inventory_success';
+// export const LOAD_ADD_INVENTORY_FAIL = 'load_add_inventory_fail';
 export const PICKER_CHANGE = 'picker_change';
-export const TEXT_INPUT_CHANGE = 'text_input_change';
+export const ADD_INVENTORY_INPUT_CHANGE = 'add_inventory_input_change';
 export const ADD_ITEM_PICTURES = 'add_item_pictures';
 export const ITEM_PICTURES_SELECTED = 'item_pictures_selected';
 export const PICTURE_SELECTION_FINISHED = 'picture_selection_finished';
@@ -76,3 +78,12 @@ export const GALLERY_IMAGE_PRESS = 'gallery_image_press';
 export const GALLERY_CAMERA_PRESS = 'gallery_camera_press';
 export const CAMERA_CAPTURE_PRESS = 'camera_capture_press';
 export const CANCEL_GALLERY_SELECTION = 'cancel_gallery_selection';
+
+// Inventory Data actions
+export const INVENTORY_ACTIONS = {
+    Categories: {
+        load_begin: 'inv_category_load_begin',
+        load_success: 'inv_category_load_success',
+        load_fail: 'inv_category_load_fail',
+    }
+}

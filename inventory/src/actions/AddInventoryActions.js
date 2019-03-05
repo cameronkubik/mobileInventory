@@ -1,55 +1,21 @@
 import Services from '../Services';
 import { 
-    LOAD_ADD_INVENTORY, LOAD_ADD_INVENTORY_SUCCESS, 
-    LOAD_ADD_INVENTORY_FAIL, PICKER_CHANGE, TEXT_INPUT_CHANGE,
+    PICKER_CHANGE, ADD_INVENTORY_INPUT_CHANGE,
     ADD_ITEM_PICTURES, ITEM_PICTURES_SELECTED,
     PICTURE_SELECTION_FINISHED, SUBMIT_INVENTORY_ITEM,
     PICTURE_SELECTION_CANCELLED, PICTURE_SELECTION_RESUMED
 } from './types';
 
-export const load_add_inventory = () => {
-    return (dispatch) => { 
-        dispatch({ type: LOAD_ADD_INVENTORY });
-
-        const loadedCategories = Services.Database.get_picker_categories();
-
-        if (loadedCategories) {
-            load_success(dispatch, { categories: loadedCategories });
-            return;
-        }
-        
-        load_fail(dispatch, { code: -1, message: 'error msg placeholder' });
-    }
-}
-
-const load_success = (dispatch, returnData) => {
-    dispatch({ 
-        type: LOAD_ADD_INVENTORY_SUCCESS, 
-        payload: returnData.categories
-    });
-};
-
-// TODO
-const load_fail = (dispatch, error) => {
-    dispatch({ 
-        type: LOAD_ADD_INVENTORY_FAIL, 
-        payload: {
-            errorCode: error.code,
-            errorMsg: error.message
-        }
-    });
-};
-
-export const picker_change = (value, index) => {
+export const category_picker_change = (value) => {
     return {
         type: PICKER_CHANGE,
-        payload: { value, index }
+        payload: value
     }
 };
 
-export const text_input_change = (value, field) => {
+export const add_inventory_input_change = (value, field) => {
     return {
-        type: TEXT_INPUT_CHANGE,
+        type: ADD_INVENTORY_INPUT_CHANGE,
         payload: { value, field }
     }
 };
