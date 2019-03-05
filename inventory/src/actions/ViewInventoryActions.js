@@ -1,4 +1,4 @@
-import DbManager from '../DatabaseManager';
+import Services from '../Services';
 import {
     LOAD_INVENTORY_CATEGORIES,
     LOAD_INVENTORY_CATEGORIES_SUCCESS,
@@ -7,13 +7,12 @@ import {
     CATEGORY_SEARCH_TEXT_CLEARED,
     INVENTORY_CATEGORY_PRESS,
 } from '../actions/types';
-import NavigationService from '../NavigationService';
 
 export const load_inventory_categories = () => {
     return (dispatch) => {
         dispatch({ type: LOAD_INVENTORY_CATEGORIES });
 
-        const loadedCategories = DbManager.get_inventory_categories();
+        const loadedCategories = Services.Database.get_inventory_categories();
 
         if (!loadedCategories) {
             load_fail(dispatch, { code: -1, message: 'Failed to load categories, please try again.' });
@@ -42,7 +41,7 @@ export const inventory_category_press = (categoryName) => {
             payload: categoryName
         });
 
-        NavigationService.navigate('ViewItems');
+        Services.Navigation.navigate('ViewItems');
     };
 }
 

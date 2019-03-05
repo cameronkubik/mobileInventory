@@ -1,5 +1,4 @@
-import NavigationService from '../NavigationService';
-import Models from '../ModelManager';
+import Services from '../Services';
 import {
     GALLERY_SET_TYPE,
     GALLERY_IMAGE_PRESS,
@@ -10,7 +9,7 @@ import {
 
 export const onGalleryImagePress = (event, isAvatarSelection) => {
     return (dispatch) => {
-        var imageModel = Models.__Image__(event);
+        var imageModel = Services.Models.__Image__(event);
 
         if (isAvatarSelection) {
             dispatch({
@@ -18,7 +17,7 @@ export const onGalleryImagePress = (event, isAvatarSelection) => {
                 payload: imageModel
             });
 
-            NavigationService.back();
+            Services.Navigation.back();
             return;
         }
 

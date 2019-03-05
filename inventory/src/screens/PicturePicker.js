@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, Text, Button } from 'react-native';
+import { Button } from 'react-native';
 import { connect } from 'react-redux';
 import CameraRollPicker from 'react-native-camera-roll-picker';
 import { 
     item_pictures_selected, picture_selection_finished,
     picture_selection_cancelled
 } from '../actions';
-import NavigationService from '../NavigationService';
+import NavigationService from '../Services/NavigationService';
 import { BaseContainer } from '../components/common';
 
 class PicturePicker extends Component {

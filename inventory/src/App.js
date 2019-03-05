@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 // Custom file imports
-import NavigationService from './NavigationService';
+import NavigationService from './Services/NavigationService';
 import reducers from './reducers';
 import { colors } from './components/util/CommonStyles';
 import Login from './screens/Login';

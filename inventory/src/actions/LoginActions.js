@@ -1,6 +1,4 @@
-import firebase from 'react-native-firebase';
-import NavigationService from '../NavigationService';
-import StoreManager from '../StoreManager';
+import Services from '../Services';
 import {
     AUTH_INPUT_CHANGE,
     AUTH_RESET,
@@ -8,7 +6,6 @@ import {
     LOGIN_USER_FAIL,
     LOGIN_USER_BEGIN
 } from './types';
-import DatabaseManager from '../DatabaseManager';
 
 export const onInputChange = (field, value) => {
     return {
@@ -19,7 +16,7 @@ export const onInputChange = (field, value) => {
 
 export const loginUser = () => {
     return (dispatch) => {
-        const credentialsModel = StoreManager.generateCredentialsModel(),
+        const credentialsModel = Services.Store.generateCredentialsModel(),
             { email, password } = credentialsModel;
         
         dispatch({ type: LOGIN_USER_BEGIN });
@@ -35,7 +32,7 @@ export const loginUser = () => {
             return;
         }
 
-        DatabaseManager.AUTH.login(credentialsModel)
+        Services.Database.AUTH.login(credentialsModel)
             .then(user => loginUserSuccess(dispatch, user))
             .catch(error => loginUserFail(dispatch, error));
     };
@@ -45,7 +42,7 @@ export const resetLogin = () => {
     return (dispatch) => {
         dispatch({ type: AUTH_RESET });
 
-        NavigationService.push('CreateProfile');
+        Services.Navigation.push('CreateProfile');
     }
 }
 
@@ -92,5 +89,5 @@ const loginUserSuccess = (dispatch, user) => {
         payload: user
     });
 
-    NavigationService.replace('Profile');
+    Services.Navigation.replace('Profile');
 };

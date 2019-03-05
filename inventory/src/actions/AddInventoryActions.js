@@ -1,6 +1,4 @@
-import firebase from 'react-native-firebase';
-import NavigationService from '../NavigationService';
-import DbManager from '../DatabaseManager';
+import Services from '../Services';
 import { 
     LOAD_ADD_INVENTORY, LOAD_ADD_INVENTORY_SUCCESS, 
     LOAD_ADD_INVENTORY_FAIL, PICKER_CHANGE, TEXT_INPUT_CHANGE,
@@ -13,7 +11,7 @@ export const load_add_inventory = () => {
     return (dispatch) => { 
         dispatch({ type: LOAD_ADD_INVENTORY });
 
-        const loadedCategories = DbManager.get_picker_categories();
+        const loadedCategories = Services.Database.get_picker_categories();
 
         if (loadedCategories) {
             load_success(dispatch, { categories: loadedCategories });
@@ -57,7 +55,7 @@ export const text_input_change = (value, field) => {
 };
 
 export const add_item_pictures = () => {
-    NavigationService.navigate('PicturePicker');
+    Services.Navigation.navigate('PicturePicker');
 
     return { type: ADD_ITEM_PICTURES };
 };
@@ -74,7 +72,7 @@ export const picture_selection_finished = () => {
     return (dispatch) => {
         dispatch({ type: PICTURE_SELECTION_FINISHED });
 
-        NavigationService.back();
+        Services.Navigation.back();
     }
 }
 
@@ -82,7 +80,7 @@ export const picture_selection_cancelled = () => {
     return (dispatch) => {
         dispatch({ type: PICTURE_SELECTION_CANCELLED });
 
-        NavigationService.back();
+        Services.Navigation.back();
     }
 }
 
@@ -90,6 +88,6 @@ export const picture_selection_resume = (selectedImageArray) => {
     return (dispatch) => {
         dispatch({ type: PICTURE_SELECTION_RESUMED });
 
-        NavigationService.navigate('PicturePicker', { preselectedImages: selectedImageArray });
+        Services.Navigation.navigate('PicturePicker', { preselectedImages: selectedImageArray });
     };
 }

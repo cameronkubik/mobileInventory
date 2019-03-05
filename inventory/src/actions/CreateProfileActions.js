@@ -1,9 +1,6 @@
 import firebase from 'react-native-firebase';
 import { ImagePickerIOS } from 'react-native';
-import NavigationService from '../NavigationService';
-import StoreManager from '../StoreManager';
-import DatabaseManager from '../DatabaseManager';
-import Models from '../ModelManager';
+import Services from '../Services';
 import {
     CREATE_PROFILE_INPUT_CHANGE,
     CREATE_USER_SUCCESS,
@@ -27,10 +24,10 @@ export const createUser = () => {
     return (dispatch) => {
         dispatch({ type: CREATE_USER_BEGIN });
         
-        const accountModel = StoreManager.generateAccountModel(),
+        const accountModel = Services.Store.generateAccountModel(),
             { first, last, email, position } = accountModel,
-            { mismatchingPasswords, missingPassword, password } = StoreManager.generateSecureAccountData(),
-            credentialsModel = StoreManager.generateCredentialsModel({email, password});
+            { mismatchingPasswords, missingPassword, password } = Services.Store.generateSecureAccountData(),
+            credentialsModel = Services.Store.generateCredentialsModel({email, password});
 
         if (!first || !last || !email || !position || missingPassword) {
             createUserFail(dispatch, { code: 'custom/missing-info' });
@@ -40,18 +37,18 @@ export const createUser = () => {
             return;
         }
 
-        DatabaseManager.AUTH.signUp(credentialsModel)
+        Services.Database.AUTH.signUp(credentialsModel)
             .then(user => createUserSuccess(dispatch, user, accountModel))
             .catch(error => createUserFail(dispatch, error));
     };
 };
 
 const createUserSuccess = (dispatch, userCredentials, accountModel) => {
-    DatabaseManager.PUT.accountModel(userCredentials, accountModel)
+    Services.Database.PUT.accountModel(userCredentials, accountModel)
         .then(() => {
             dispatch({ type: CREATE_USER_SUCCESS });
         
-            NavigationService.createProfileTransition();
+            Services.Navigation.createProfileTransition();
         })
         .catch(error => createUserFail(dispatch, error));
 };
@@ -97,7 +94,7 @@ export const openImagePicker = () => {
         ImagePickerIOS.openSelectDialog(null, (uri) => {
             dispatch({
                 type: AVATAR_SELECTED,
-                payload: Models.__URI__(uri)
+                payload: Services.Models.__URI__(uri)
             });
         }, () => { 
             console.log('Picker cancelled. DO NOT remove this callback, it is required')
@@ -105,20 +102,11 @@ export const openImagePicker = () => {
     }
 };
 
-export const avatarPress = () => {
-    
-    // return (dispatch) => {
-    //     dispatch({ type: AVATAR_PRESS });
-
-    //     NavigationService.navigate('CameraGallery');
-    // }
-};
-
 export const updateUser = () => {
     return (dispatch) => {
         dispatch({ type: UPDATE_USER_BEGIN });
         
-        const accountModel = StoreManager.generateAccountModel(),
+        const accountModel = Services.Store.generateAccountModel(),
             { first, last, position } = accountModel;
 
         if (!first || !last || !position) {
@@ -126,7 +114,7 @@ export const updateUser = () => {
             return;
         }
         const userCredentials = { user: firebase.auth()._user };
-        DatabaseManager.PUT.accountModel(userCredentials, accountModel)
+        Services.Database.PUT.accountModel(userCredentials, accountModel)
             .then(() => { updateUserSuccess(dispatch) })
             .catch(() => { updateUserFail(dispatch) })
     };
@@ -135,7 +123,7 @@ export const updateUser = () => {
 function updateUserSuccess(dispatch) {
     dispatch({ type: UPDATE_USER_SUCCESS });
             
-    NavigationService.back();
+    Services.Navigation.back();
 }
 function updateUserFail(dispatch) {
     dispatch({ 

@@ -1,6 +1,5 @@
-import firebase from 'react-native-firebase';
 import ModelManager from './ModelManager';
-import { reduxStore } from './App';
+import { reduxStore } from '../App';
 
 const StoreManager = {
     generateCredentialsModel,

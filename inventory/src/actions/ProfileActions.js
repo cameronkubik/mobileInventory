@@ -1,7 +1,4 @@
-import firebase from 'react-native-firebase';
-import NavigationService from '../NavigationService';
-import DatabaseManager from '../DatabaseManager';
-import ModelManager from '../ModelManager';
+import Services from '../Services';
 import { 
     LOAD_USER_BEGIN,
     LOAD_USER_SUCCESS,
@@ -13,14 +10,14 @@ export const loadAccount = () => {
     return (dispatch) => {
         dispatch({ type: LOAD_USER_BEGIN });
 
-        DatabaseManager.GET.accountModel()
+        Services.Database.GET.accountModel()
             .then(snapshot => loadAccountSuccess(snapshot, dispatch))
             .catch(error => loadAccountFail(error, dispatch));
     };
 };
 
 const loadAccountSuccess = (accountSnapshot, dispatch) => {
-    const accountModel = ModelManager.__Account__(accountSnapshot.data());
+    const accountModel = Services.Models.__Account__(accountSnapshot.data());
 
     dispatch({
         type: LOAD_USER_SUCCESS,
@@ -41,8 +38,8 @@ export const logOut = () => {
     return (dispatch) => {
         dispatch({ type: LOG_OUT });
 
-        DatabaseManager.AUTH.logout();
+        Services.Database.AUTH.logout();
 
-        NavigationService.reset();
+        Services.Navigation.reset();
     };
 };

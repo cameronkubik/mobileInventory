@@ -1,6 +1,5 @@
 // import firebase from 'react-native-firebase';
-import NavigationService from '../NavigationService';
-import DbManager from '../DatabaseManager';
+import Services from '../Services';
 import { 
     LOAD_ITEM_DETAIL, LOAD_ITEM_DETAIL_SUCCESS, LOAD_ITEM_DETAIL_FAIL,
     EDIT_INVENTORY_ITEM, REMOVE_INVENTORY_ITEM,
@@ -10,7 +9,7 @@ export const load_item_detail = (itemID) => {
     return (dispatch) => {
         dispatch({ type: LOAD_ITEM_DETAIL });
 
-        const loadedItem = DbManager.get_item_detail(itemID);
+        const loadedItem = Services.Database.get_item_detail(itemID);
 
         if (loadedItem) {
             load_success(dispatch, loadedItem);
@@ -28,7 +27,7 @@ export const edit_inventory_item = (itemDetail) => {
             payload: itemDetail
         });
     
-        NavigationService.navigate('AddInventory');
+        Services.Navigation.navigate('AddInventory');
     }
 }
 

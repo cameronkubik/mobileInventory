@@ -1,5 +1,4 @@
-import NavigationService from '../NavigationService';
-import StoreManager from '../StoreManager';
+import NavigationService from '../Services/NavigationService';
 import {
     EDIT_PROFILE_PRESS
 } from './types';

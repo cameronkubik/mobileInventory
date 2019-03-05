@@ -1,4 +1,4 @@
-import DbManager from '../DatabaseManager';
+import Services from '../Services';
 import {
     LOAD_CATEGORY_ITEMS, 
     LOAD_CATEGORY_ITEMS_SUCCESS,
@@ -7,13 +7,12 @@ import {
     ITEMS_SEARCH_TEXT_CLEARED,
     INVENTORY_ITEM_PRESS
 } from '../actions/types';
-import NavigationService from '../NavigationService';
 
 export const load_category_items = () => {
     return (dispatch) => {
         dispatch({ type: LOAD_CATEGORY_ITEMS });
 
-        const loadedItems = DbManager.get_category_items();
+        const loadedItems = Services.Database.get_category_items();
 
         if (!loadedItems) {
             load_fail(dispatch, { code: -1, message: 'Failed to load items, please try again.' });
@@ -42,7 +41,7 @@ export const inventory_item_press = (itemID) => {
             payload: itemID
         });
         
-        NavigationService.navigate('ItemDetail');
+        Services.Navigation.navigate('ItemDetail');
     };
 }
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FlatList, StatusBar } from 'react-native';
 import { Header, SearchBar, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
-import NavigationService from '../NavigationService';
+import NavigationService from '../Services/NavigationService';
 import { 
     load_category_items, item_search_text_changed, 
     item_search_text_cleared, inventory_item_press

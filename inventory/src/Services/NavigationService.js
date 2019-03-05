@@ -1,6 +1,7 @@
 import { NavigationActions, StackActions } from 'react-navigation';
 
 let _navigator;
+
 const NavigationService = {
     setTopLevelNavigator,
     navigate,
