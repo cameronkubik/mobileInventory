@@ -49,6 +49,11 @@ export const Styles = {
         borderWidth: 1,
         borderStyle: 'solid',
         borderColor: 'red'
+    },
+    devBlue: {
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderColor: 'blue'
     }
 };
 

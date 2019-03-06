@@ -29,7 +29,7 @@ class ImageCarousel extends Component {
 
     render() {
         return  (
-            <View>
+            <View style={Styles.rootView}>
                 <Carousel 
                     data={this.props.data}
                     renderItem={this._renderItem}
@@ -53,7 +53,9 @@ function wp (percentage) {
 }
 const IS_IOS = Platform.OS === 'ios';
 
-const slideHeight = viewportHeight * 0.25;
+// const slideHeight = viewportHeight * 0.25;
+const slideHeight = viewportHeight * 0.20;
+// const slideHeight = '100%';
 const slideWidth = wp(25);
 const itemHorizontalMargin = wp(2);
 
@@ -62,22 +64,43 @@ const itemWidth = slideWidth + itemHorizontalMargin * 2;
 const entryBorderRadius = 8;
 
 const Styles = StyleSheet.create({
+    rootView: {
+        // height: 'auto',
+        // width: '100%',
+        // maxHeight: slideHeight,
+        flex: 1,
+        // flexDirection: 'row',
+        // alignItems: 'center',
+        padding: 0,
+
+        borderColor: 'green',
+        borderWidth: 2,
+        borderStyle: 'dotted'
+    },
     carouselItem: {
         width: itemWidth,
+        // width: '100%',
         height: slideHeight,
+        // height: '100%',
         paddingHorizontal: itemHorizontalMargin,
-        paddingBottom: 18 // needed for shadow
+        paddingBottom: 18, // needed for shadow,
+        marginBottom: 0,
+
+        borderWidth: 1,
+        borderStyle: 'dotted',
+        borderColor: 'red'
     },
     itemImageContainer: {
         flex: 1,
         marginBottom: IS_IOS ? 0 : -1, // Prevent a random Android rendering issue
         backgroundColor: 'white',
         borderTopLeftRadius: entryBorderRadius,
-        borderTopRightRadius: entryBorderRadius
+        borderTopRightRadius: entryBorderRadius,
     },
     itemImage: {
         ...StyleSheet.absoluteFillObject,
         resizeMode: 'cover',
+        // resizeMode: 'contain',
         borderRadius: IS_IOS ? entryBorderRadius : 0,
         borderTopLeftRadius: entryBorderRadius,
         borderTopRightRadius: entryBorderRadius

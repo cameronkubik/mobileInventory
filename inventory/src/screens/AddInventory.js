@@ -50,14 +50,15 @@ class AddInventory extends Component {
                 <Container customStyle={[Styles.Containers.carousel, CommonStyles.dev]}>
                     <FormLabel containerStyle={Styles.Form.label}>Photos</FormLabel>
                     <ImageCarousel data={this.props.images} />
-                    <Button
+                    {/* <Button
                         title='Edit'
                         rounded
                         color='white'
                         borderRadius={30}
                         buttonStyle={Styles.Button.editStyle}
+                        containerViewStyle={Styles.Button.editContainerStyle}
                         onPress={this.onEditPress.bind(this)}
-                    />
+                    /> */}
                 </Container>
             );
         }
@@ -139,14 +140,14 @@ class AddInventory extends Component {
         return (
             <BaseContainer customStyle={{ padding: 20 }}>
                 
-                {/* Carousel (40% of page) */}
+                {/* Carousel */}
                 {this.renderCarousel()}
 
-                {/* User inputs (60% of page) */}
+                {/* User inputs */}
                 <Container
                     // scroll
                     // scrollStyle={Styles.Containers.scroll}
-                    customStyle={[Styles.Containers.input, CommonStyles.dev]}
+                    customStyle={[Styles.Containers.input]}
                 >
                     {/* Category */}
                     <FormLabel containerStyle={Styles.Form.label}>Category</FormLabel>
@@ -202,7 +203,8 @@ const Styles = {
         carousel: {
             justifyContent: 'flex-start',
             width: '100%', 
-            flex: 30
+            flex: 30,
+            // flex: 50
         },
         input: {
             justifyContent: 'flex-start',
@@ -249,7 +251,11 @@ const Styles = {
             height: 40, 
             padding: 5, 
             alignSelf: 'center', 
-            marginTop: 10
+        },
+        editContainerStyle: {
+            borderWidth: 1,
+            borderStyle: 'solid',
+            borderColor: 'orange',
         },
         container: {
             borderRadius: 20,
@@ -303,7 +309,7 @@ const mapStateToProps = ({ addInventory, inventory }) => {
         description,
         dimensions,
         images,
-        hasImages: images.length,
+        hasImages: images.length > 0,
         categories,
         selectedCategory,
         loading,
