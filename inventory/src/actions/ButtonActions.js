@@ -3,10 +3,14 @@ import {
     EDIT_PROFILE_PRESS
 } from './types';
 
-export const cancelPress = (actionType) => {
+export const cancelPress = (actionType, isSubmit) => {
     return (dispatch) => {
         dispatch({ type: actionType });
 
+        if (isSubmit) {
+            // TODO - add submit logic here
+        }
+        
         NavigationService.back();
     }
 }

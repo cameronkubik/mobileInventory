@@ -37,17 +37,27 @@ export const NAVIGATE_ADD_INVENTORY = 'navigate_add_inventory';
 export const NAVIGATE_VIEW_INVENTORY = 'navigate_view_inventory';
 
 // Add Inventory actions
-// export const LOAD_ADD_INVENTORY = 'load_add_inventory';
-// export const LOAD_ADD_INVENTORY_SUCCESS = 'load_add_inventory_success';
-// export const LOAD_ADD_INVENTORY_FAIL = 'load_add_inventory_fail';
-export const PICKER_CHANGE = 'picker_change';
 export const ADD_INVENTORY_INPUT_CHANGE = 'add_inventory_input_change';
-// export const ADD_ITEM_PICTURES = 'add_item_pictures';
 export const ITEM_PICTURES_SELECTED = 'item_pictures_selected';
 export const PICTURE_SELECTION_FINISHED = 'picture_selection_finished';
 export const PICTURE_SELECTION_CANCELLED = 'picture_selection_cancelled';
 export const PICTURE_SELECTION_RESUMED = 'picture_selection_resumed';
 export const SUBMIT_INVENTORY_ITEM = 'submit_inventory_item';
+// Add Inventory form input enum
+export const ADD_INVENTORY = {
+    InputTypeEnum: {
+        name: 'name',
+        description: 'desc',
+        dimensions: 'dim',
+        cost: 'cost'
+    },
+    Actions: {
+        INPUT_CHANGE: 'add_inventory_input_change',
+        PICKER_CHANGE: 'picker_change',
+        IMAGE_SELECTED: 'item_pictures_selected',
+        SUBMIT: 'submit_inventory_item'
+    },
+}
 
 // Item Detail actions
 export const LOAD_ITEM_DETAIL = 'load_item_detail';

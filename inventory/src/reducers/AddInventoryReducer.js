@@ -1,10 +1,12 @@
 import {
-    PICKER_CHANGE,
     SUBMIT_INVENTORY_ITEM,
     EDIT_INVENTORY_ITEM,
     INVENTORY_ACTIONS,
-    NAVIGATE_ADD_INVENTORY
+    NAVIGATE_ADD_INVENTORY,
+    ADD_INVENTORY
 } from '../actions/types';
+
+const { Actions } = ADD_INVENTORY;
 
 const INITIAL_STATE = {
     categories: [],
@@ -58,7 +60,7 @@ export default (state = INITIAL_STATE, action) => {
                 isEditMode: true
             };
 
-        case PICKER_CHANGE:
+        case Actions.PICKER_CHANGE:
             return {
                 ...state,
                 selectedCategory: action.payload

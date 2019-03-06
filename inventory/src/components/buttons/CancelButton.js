@@ -1,24 +1,25 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { cancelPress } from '../../actions';
-import { Styles as CommonStyles, colors } from '../util/CommonStyles';
+import { colors } from '../util/CommonStyles';
 
 /** NOTE: Must provide action type to component as inherited prop */
 class CancelButton extends Component {
 
     _onPress() {
-        this.props.cancelPress(this.props.type);
+        this.props.cancelPress(this.props.type, this.props.isSubmit);
     }
 
     render() {
+        let _title = this.props.isSubmit ? 'Submit' : 'Cancel',
+            _color = this.props.isSubmit ? 'orange' : '#fff';
+
         return (
             <Button
-                title='Cancel'
-                color='#fff'
+                title={_title}
+                color={_color}
                 buttonStyle={Styles.button}
-                containerViewStyle={Styles.container}
                 onPress={this._onPress.bind(this)}
             />
         );

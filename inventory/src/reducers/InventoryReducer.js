@@ -1,10 +1,11 @@
 import {
+    ADD_INVENTORY,
     INVENTORY_ACTIONS,
     ADD_INVENTORY_INPUT_CHANGE,
     ITEM_PICTURES_SELECTED,
-    PICKER_CHANGE
 } from '../actions/types';
-import Services from '../Services';
+
+const { Actions } = ADD_INVENTORY;
 
 const INITIAL_STATE = {
     // contains meta-data and product models
@@ -15,7 +16,7 @@ const INITIAL_STATE = {
         name: '',
         description: '',
         dimensions: '',
-        cost: 0,
+        cost: null,
         category: null,
         images: []
     }
@@ -47,7 +48,7 @@ export default (state = INITIAL_STATE, action) => {
                 }
             };
 
-        case PICKER_CHANGE:
+        case Actions.PICKER_CHANGE:
             return {
                 ...state,
                 newProduct: {
