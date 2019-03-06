@@ -41,7 +41,8 @@ class AddInventory extends Component {
     }
 
     onEditPress() {
-        this.props.picture_selection_resume(this.props.pictures);
+        // this.props.picture_selection_resume(this.props.pictures);
+        this.props.add_item_pictures();
     }
 
     // TODO
@@ -51,9 +52,9 @@ class AddInventory extends Component {
 
     // Component render functions
     renderCarousel() {
-        if  (this.props.pictures) {
+        if  (this.props.pictures.length) {
             return (
-                <View style={{ height: 275 }}>
+                <View style={[CommonStyles.dev, { height: 250 }]}>
                     <ImageCarousel data={this.props.pictures} />
                     <Button
                         title='Edit'
@@ -82,10 +83,6 @@ class AddInventory extends Component {
     }
 
     render() {
-        if (this.props.isSelectingPictures) {
-            return <View />;
-        }
-
         return (
             <BaseContainer customStyle={{ padding: 20 }}>
                 <Container customStyle={[Styles.inputContainer]}>
@@ -223,15 +220,27 @@ const Styles = {
     },
 };
 
-const mapStateToProps = ({addInventory}) => {
+const mapStateToProps = ({ addInventory, inventory }) => {
+    const { newProduct } = inventory;
+    const {   
+            name, description, dimensions,
+            cost, images
+        } = newProduct;
     const { 
-        pictures, categories, selectedCategory,
-        description, dimensions, loading, error, isSelectingPictures
+        categories, selectedCategory,
+        loading, error
     } = addInventory;
 
     return {
-        pictures, categories, selectedCategory,
-        description, dimensions, loading, error, isSelectingPictures
+        name,
+        cost,
+        description,
+        dimensions,
+        pictures: images,
+        categories,
+        selectedCategory,
+        loading,
+        error
     }
 }
 

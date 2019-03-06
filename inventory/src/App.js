@@ -34,7 +34,7 @@ const TopLevelNavigator = createStackNavigator(
         CameraGallery
     },
     {
-        initialRouteName: 'Profile',
+        initialRouteName: 'AddInventory',
         /* Shared navigationOptions across screens */
         defaultNavigationOptions: {
             headerStyle: {

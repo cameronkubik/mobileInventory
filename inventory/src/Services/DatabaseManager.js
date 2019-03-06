@@ -5,7 +5,6 @@ import firebase from 'firebase';
 // const Blob = RNFetchBlob.polyfill.Blob;
 /** Database Manager class */
 const DatabaseManager = {
-    get_picker_categories,
     get_item_detail,
     get_inventory_categories,
     get_category_items,
@@ -107,41 +106,6 @@ function getCategoryNames() {
     );
 }
 /*******************************************/
-
-
-
-// TODO
-function get_picker_categories() {    
-    // make request to wix api for category collections
-    // placeholder:
-    const loadedCategories = [
-        { label: 'Apparel', value: 'app' },
-        { label: 'Art', value: 'art' },
-        { label: 'Bath', value: 'bat' },
-        { label: 'Brick', value: 'bri' },
-        { label: 'Corbels', value: 'cor' },
-        { label: 'Doors', value: 'doo' },
-        { label: 'Fountains', value: 'fou' },
-        { label: 'Furniture', value: 'fur' },
-        { label: 'Gates', value: 'gat' },
-        { label: 'Hardware', value: 'har' },
-        { label: 'Ironworks', value: 'iro' },
-        { label: 'Lighting', value: 'lig' },
-        { label: 'Lumber', value: 'lum' },
-        { label: 'Mailboxes', value: 'mai' },
-        { label: 'Mantels', value: 'man' },
-        { label: 'Shutters', value: 'shu' },
-        { label: 'Staircasing', value: 'sta' },
-        { label: 'Stonework', value: 'sto' },
-        { label: 'Tile', value: 'til' },
-        { label: 'Urns', value: 'urn' },
-        { label: 'Windows', value: 'win' }
-    ];
-
-    if (!loadedCategories) return undefined;
-
-    return loadedCategories;
-}
 
 // TODO
 function get_item_detail(itemID) {

@@ -20,17 +20,23 @@ function loadCategories(dispatch) {
 }
 
 function loadCategoriesSuccess(dispatch, snapshot) {
-    let loadedCategories = {};
+    let loadedCategories = {},
+        pickerCategories = [];
 
     _.each(snapshot.data(), function(value, label) {
-        let categoryModel = Services.Models.__CATEGORY__(label, value);
+        let categoryModel = Services.Models.__CATEGORY__(label, value),
+            pickerModel = { label, value };
 
         loadedCategories[categoryModel.label] = categoryModel;
+        pickerCategories.push(pickerModel);
     });
 
     dispatch({
         type: INVENTORY_ACTIONS.Categories.load_success,
-        payload: loadedCategories
+        payload: {
+            categoryModels: loadedCategories,
+            pickerModels: pickerCategories
+        }
     });
 
 }
