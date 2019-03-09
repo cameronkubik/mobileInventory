@@ -1,8 +1,16 @@
 import rnFirebase from 'react-native-firebase';
 import firebase from 'firebase';
-// import RNFetchBlob from 'rn-fetch-blob';
+import RNFetchBlob from 'rn-fetch-blob';
+import { Platform } from 'react-native';
+import Services from '.';
 
 // const Blob = RNFetchBlob.polyfill.Blob;
+const Blob = RNFetchBlob.polyfill.Blob
+const fs = RNFetchBlob.fs
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
+window.Blob = Blob
+
+
 /** Database Manager class */
 const DatabaseManager = {
     get_item_detail,
@@ -21,7 +29,8 @@ const DatabaseManager = {
         }
     },
     PUT: {
-        accountModel: putAccountModel
+        accountModel: putAccountModel,
+        avatar: uploadAvatarToFirebaseStorage
     }
 };
 
@@ -46,6 +55,39 @@ function putAccountModel(userCredentials, accountModel) {
             .doc(uid)
             .set(accountModel)
     );
+}
+function uploadAvatarToFirebaseStorage(userCredentials, accountModel) {
+    return new Promise((resolve, reject) => {
+        const uri = accountModel.avatar.uri,
+            uid = userCredentials.user,
+            mime = 'application/octet-stream',
+            uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+        let uploadBlob = null;
+        //
+        Services.Actions.debug(firebase);
+        //
+        const imageRef = firebase.storage().ref('avatars').child(uid);
+
+        fs.readFile(uploadUri, 'base64')
+            .then((data) => {
+                return Blob.build(data, { type: `${mime};BASE64` })
+            })
+            .then((blob) => {
+                uploadBlob = blob
+                return imageRef.put(blob, { contentType: mime })
+            })
+            .then(() => {
+                uploadBlob.close()
+                return imageRef.getDownloadURL()
+            })
+            .then((url) => {
+                resolve(url)
+            })
+            .catch((error) => {
+                reject(error)
+            });
+    });
+    
 }
 function putAccountModelNEW(userCredentials, accountModel) {
     return new Promise((resolve, reject) => {

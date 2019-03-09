@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, TextInput, StatusBar } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { onInputChange, loginUser, resetLogin } from '../actions';
+import { onInputChange, loginUser, resetLogin, touchAuth } from '../actions';
 import { BaseContainer, Container, Logo } from '../components/common';
 import { Styles as CommonStyles } from '../components/util/CommonStyles';
 
@@ -31,6 +31,7 @@ class Login extends Component {
 
     onLoginPress() {
         this.props.loginUser();
+        // this.props.touchAuth();
     }
 
     onCreateProfilePress() {
@@ -164,5 +165,5 @@ const mapStateToProps = ({auth}) => {
 /*******************************************/
 
 export default connect(mapStateToProps, { 
-    onInputChange, loginUser, resetLogin
+    onInputChange, loginUser, resetLogin, touchAuth
 })(Login);

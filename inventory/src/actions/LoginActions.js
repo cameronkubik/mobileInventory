@@ -6,6 +6,29 @@ import {
     LOGIN_USER_FAIL,
     LOGIN_USER_BEGIN
 } from './types';
+import TouchID from 'react-native-touch-id';
+
+// TODO - working logic, need to add redux
+export const touchAuth = () => {
+    return (dispatch) => {
+        dispatch({ type: LOGIN_USER_BEGIN });
+        TouchID.isSupported()
+            .then(Services.Actions.consoleLog)
+            .catch(Services.Actions.consoleLog)
+        
+        TouchID.authenticate('to demo this react-native component')
+        .then(success => {
+            // Success code
+            Services.Actions.consoleLog(success);
+        })
+        .catch(error => {
+            // Failure code
+            Services.Actions.consoleLog(error);
+
+            debugger;
+        });
+    }
+}
 
 export const onInputChange = (field, value) => {
     return {

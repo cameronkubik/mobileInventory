@@ -11,7 +11,6 @@ import { colors } from './components/util/CommonStyles';
 import Login from './screens/Login';
 import CreateProfile from './screens/CreateProfile';
 import Profile from './screens/Profile';
-import AvatarPicker from './screens/AvatarPicker';
 import AddInventory from './screens/AddInventory';
 import PicturePicker from './screens/PicturePicker';
 import ItemDetail from './screens/ItemDetail';
@@ -25,7 +24,6 @@ const TopLevelNavigator = createStackNavigator(
         Login,
         Profile,
         CreateProfile,
-        AvatarPicker,
         AddInventory,
         PicturePicker,
         ItemDetail,
@@ -34,7 +32,7 @@ const TopLevelNavigator = createStackNavigator(
         CameraGallery
     },
     {
-        initialRouteName: 'AddInventory',
+        initialRouteName: 'Login',
         /* Shared navigationOptions across screens */
         defaultNavigationOptions: {
             headerStyle: {

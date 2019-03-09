@@ -2,7 +2,8 @@ import { ImagePickerIOS } from 'react-native';
 
 const CommonActions = {
     openImagePicker,
-    consoleLog
+    consoleLog,
+    debug
 }
 
 function openImagePicker(config = null, successCallback, cancelCallback = consoleLog) {
@@ -10,6 +11,10 @@ function openImagePicker(config = null, successCallback, cancelCallback = consol
 }
 function consoleLog(arg) {
     console.log(arg);
+}
+function debug(arg) {
+    console.log(arg);
+    debugger;
 }
 
 export default CommonActions;
