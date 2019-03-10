@@ -113,14 +113,9 @@ export const updateUser = () => {
         }
         const userCredentials = { user: firebase.auth()._user };
 
-
-        Services.Database.PUT.avatar(userCredentials, accountModel)
-            .then(Services.Actions.debug)
-            .catch(Services.Actions.debug)
-
-        // Services.Database.PUT.accountModel(userCredentials, accountModel)
-        //     .then(() => { updateUserSuccess(dispatch) })
-        //     .catch(() => { updateUserFail(dispatch) })
+        Services.Database.PUT.accountModel(userCredentials, accountModel)
+            .then(() => { updateUserSuccess(dispatch) })
+            .catch(() => { updateUserFail(dispatch) })
     };
 }
 

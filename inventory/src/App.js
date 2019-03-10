@@ -33,7 +33,7 @@ const TopLevelNavigator = createStackNavigator(
         CameraGallery
     },
     {
-        initialRouteName: 'Login',
+        initialRouteName: 'Profile',
         /* Shared navigationOptions across screens */
         defaultNavigationOptions: {
             headerStyle: {
@@ -47,18 +47,8 @@ const AppContainer = createAppContainer(TopLevelNavigator);
 // --------------------- //
 
 export const reduxStore = createStore(reducers, {}, applyMiddleware(ReduxThunk));
-const config = {
-    apiKey: "AIzaSyAHxzpsQutIfJqj0iVpBFXlETB3PLumY00",
-    authDomain: "sa-mobile-inventory.firebaseapp.com",
-    databaseURL: "https://sa-mobile-inventory.firebaseio.com",
-    projectId: "sa-mobile-inventory",
-    storageBucket: "sa-mobile-inventory.appspot.com",
-    messagingSenderId: "1020733435614"
-};
+
 export default class App extends Component {
-    componentWillMount() {
-        //firebase.initializeApp(config);
-    }
     render() {
         return (
             <Provider store={reduxStore}>

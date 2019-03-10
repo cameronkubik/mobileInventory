@@ -1,15 +1,4 @@
 import rnFirebase from 'react-native-firebase';
-import firebase from 'firebase';
-import RNFetchBlob from 'rn-fetch-blob';
-import { Platform } from 'react-native';
-import Services from '.';
-
-// const Blob = RNFetchBlob.polyfill.Blob;
-const Blob = RNFetchBlob.polyfill.Blob
-const fs = RNFetchBlob.fs
-window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
-window.Blob = Blob
-
 
 /** Database Manager class */
 const DatabaseManager = {
@@ -47,6 +36,38 @@ function getAccountModel() {
     );
 }
 function putAccountModel(userCredentials, accountModel) {
+    return new Promise((resolve, reject) => {
+        const { uid } = userCredentials.user,
+            { uri } = accountModel.avatar,
+            firebaseApp = rnFirebase.app();
+
+        firebaseApp.storage()
+            .ref(`avatars/${uid}`)
+            .putFile(uri)
+            .then(storageTask => {
+                accountModel.avatar.uri = storageTask.downloadURL;
+                return (
+                    rnFirebase.firestore()
+                        .collection('users')
+                        .doc(uid)
+                        .set(accountModel)
+                );
+            })
+            .then(resolve)
+            .catch(reject);
+
+        // rnFirebase.firestore()
+        //     .collection('users')
+        //     .doc(uid)
+        //     .set(accountModel)
+        //     .then(() => {
+        //         return firebaseApp.storage().ref(`avatars/${uid}`).putFile(uri);
+        //     })
+        //     .then(resolve)
+        //     .catch(reject);
+    });
+}
+function putAccountModelOLD(userCredentials, accountModel) {
     const { uid } = userCredentials.user;
 
     return (
@@ -56,79 +77,7 @@ function putAccountModel(userCredentials, accountModel) {
             .set(accountModel)
     );
 }
-function uploadAvatarToFirebaseStorage(userCredentials, accountModel) {
-    const uri = accountModel.avatar.uri,
-        uid = userCredentials.user.uid,
-        fireApp = rnFirebase.app();
 
-    return (
-        fireApp.storage()
-            .ref(`avatars/${uid}`)
-            .putFile(uri)
-    );
-    
-    // return new Promise((resolve, reject) => {
-    //     const uri = accountModel.avatar.uri,
-    //         uid = userCredentials.user,
-    //         mime = 'application/octet-stream',
-    //         uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
-    //     let uploadBlob = null;
-    //     //
-    //     Services.Actions.debug(firebase);
-    //     //
-    //     const imageRef = rnFirebase.storage().ref('avatars').child(uid);
-
-    //     fs.readFile(uploadUri, 'base64')
-    //         .then((data) => {
-    //             return Blob.build(data, { type: `${mime};BASE64` })
-    //         })
-    //         .then((blob) => {
-    //             uploadBlob = blob
-    //             debugger
-    //             return imageRef.put(blob, { contentType: mime })
-    //         })
-    //         .then(() => {
-    //             uploadBlob.close()
-    //             return imageRef.getDownloadURL()
-    //         })
-    //         .then((url) => {
-    //             resolve(url)
-    //         })
-    //         .catch((error) => {
-    //             reject(error)
-    //         });
-    // });
-    
-}
-function putAccountModelNEW(userCredentials, accountModel) {
-    return new Promise((resolve, reject) => {
-        const { uid } = userCredentials.user;
-        var storageRef = firebase.storage().ref(),
-            acctAvatarRef = storageRef.child(`userAvatars/${uid}/avatar.jpg`),
-            uploadBlob = null;
-            
-        const imageFile = RNFetchBlob.wrap(accountModel.avatar.uri);
-        Blob.build(imageFile, { type: 'image/jpg' })
-            .then((imageBlob) => {
-                uploadBlob = imageBlob;
-                return acctAvatarRef.put(imageBlob, { contentType: 'image/jpg' });
-            })
-            .then(() => {
-                uploadBlob.close();
-                return acctAvatarRef.getDownloadURL();
-            })
-            .then((url) => {
-                accountModel.avatar.url = url;
-                return (
-                    rnFirebase.firestore()
-                        .collection('users')
-                        .doc(uid)
-                        .set(accountModel));
-            })
-            .then(resolve)
-            .catch(reject);
-    });
-}
 // Authentication //
 function loginWithCredentials(credentialsModel) {
     const { email, password } = credentialsModel;

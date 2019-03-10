@@ -22,7 +22,7 @@ export const loadAccount = () => {
 
 const loadAccountSuccess = (accountSnapshot, dispatch) => {
     const accountModel = Services.Models.__Account__(accountSnapshot.data());
-
+    
     dispatch({
         type: LOAD_USER_SUCCESS,
         payload: accountModel
