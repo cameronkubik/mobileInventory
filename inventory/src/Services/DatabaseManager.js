@@ -57,36 +57,47 @@ function putAccountModel(userCredentials, accountModel) {
     );
 }
 function uploadAvatarToFirebaseStorage(userCredentials, accountModel) {
-    return new Promise((resolve, reject) => {
-        const uri = accountModel.avatar.uri,
-            uid = userCredentials.user,
-            mime = 'application/octet-stream',
-            uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
-        let uploadBlob = null;
-        //
-        Services.Actions.debug(firebase);
-        //
-        const imageRef = firebase.storage().ref('avatars').child(uid);
+    const uri = accountModel.avatar.uri,
+        uid = userCredentials.user.uid,
+        fireApp = rnFirebase.app();
 
-        fs.readFile(uploadUri, 'base64')
-            .then((data) => {
-                return Blob.build(data, { type: `${mime};BASE64` })
-            })
-            .then((blob) => {
-                uploadBlob = blob
-                return imageRef.put(blob, { contentType: mime })
-            })
-            .then(() => {
-                uploadBlob.close()
-                return imageRef.getDownloadURL()
-            })
-            .then((url) => {
-                resolve(url)
-            })
-            .catch((error) => {
-                reject(error)
-            });
-    });
+    return (
+        fireApp.storage()
+            .ref(`avatars/${uid}`)
+            .putFile(uri)
+    );
+    
+    // return new Promise((resolve, reject) => {
+    //     const uri = accountModel.avatar.uri,
+    //         uid = userCredentials.user,
+    //         mime = 'application/octet-stream',
+    //         uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+    //     let uploadBlob = null;
+    //     //
+    //     Services.Actions.debug(firebase);
+    //     //
+    //     const imageRef = rnFirebase.storage().ref('avatars').child(uid);
+
+    //     fs.readFile(uploadUri, 'base64')
+    //         .then((data) => {
+    //             return Blob.build(data, { type: `${mime};BASE64` })
+    //         })
+    //         .then((blob) => {
+    //             uploadBlob = blob
+    //             debugger
+    //             return imageRef.put(blob, { contentType: mime })
+    //         })
+    //         .then(() => {
+    //             uploadBlob.close()
+    //             return imageRef.getDownloadURL()
+    //         })
+    //         .then((url) => {
+    //             resolve(url)
+    //         })
+    //         .catch((error) => {
+    //             reject(error)
+    //         });
+    // });
     
 }
 function putAccountModelNEW(userCredentials, accountModel) {
